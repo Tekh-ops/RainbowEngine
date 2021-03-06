@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{66371af7-d762-428a-b887-011ab905ee82}</ProjectGuid>
+    <RootNamespace>UI</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\Bin\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\Bin-Int\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectDir)include\;$(SolutionDir)..\..\Dependencies\glew\include\;$(SolutionDir)..\..\Dependencies\glfw\include\;$(SolutionDir)..\..\Build\Tools\include\;$(SolutionDir)..\..\Build\OvMaths\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\Dependencies\glew\lib\;$(SolutionDir)..\..\Dependencies\glfw\lib\;$(SolutionDir)..\..\Build\Tools\lib\$(Configuration)\;$(SolutionDir)..\..\Build\OvMaths\lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src\;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>UI_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;glfw3dll.lib;opengl32.lib;Tools.lib;OvMaths.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>RD /S /Q "$(SolutionDir)..\..\Build\$(ProjectName)\include"
+
+RD /S /Q "$(SolutionDir)..\..\Build\$(ProjectName)\lib\$(Configuration)"
+
+RD /S /Q "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)"
+
+
+xcopy "$(ProjectDir)include\$(ProjectName)" "$(SolutionDir)..\..\Build\$(ProjectName)\include\$(ProjectName)" /e /y /i /r
+
+xcopy "$(OutDir)*.lib" "$(SolutionDir)..\..\Build\$(ProjectName)\lib\$(Configuration)" /y /i
+
+xcopy "$(OutDir)*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /y /i
+
+
+
+xcopy "$(SolutionDir)..\..\Dependencies\glew\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
+
+xcopy "$(SolutionDir)..\..\Dependencies\glew\bin\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
+
+
+xcopy "$(SolutionDir)..\..\Dependencies\glfw\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
+
+xcopy "$(SolutionDir)..\..\Dependencies\glfw\bin\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
+
+
+
+xcopy "$(SolutionDir)..\..\Build\Tools\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
+
+xcopy "$(SolutionDir)..\..\Build\Tools\bin\$(Configuration)\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
+
+
+xcopy "$(SolutionDir)..\..\Build\OvMaths\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
+
+xcopy "$(SolutionDir)..\..\Build\OvMaths\bin\$(Configuration)\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="include\UI\API\Export.h" />
+    <ClInclude Include="include\UI\API\IDrawable.h" />
+    <ClInclude Include="include\UI\Core\UIManager.h" />
+    <ClInclude Include="include\UI\ImGui\imconfig.h" />
+    <ClInclude Include="include\UI\ImGui\imgui.h" />
+    <ClInclude Include="include\UI\ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="include\UI\ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="include\UI\ImGui\imgui_internal.h" />
+    <ClInclude Include="include\UI\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="include\UI\ImGui\imstb_textedit.h" />
+    <ClInclude Include="include\UI\ImGui\imstb_truetype.h" />
+    <ClInclude Include="include\UI\Internal\Converter.h" />
+    <ClInclude Include="include\UI\Internal\EMemoryMode.h" />
+    <ClInclude Include="include\UI\Internal\TextureID.h" />
+    <ClInclude Include="include\UI\Internal\WidgetContainer.h" />
+    <ClInclude Include="include\UI\Modules\Canvas.h" />
+    <ClInclude Include="include\UI\Panels\APanel.h" />
+    <ClInclude Include="include\UI\Panels\APanelTransformable.h" />
+    <ClInclude Include="include\UI\Panels\PanelMenuBar.h" />
+    <ClInclude Include="include\UI\Panels\PanelUndecorated.h" />
+    <ClInclude Include="include\UI\Panels\PanelWindow.h" />
+    <ClInclude Include="include\UI\Plugins\ContextualMenu.h" />
+    <ClInclude Include="include\UI\Plugins\DataDispatcher.h" />
+    <ClInclude Include="include\UI\Plugins\DDSource.h" />
+    <ClInclude Include="include\UI\Plugins\DDTarget.h" />
+    <ClInclude Include="include\UI\Plugins\IPlugin.h" />
+    <ClInclude Include="include\UI\Plugins\Pluginable.h" />
+    <ClInclude Include="include\UI\Settings\Alignment.h" />
+    <ClInclude Include="include\UI\Settings\PanelWindowSettings.h" />
+    <ClInclude Include="include\UI\Styling\EStyle.h" />
+    <ClInclude Include="include\UI\Types\Color.h" />
+    <ClInclude Include="include\UI\Widgets\AWidget.h" />
+    <ClInclude Include="include\UI\Widgets\Buttons\AButton.h" />
+    <ClInclude Include="include\UI\Widgets\Buttons\Button.h" />
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonArrow.h" />
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonColored.h" />
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonImage.h" />
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonSmall.h" />
+    <ClInclude Include="include\UI\Widgets\DataWidget.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragDouble.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragFloat.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragInt.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleDoubles.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleFloats.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleInts.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleScalars.h" />
+    <ClInclude Include="include\UI\Widgets\Drags\DragSingleScalar.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputDouble.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputFloat.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputInt.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleDoubles.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleFloats.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleInts.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleScalars.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputSingleScalar.h" />
+    <ClInclude Include="include\UI\Widgets\InputFields\InputText.h" />
+    <ClInclude Include="include\UI\Widgets\Layout\Columns.h" />
+    <ClInclude Include="include\UI\Widgets\Layout\Dummy.h" />
+    <ClInclude Include="include\UI\Widgets\Layout\Group.h" />
+    <ClInclude Include="include\UI\Widgets\Layout\GroupCollapsable.h" />
+    <ClInclude Include="include\UI\Widgets\Layout\NewLine.h" />
+    <ClInclude Include="include\UI\Widgets\Layout\Spacing.h" />
+    <ClInclude Include="include\UI\Widgets\Layout\TreeNode.h" />
+    <ClInclude Include="include\UI\Widgets\Menu\MenuItem.h" />
+    <ClInclude Include="include\UI\Widgets\Menu\MenuList.h" />
+    <ClInclude Include="include\UI\Widgets\Plots\APlot.h" />
+    <ClInclude Include="include\UI\Widgets\Plots\PlotHistogram.h" />
+    <ClInclude Include="include\UI\Widgets\Plots\PlotLines.h" />
+    <ClInclude Include="include\UI\Widgets\Selection\CheckBox.h" />
+    <ClInclude Include="include\UI\Widgets\Selection\ColorEdit.h" />
+    <ClInclude Include="include\UI\Widgets\Selection\ColorPicker.h" />
+    <ClInclude Include="include\UI\Widgets\Selection\ComboBox.h" />
+    <ClInclude Include="include\UI\Widgets\Selection\RadioButton.h" />
+    <ClInclude Include="include\UI\Widgets\Selection\RadioButtonLinker.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\ESliderOrientation.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderDouble.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderFloat.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderInt.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleDoubles.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleFloats.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleInts.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleScalars.h" />
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderSingleScalar.h" />
+    <ClInclude Include="include\UI\Widgets\Texts\Text.h" />
+    <ClInclude Include="include\UI\Widgets\Texts\TextClickable.h" />
+    <ClInclude Include="include\UI\Widgets\Texts\TextColored.h" />
+    <ClInclude Include="include\UI\Widgets\Texts\TextDisabled.h" />
+    <ClInclude Include="include\UI\Widgets\Texts\TextLabelled.h" />
+    <ClInclude Include="include\UI\Widgets\Texts\TextSelectable.h" />
+    <ClInclude Include="include\UI\Widgets\Texts\TextWrapped.h" />
+    <ClInclude Include="include\UI\Widgets\Visual\Bullet.h" />
+    <ClInclude Include="include\UI\Widgets\Visual\Image.h" />
+    <ClInclude Include="include\UI\Widgets\Visual\ProgressBar.h" />
+    <ClInclude Include="include\UI\Widgets\Visual\Separator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\UI\Core\UIManager.cpp" />
+    <ClCompile Include="src\UI\ImGui\imgui.cpp" />
+    <ClCompile Include="src\UI\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="src\UI\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="src\UI\ImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\UI\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\UI\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="src\UI\Internal\Converter.cpp" />
+    <ClCompile Include="src\UI\Internal\WidgetContainer.cpp" />
+    <ClCompile Include="src\UI\Modules\Canvas.cpp" />
+    <ClCompile Include="src\UI\Panels\APanel.cpp" />
+    <ClCompile Include="src\UI\Panels\APanelTransformable.cpp" />
+    <ClCompile Include="src\UI\Panels\PanelMenuBar.cpp" />
+    <ClCompile Include="src\UI\Panels\PanelUndecorated.cpp" />
+    <ClCompile Include="src\UI\Panels\PanelWindow.cpp" />
+    <ClCompile Include="src\UI\Plugins\ContextualMenu.cpp" />
+    <ClCompile Include="src\UI\Types\Color.cpp" />
+    <ClCompile Include="src\UI\Widgets\AWidget.cpp" />
+    <ClCompile Include="src\UI\Widgets\Buttons\Button.cpp" />
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonArrow.cpp" />
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonColored.cpp" />
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonImage.cpp" />
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonSmall.cpp" />
+    <ClCompile Include="src\UI\Widgets\Drags\DragDouble.cpp" />
+    <ClCompile Include="src\UI\Widgets\Drags\DragFloat.cpp" />
+    <ClCompile Include="src\UI\Widgets\Drags\DragInt.cpp" />
+    <ClCompile Include="src\UI\Widgets\InputFields\InputDouble.cpp" />
+    <ClCompile Include="src\UI\Widgets\InputFields\InputFloat.cpp" />
+    <ClCompile Include="src\UI\Widgets\InputFields\InputInt.cpp" />
+    <ClCompile Include="src\UI\Widgets\InputFields\InputText.cpp" />
+    <ClCompile Include="src\UI\Widgets\Layout\Dummy.cpp" />
+    <ClCompile Include="src\UI\Widgets\Layout\Group.cpp" />
+    <ClCompile Include="src\UI\Widgets\Layout\GroupCollapsable.cpp" />
+    <ClCompile Include="src\UI\Widgets\Layout\NewLine.cpp" />
+    <ClCompile Include="src\UI\Widgets\Layout\Spacing.cpp" />
+    <ClCompile Include="src\UI\Widgets\Layout\TreeNode.cpp" />
+    <ClCompile Include="src\UI\Widgets\Menu\MenuItem.cpp" />
+    <ClCompile Include="src\UI\Widgets\Menu\MenuList.cpp" />
+    <ClCompile Include="src\UI\Widgets\Plots\APlot.cpp" />
+    <ClCompile Include="src\UI\Widgets\Plots\PlotHistogram.cpp" />
+    <ClCompile Include="src\UI\Widgets\Plots\PlotLines.cpp" />
+    <ClCompile Include="src\UI\Widgets\Selection\CheckBox.cpp" />
+    <ClCompile Include="src\UI\Widgets\Selection\ColorEdit.cpp" />
+    <ClCompile Include="src\UI\Widgets\Selection\ColorPicker.cpp" />
+    <ClCompile Include="src\UI\Widgets\Selection\ComboBox.cpp" />
+    <ClCompile Include="src\UI\Widgets\Selection\RadioButton.cpp" />
+    <ClCompile Include="src\UI\Widgets\Selection\RadioButtonLinker.cpp" />
+    <ClCompile Include="src\UI\Widgets\Sliders\SliderDouble.cpp" />
+    <ClCompile Include="src\UI\Widgets\Sliders\SliderFloat.cpp" />
+    <ClCompile Include="src\UI\Widgets\Sliders\SliderInt.cpp" />
+    <ClCompile Include="src\UI\Widgets\Texts\Text.cpp" />
+    <ClCompile Include="src\UI\Widgets\Texts\TextClickable.cpp" />
+    <ClCompile Include="src\UI\Widgets\Texts\TextColored.cpp" />
+    <ClCompile Include="src\UI\Widgets\Texts\TextDisabled.cpp" />
+    <ClCompile Include="src\UI\Widgets\Texts\TextLabelled.cpp" />
+    <ClCompile Include="src\UI\Widgets\Texts\TextSelectable.cpp" />
+    <ClCompile Include="src\UI\Widgets\Texts\TextWrapped.cpp" />
+    <ClCompile Include="src\UI\Widgets\Visual\Bullet.cpp" />
+    <ClCompile Include="src\UI\Widgets\Visual\Image.cpp" />
+    <ClCompile Include="src\UI\Widgets\Visual\ProgressBar.cpp" />
+    <ClCompile Include="src\UI\Widgets\Visual\Separator.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

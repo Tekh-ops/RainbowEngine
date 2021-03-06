@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{1530ebd4-7eba-4371-b4cb-9096d23580ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{aa32c660-1294-48b0-84a2-503c61dd9c9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Tools">
+      <UniqueIdentifier>{72bbec38-f6c8-4774-90e2-d0bb3f2cfb62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Tools\Eventing">
+      <UniqueIdentifier>{47be7594-acc1-4799-8b45-f7fcead8c781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Tools\API">
+      <UniqueIdentifier>{07c9c043-316d-44fd-a184-104f7b226787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Tools">
+      <UniqueIdentifier>{a5b3f5ef-2ee5-4d5c-90d9-bdcc1a1e3ff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Tools\Time">
+      <UniqueIdentifier>{015f4fee-1897-43e6-a348-9e98684d849c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Tools\Time">
+      <UniqueIdentifier>{5ef336dc-cac5-48c8-999c-eb1622522671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Tools\Utils">
+      <UniqueIdentifier>{4a1babd4-ffad-4e85-84fa-11985e74708d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Tools\Utils">
+      <UniqueIdentifier>{a23d7326-da15-482d-9faa-8e8e58a3b76c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Tools\Eventing\Event.h">
+      <Filter>include\Tools\Eventing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\API\Export.h">
+      <Filter>include\Tools\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Time\Date.h">
+      <Filter>include\Tools\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Utils\ReferenceOrValue.h">
+      <Filter>include\Tools\Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Tools\Eventing\Event.inl">
+      <Filter>include\Tools\Eventing</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\Tools\Time\Date.cpp">
+      <Filter>src\Tools\Time</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

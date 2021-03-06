@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{1e5df1dc-1aed-4ece-8a10-024e0a0b6687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{34eeaa44-f6aa-4bfd-86a4-0fa1a3ab533f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI">
+      <UniqueIdentifier>{7954c18e-afe5-4c15-a5b0-e0f5b6f4ed9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\API">
+      <UniqueIdentifier>{ef0db3b4-ee36-4c7b-a6a6-08e9d977e4a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Core">
+      <UniqueIdentifier>{70fcb7f7-1af1-4822-a277-bcd3e88911e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\ImGui">
+      <UniqueIdentifier>{99897da3-2263-4d34-8db2-995ac5da6695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Internal">
+      <UniqueIdentifier>{e391d5ef-4611-47e9-84d0-bbe149b646a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Modules">
+      <UniqueIdentifier>{603cd46a-a953-4fd8-b08e-9d19757d22fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Panels">
+      <UniqueIdentifier>{90b6c39e-d2ae-41fb-94d1-d752c7f7fc94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Plugins">
+      <UniqueIdentifier>{49f4b42a-358d-442b-9a82-d84c8584540a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Settings">
+      <UniqueIdentifier>{74224424-e182-4722-93e0-f55a7f5b4210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Styling">
+      <UniqueIdentifier>{d29caa1d-079f-4b11-9581-7c513fa8e5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Types">
+      <UniqueIdentifier>{d166524a-a48d-4819-9f5a-919e09de09d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets">
+      <UniqueIdentifier>{4735aa88-0176-417c-a8bc-1de3efa4e054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI">
+      <UniqueIdentifier>{32ef4142-d7b4-4777-8e24-80ddae54c5d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Core">
+      <UniqueIdentifier>{16515f20-0e60-41d1-ba6d-d8a70e604348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\ImGui">
+      <UniqueIdentifier>{5797fb53-8c6b-469c-bc7e-53cae60d7945}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Internals">
+      <UniqueIdentifier>{d3ff374d-7487-4cdc-a20b-8f8c346b9d99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Modules">
+      <UniqueIdentifier>{117f0e75-6f96-4ef7-a147-3fb20f45387e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Panels">
+      <UniqueIdentifier>{37c33a54-a737-45c8-a095-a30fdfd72cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Plugins">
+      <UniqueIdentifier>{ff1542f7-9620-427b-ab78-cbb9190f86b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Types">
+      <UniqueIdentifier>{bb1503e3-fc55-4bae-a152-cdead690609e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets">
+      <UniqueIdentifier>{6813ad66-801f-49fc-8f71-bb90f2cfb721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Buttons">
+      <UniqueIdentifier>{d30239f7-eee5-4c0f-b08f-0c9c1f7dc316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Drags">
+      <UniqueIdentifier>{f54cf2a1-a5ff-4e7f-851c-c0c0f125fcb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\InputFields">
+      <UniqueIdentifier>{3c84c7a0-82b8-4d01-adb3-7ad323a47fe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Layout">
+      <UniqueIdentifier>{c44a6cac-9f07-4e8e-b6ea-625c37d02d23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Menu">
+      <UniqueIdentifier>{706da20d-90f7-40b0-b60d-6f266edaaec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Plots">
+      <UniqueIdentifier>{6dc4cf76-f242-44ae-816d-276dc6a32964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Selection">
+      <UniqueIdentifier>{59592515-e8a8-4ed1-a62f-8fdef69c2743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Sliders">
+      <UniqueIdentifier>{41dd3dd6-71ef-46ab-ae99-cdadf6c9380a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Texts">
+      <UniqueIdentifier>{3ac1055f-e53b-45ee-bb10-181d344e5874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI\Widgets\Visual">
+      <UniqueIdentifier>{d7985c5e-a7a0-4bf4-a2a3-67da954c00d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Buttons">
+      <UniqueIdentifier>{222ae88a-37aa-434b-83f0-6f961d769fd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Drags">
+      <UniqueIdentifier>{7deb777b-7ea1-4a6f-a870-95e5cff027d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\InputField">
+      <UniqueIdentifier>{6610a2e9-4461-4916-a771-f21941065e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Layout">
+      <UniqueIdentifier>{f2b0a9c1-c224-4efd-bcbb-3b3611b96589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Menu">
+      <UniqueIdentifier>{c0c81cb2-c03d-4f7f-9259-07020cb05d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Plots">
+      <UniqueIdentifier>{9ec1d5c1-ef3c-4fe0-98f7-2732020b64a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Selection">
+      <UniqueIdentifier>{78687f52-bf9d-4ad1-b472-ea3f2675c575}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Sliders">
+      <UniqueIdentifier>{333ea700-8d4d-4174-97cb-1d5646acd980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Texts">
+      <UniqueIdentifier>{23f3ecc9-54b5-4452-bb0a-29e129260d81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Widgets\Visual">
+      <UniqueIdentifier>{4ed307c0-fdcb-4d5b-97b7-cb68dd23bac7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\UI\API\Export.h">
+      <Filter>include\UI\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\API\IDrawable.h">
+      <Filter>include\UI\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imconfig.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imgui.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imgui_impl_glfw.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imgui_impl_opengl3.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imgui_internal.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imstb_rectpack.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imstb_textedit.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\ImGui\imstb_truetype.h">
+      <Filter>include\UI\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Styling\EStyle.h">
+      <Filter>include\UI\Styling</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Settings\Alignment.h">
+      <Filter>include\UI\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Settings\PanelWindowSettings.h">
+      <Filter>include\UI\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Plugins\ContextualMenu.h">
+      <Filter>include\UI\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Plugins\DataDispatcher.h">
+      <Filter>include\UI\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Plugins\DDSource.h">
+      <Filter>include\UI\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Plugins\DDTarget.h">
+      <Filter>include\UI\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Plugins\IPlugin.h">
+      <Filter>include\UI\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Plugins\Pluginable.h">
+      <Filter>include\UI\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Internal\Converter.h">
+      <Filter>include\UI\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Internal\EMemoryMode.h">
+      <Filter>include\UI\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Internal\TextureID.h">
+      <Filter>include\UI\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Internal\WidgetContainer.h">
+      <Filter>include\UI\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Types\Color.h">
+      <Filter>include\UI\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\AWidget.h">
+      <Filter>include\UI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\DataWidget.h">
+      <Filter>include\UI\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Buttons\AButton.h">
+      <Filter>include\UI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Buttons\Button.h">
+      <Filter>include\UI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonArrow.h">
+      <Filter>include\UI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonColored.h">
+      <Filter>include\UI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonImage.h">
+      <Filter>include\UI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Buttons\ButtonSmall.h">
+      <Filter>include\UI\Widgets\Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Texts\Text.h">
+      <Filter>include\UI\Widgets\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Texts\TextClickable.h">
+      <Filter>include\UI\Widgets\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Texts\TextColored.h">
+      <Filter>include\UI\Widgets\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Texts\TextDisabled.h">
+      <Filter>include\UI\Widgets\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Texts\TextLabelled.h">
+      <Filter>include\UI\Widgets\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Texts\TextSelectable.h">
+      <Filter>include\UI\Widgets\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Texts\TextWrapped.h">
+      <Filter>include\UI\Widgets\Texts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\ESliderOrientation.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderDouble.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderFloat.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderInt.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleDoubles.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleFloats.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleInts.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderMultipleScalars.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Sliders\SliderSingleScalar.h">
+      <Filter>include\UI\Widgets\Sliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Selection\CheckBox.h">
+      <Filter>include\UI\Widgets\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Selection\ColorEdit.h">
+      <Filter>include\UI\Widgets\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Selection\ColorPicker.h">
+      <Filter>include\UI\Widgets\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Selection\ComboBox.h">
+      <Filter>include\UI\Widgets\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Selection\RadioButton.h">
+      <Filter>include\UI\Widgets\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Selection\RadioButtonLinker.h">
+      <Filter>include\UI\Widgets\Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragDouble.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragFloat.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragInt.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleDoubles.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleFloats.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleInts.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragMultipleScalars.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Drags\DragSingleScalar.h">
+      <Filter>include\UI\Widgets\Drags</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputDouble.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputFloat.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputInt.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleDoubles.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleFloats.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleInts.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputMultipleScalars.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputSingleScalar.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\InputFields\InputText.h">
+      <Filter>include\UI\Widgets\InputFields</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Layout\Columns.h">
+      <Filter>include\UI\Widgets\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Layout\Dummy.h">
+      <Filter>include\UI\Widgets\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Layout\Group.h">
+      <Filter>include\UI\Widgets\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Layout\GroupCollapsable.h">
+      <Filter>include\UI\Widgets\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Layout\NewLine.h">
+      <Filter>include\UI\Widgets\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Layout\Spacing.h">
+      <Filter>include\UI\Widgets\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Layout\TreeNode.h">
+      <Filter>include\UI\Widgets\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Menu\MenuItem.h">
+      <Filter>include\UI\Widgets\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Menu\MenuList.h">
+      <Filter>include\UI\Widgets\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Visual\Bullet.h">
+      <Filter>include\UI\Widgets\Visual</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Visual\Image.h">
+      <Filter>include\UI\Widgets\Visual</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Visual\ProgressBar.h">
+      <Filter>include\UI\Widgets\Visual</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Visual\Separator.h">
+      <Filter>include\UI\Widgets\Visual</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Plots\APlot.h">
+      <Filter>include\UI\Widgets\Plots</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Plots\PlotHistogram.h">
+      <Filter>include\UI\Widgets\Plots</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Widgets\Plots\PlotLines.h">
+      <Filter>include\UI\Widgets\Plots</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Panels\APanel.h">
+      <Filter>include\UI\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Panels\APanelTransformable.h">
+      <Filter>include\UI\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Panels\PanelMenuBar.h">
+      <Filter>include\UI\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Panels\PanelUndecorated.h">
+      <Filter>include\UI\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Panels\PanelWindow.h">
+      <Filter>include\UI\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Modules\Canvas.h">
+      <Filter>include\UI\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\Core\UIManager.h">
+      <Filter>include\UI\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\UI\ImGui\imgui.cpp">
+      <Filter>src\UI\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGui\imgui_demo.cpp">
+      <Filter>src\UI\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGui\imgui_draw.cpp">
+      <Filter>src\UI\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGui\imgui_impl_glfw.cpp">
+      <Filter>src\UI\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGui\imgui_impl_opengl3.cpp">
+      <Filter>src\UI\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\ImGui\imgui_widgets.cpp">
+      <Filter>src\UI\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Types\Color.cpp">
+      <Filter>src\UI\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Internal\Converter.cpp">
+      <Filter>src\UI\Internals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Internal\WidgetContainer.cpp">
+      <Filter>src\UI\Internals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\AWidget.cpp">
+      <Filter>src\UI\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Buttons\Button.cpp">
+      <Filter>src\UI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonArrow.cpp">
+      <Filter>src\UI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonColored.cpp">
+      <Filter>src\UI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonImage.cpp">
+      <Filter>src\UI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Buttons\ButtonSmall.cpp">
+      <Filter>src\UI\Widgets\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Texts\Text.cpp">
+      <Filter>src\UI\Widgets\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Texts\TextClickable.cpp">
+      <Filter>src\UI\Widgets\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Texts\TextColored.cpp">
+      <Filter>src\UI\Widgets\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Texts\TextDisabled.cpp">
+      <Filter>src\UI\Widgets\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Texts\TextLabelled.cpp">
+      <Filter>src\UI\Widgets\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Texts\TextSelectable.cpp">
+      <Filter>src\UI\Widgets\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Texts\TextWrapped.cpp">
+      <Filter>src\UI\Widgets\Texts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Sliders\SliderDouble.cpp">
+      <Filter>src\UI\Widgets\Sliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Sliders\SliderFloat.cpp">
+      <Filter>src\UI\Widgets\Sliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Sliders\SliderInt.cpp">
+      <Filter>src\UI\Widgets\Sliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Selection\CheckBox.cpp">
+      <Filter>src\UI\Widgets\Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Selection\ColorEdit.cpp">
+      <Filter>src\UI\Widgets\Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Selection\ColorPicker.cpp">
+      <Filter>src\UI\Widgets\Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Selection\ComboBox.cpp">
+      <Filter>src\UI\Widgets\Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Selection\RadioButton.cpp">
+      <Filter>src\UI\Widgets\Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Selection\RadioButtonLinker.cpp">
+      <Filter>src\UI\Widgets\Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\InputFields\InputDouble.cpp">
+      <Filter>src\UI\Widgets\InputField</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\InputFields\InputFloat.cpp">
+      <Filter>src\UI\Widgets\InputField</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\InputFields\InputInt.cpp">
+      <Filter>src\UI\Widgets\InputField</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\InputFields\InputText.cpp">
+      <Filter>src\UI\Widgets\InputField</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Drags\DragDouble.cpp">
+      <Filter>src\UI\Widgets\Drags</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Drags\DragFloat.cpp">
+      <Filter>src\UI\Widgets\Drags</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Drags\DragInt.cpp">
+      <Filter>src\UI\Widgets\Drags</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Layout\Dummy.cpp">
+      <Filter>src\UI\Widgets\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Layout\Group.cpp">
+      <Filter>src\UI\Widgets\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Layout\GroupCollapsable.cpp">
+      <Filter>src\UI\Widgets\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Layout\NewLine.cpp">
+      <Filter>src\UI\Widgets\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Layout\Spacing.cpp">
+      <Filter>src\UI\Widgets\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Layout\TreeNode.cpp">
+      <Filter>src\UI\Widgets\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Menu\MenuItem.cpp">
+      <Filter>src\UI\Widgets\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Menu\MenuList.cpp">
+      <Filter>src\UI\Widgets\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Visual\Bullet.cpp">
+      <Filter>src\UI\Widgets\Visual</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Visual\Image.cpp">
+      <Filter>src\UI\Widgets\Visual</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Visual\ProgressBar.cpp">
+      <Filter>src\UI\Widgets\Visual</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Visual\Separator.cpp">
+      <Filter>src\UI\Widgets\Visual</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Plots\APlot.cpp">
+      <Filter>src\UI\Widgets\Plots</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Plots\PlotHistogram.cpp">
+      <Filter>src\UI\Widgets\Plots</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Widgets\Plots\PlotLines.cpp">
+      <Filter>src\UI\Widgets\Plots</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Panels\APanel.cpp">
+      <Filter>src\UI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Panels\APanelTransformable.cpp">
+      <Filter>src\UI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Panels\PanelMenuBar.cpp">
+      <Filter>src\UI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Panels\PanelUndecorated.cpp">
+      <Filter>src\UI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Panels\PanelWindow.cpp">
+      <Filter>src\UI\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Modules\Canvas.cpp">
+      <Filter>src\UI\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Plugins\ContextualMenu.cpp">
+      <Filter>src\UI\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Core\UIManager.cpp">
+      <Filter>src\UI\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

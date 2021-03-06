@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{296bb336-398d-4741-959a-690664c766ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{dbd995f5-48a2-48bc-af22-55dc3646bc5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering">
+      <UniqueIdentifier>{af3be779-1c17-40c8-8cc0-8941435a5e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\API">
+      <UniqueIdentifier>{d2e4aadc-874a-4c1b-82ee-4e4d2919e49c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Buffers">
+      <UniqueIdentifier>{37bfa01f-90ae-4268-90db-e4eda04ac377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering">
+      <UniqueIdentifier>{39a84df9-044c-4bb8-930a-ee9697d73b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Buffers">
+      <UniqueIdentifier>{d7e651d0-add1-42d3-9795-48467bd993cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Resources">
+      <UniqueIdentifier>{39084728-c4e3-4062-ae7b-e51770419782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Resources">
+      <UniqueIdentifier>{fb05718a-203a-4cff-b632-52cc7bfbfcda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Settings">
+      <UniqueIdentifier>{920bf60d-20fc-4fb0-a6b3-66e802372074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Geometry">
+      <UniqueIdentifier>{11bc9a74-7a78-44dc-a59c-a6731ff1eea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Resources\Loaders">
+      <UniqueIdentifier>{6e730442-10d1-4f0e-ba7a-c4a1273e477a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Resources\Parsers">
+      <UniqueIdentifier>{b31ff2d2-6b11-4204-b002-76d25da4d060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Resources\Loaders">
+      <UniqueIdentifier>{681dade0-51a5-42a6-80b0-18e548d4ca35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Resources\Parsers">
+      <UniqueIdentifier>{1ed3a0b6-3222-4cbb-8acf-5e6a6be05018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Entities">
+      <UniqueIdentifier>{42450713-f8c2-435f-ae23-8cc8f4d658a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Entities">
+      <UniqueIdentifier>{ea53e193-96c6-4333-b7df-a1ceee3c918b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\LowRenderer">
+      <UniqueIdentifier>{a3b2946b-e5b2-47a9-a6e7-e779c4a6484e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Data">
+      <UniqueIdentifier>{e55655f3-21fa-497a-a4f1-41395ca34551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Data">
+      <UniqueIdentifier>{e6b681e3-94c3-4458-aefc-f8e8d36355f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\LowRenderer">
+      <UniqueIdentifier>{c2edb64e-01e5-4b41-a8c5-3e5e7730115b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Utils">
+      <UniqueIdentifier>{71f1c3f8-d64f-4763-acab-02b9a94217e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Core">
+      <UniqueIdentifier>{84bb7822-55a4-48d8-a2fe-80cdaf151d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering\Context">
+      <UniqueIdentifier>{672a44de-2f14-4c8a-97c0-8ec32e0dafc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Context">
+      <UniqueIdentifier>{9877eb06-83a8-4202-a20d-eacd12e08ec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering\Core">
+      <UniqueIdentifier>{719271ce-151f-459b-8af4-200a07b52ef3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Rendering\API\Export.h">
+      <Filter>include\Rendering\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Buffers\EAccessSpecifier.h">
+      <Filter>include\Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Buffers\Framebuffer.h">
+      <Filter>include\Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Buffers\IndexBuffer.h">
+      <Filter>include\Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Buffers\ShaderStorageBuffer.h">
+      <Filter>include\Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Buffers\UniformBuffer.h">
+      <Filter>include\Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Buffers\VertexArray.h">
+      <Filter>include\Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Buffers\VertexBuffer.h">
+      <Filter>include\Rendering\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\IMesh.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Mesh.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Model.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Shader.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Texture.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\UniformInfo.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\UniformType.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\DriverSettings.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\EComparaisonAlgorithm.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\ECullFace.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\ECullingOptions.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\EOperation.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\EPixelDataFormat.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\EPixelDataType.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\EPrimitiveMode.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\EProjectionMode.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\ERasterizationMode.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\ERenderingCapability.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Settings\ETextureFilteringMode.h">
+      <Filter>include\Rendering\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Geometry\BoundingSphere.h">
+      <Filter>include\Rendering\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Geometry\Vertex.h">
+      <Filter>include\Rendering\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Loaders\ModelLoader.h">
+      <Filter>include\Rendering\Resources\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Loaders\ShaderLoader.h">
+      <Filter>include\Rendering\Resources\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Loaders\TextureLoader.h">
+      <Filter>include\Rendering\Resources\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Parsers\AssimpParser.h">
+      <Filter>include\Rendering\Resources\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Parsers\EModelParserFlags.h">
+      <Filter>include\Rendering\Resources\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\Parsers\IModelParser.h">
+      <Filter>include\Rendering\Resources\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Entities\Light.h">
+      <Filter>include\Rendering\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\LowRenderer\Camera.h">
+      <Filter>include\Rendering\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Data\Frustum.h">
+      <Filter>include\Rendering\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Utils\Defines.h">
+      <Filter>include\Rendering\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Context\Driver.h">
+      <Filter>include\Rendering\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Core\Renderer.h">
+      <Filter>include\Rendering\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Core\ShapeDrawer.h">
+      <Filter>include\Rendering\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Rendering\Buffers\ShaderStorageBuffer.inl">
+      <Filter>include\Rendering\Buffers</Filter>
+    </None>
+    <None Include="include\Rendering\Buffers\UniformBuffer.inl">
+      <Filter>include\Rendering\Buffers</Filter>
+    </None>
+    <None Include="include\Rendering\Buffers\VertexArray.inl">
+      <Filter>include\Rendering\Buffers</Filter>
+    </None>
+    <None Include="include\Rendering\Buffers\VertexBuffer.inl">
+      <Filter>include\Rendering\Buffers</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Rendering\Buffers\Framebuffer.cpp">
+      <Filter>src\Rendering\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Buffers\IndexBuffer.cpp">
+      <Filter>src\Rendering\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Buffers\ShaderStorageBuffer.cpp">
+      <Filter>src\Rendering\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Buffers\UniformBuffer.cpp">
+      <Filter>src\Rendering\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Buffers\VertexArray.cpp">
+      <Filter>src\Rendering\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Mesh.cpp">
+      <Filter>src\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Model.cpp">
+      <Filter>src\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Shader.cpp">
+      <Filter>src\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Texture.cpp">
+      <Filter>src\Rendering\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Loaders\ModelLoader.cpp">
+      <Filter>src\Rendering\Resources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Loaders\ShaderLoader.cpp">
+      <Filter>src\Rendering\Resources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Loaders\TextureLoader.cpp">
+      <Filter>src\Rendering\Resources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\Parsers\AssimpParser.cpp">
+      <Filter>src\Rendering\Resources\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Entities\Light.cpp">
+      <Filter>src\Rendering\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Data\Frustum.cpp">
+      <Filter>src\Rendering\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\LowRenderer\Camera.cpp">
+      <Filter>src\Rendering\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Context\Driver.cpp">
+      <Filter>src\Rendering\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Core\Renderer.cpp">
+      <Filter>src\Rendering\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Core\ShapeDrawer.cpp">
+      <Filter>src\Rendering\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

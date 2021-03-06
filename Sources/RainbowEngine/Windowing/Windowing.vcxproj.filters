@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{d4c9acb5-0f83-4464-8fc8-587b4d57382e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{ebbb275a-41fe-4861-9091-f92c34de6cd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Windowing">
+      <UniqueIdentifier>{fe968017-2641-4356-8c7e-eecd1db81a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Windowing">
+      <UniqueIdentifier>{42735984-f462-4450-8b40-8e7d9bf4716e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Windowing\API">
+      <UniqueIdentifier>{ff16faef-be5f-442c-a715-29439e33a81f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Windowing\Settings">
+      <UniqueIdentifier>{73ff260d-2893-437d-9bb5-3cafb72578d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Windowing\Cursor">
+      <UniqueIdentifier>{908d1d8b-7870-4ba6-96d9-52f230a7dff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Windowing\Dialogs">
+      <UniqueIdentifier>{bfdccd06-ffa1-4e8a-b88b-31333dea3f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Windowing\Inputs">
+      <UniqueIdentifier>{b47ef2d6-fcc5-406a-9d8a-b3ff1db1bf74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Windowing\Context">
+      <UniqueIdentifier>{d285d665-b6b9-41df-9c93-a0a4c6c6e60a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Windowing\Dialogs">
+      <UniqueIdentifier>{257c1553-be6d-42af-9923-590647e2e8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Windowing\Inputs">
+      <UniqueIdentifier>{b362e394-502c-4e4e-9c16-e85a79345e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Windowing\Context">
+      <UniqueIdentifier>{76474567-e90f-4ce4-864c-3d6b14855fbe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Windowing\API\Export.h">
+      <Filter>include\Windowing\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Settings\DeviceSettings.h">
+      <Filter>include\Windowing\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Settings\WindowSettings.h">
+      <Filter>include\Windowing\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Cursor\ECursorMode.h">
+      <Filter>include\Windowing\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Cursor\ECursorShape.h">
+      <Filter>include\Windowing\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Dialogs\FileDialog.h">
+      <Filter>include\Windowing\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Dialogs\MessageBox.h">
+      <Filter>include\Windowing\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Dialogs\OpenFileDialog.h">
+      <Filter>include\Windowing\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Dialogs\SaveFileDialog.h">
+      <Filter>include\Windowing\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Inputs\EKey.h">
+      <Filter>include\Windowing\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Inputs\EKeyState.h">
+      <Filter>include\Windowing\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Inputs\EMouseButton.h">
+      <Filter>include\Windowing\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Inputs\EMouseButtonState.h">
+      <Filter>include\Windowing\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Inputs\InputManager.h">
+      <Filter>include\Windowing\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Window.h">
+      <Filter>include\Windowing</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Context\Device.h">
+      <Filter>include\Windowing\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Windowing\Context\EDeviceError.h">
+      <Filter>include\Windowing\Context</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Windowing\Dialogs\FileDialog.cpp">
+      <Filter>src\Windowing\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Windowing\Dialogs\MessageBox.cpp">
+      <Filter>src\Windowing\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Windowing\Dialogs\OpenFileDialog.cpp">
+      <Filter>src\Windowing\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Windowing\Dialogs\SaveFileDialog.cpp">
+      <Filter>src\Windowing\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Windowing\Inputs\InputManager.cpp">
+      <Filter>src\Windowing\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Windowing\Context\Device.cpp">
+      <Filter>src\Windowing\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Windowing\Window.cpp">
+      <Filter>src\Windowing</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

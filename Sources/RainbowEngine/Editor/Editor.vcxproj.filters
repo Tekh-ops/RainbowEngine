@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{2b2e1b4b-d7c4-4577-8217-62105bdec7eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{9bfddecc-03ec-44de-832c-47ee18ded8e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Editor">
+      <UniqueIdentifier>{df5ca6d8-2c3b-426d-94ab-2e739033b638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor">
+      <UniqueIdentifier>{3630df7c-bebe-4a3e-a562-00f130a2be25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Editor\Core">
+      <UniqueIdentifier>{e6a7fcfa-1074-4b74-926c-aa23aa8812cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Editor\Panels">
+      <UniqueIdentifier>{04234376-1302-412c-8867-23bb255fedd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Editor\Resources">
+      <UniqueIdentifier>{66955c5f-110d-4c88-91f8-78971145744d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Editor\Settings">
+      <UniqueIdentifier>{4b8931a8-8d76-46c5-96ad-d5bf446bb2eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Core">
+      <UniqueIdentifier>{72b8e852-f287-4413-a260-6fa80883b180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Panels">
+      <UniqueIdentifier>{d4f72d2a-57bf-4a12-aa1b-6acaecf343ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Resources">
+      <UniqueIdentifier>{3eddbbe8-ab79-4fe3-81f2-0f3a0f7420c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Settings">
+      <UniqueIdentifier>{fab86763-b9dc-4875-a2ee-01f33688f8b3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Editor\Main.cpp">
+      <Filter>src\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\PanelsManager.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\AssetBrowser.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\AssetProperties.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\AssetView.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\AView.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\AViewControllable.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\Console.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\GameView.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\HardwareInfo.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\HelpWindow.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\Hierarchy.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\Inspector.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\MaterialEditor.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\MenuBar.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\Profiler.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\ProjectSettings.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\SceneView.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Panels\Toolbar.cpp">
+      <Filter>src\Editor\Panels</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Editor\Core\PanelsManager.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\MenuBar.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\AssetBrowser.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\AssetProperties.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\AssetView.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\AView.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\AViewControllable.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\Console.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\GameView.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\HardwareInfo.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\HelpWindow.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\Hierarchy.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\Inspector.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\MaterialEditor.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\Profiler.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\ProjectSettings.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\SceneView.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Panels\Toolbar.h">
+      <Filter>include\Editor\Panels</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
