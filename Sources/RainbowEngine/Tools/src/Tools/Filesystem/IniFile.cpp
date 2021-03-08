@@ -1,26 +1,22 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
-#include "OvTools/Filesystem/IniFile.h"
+
+#include "Tools/Filesystem/IniFile.h"
 
 #include <filesystem>
 #include <fstream>
 
-OvTools::Filesystem::IniFile::IniFile(const std::string& p_filePath) : m_filePath(p_filePath)
+Tools::Filesystem::IniFile::IniFile(const std::string& p_filePath) : m_filePath(p_filePath)
 {
 	Load();
 }
 
-void OvTools::Filesystem::IniFile::Reload()
+void Tools::Filesystem::IniFile::Reload()
 {
 	RemoveAll();
 	Load();
 }
 
-bool OvTools::Filesystem::IniFile::Remove(const std::string & p_key)
+bool Tools::Filesystem::IniFile::Remove(const std::string & p_key)
 {
 	if (IsKeyExisting(p_key))
 	{
@@ -31,27 +27,27 @@ bool OvTools::Filesystem::IniFile::Remove(const std::string & p_key)
 	return false;
 }
 
-void OvTools::Filesystem::IniFile::RemoveAll()
+void Tools::Filesystem::IniFile::RemoveAll()
 {
 	m_data.clear();
 }
 
-bool OvTools::Filesystem::IniFile::IsKeyExisting(const std::string& p_key) const
+bool Tools::Filesystem::IniFile::IsKeyExisting(const std::string& p_key) const
 {
 	return m_data.find(p_key) != m_data.end();
 }
 
-void OvTools::Filesystem::IniFile::RegisterPair(const std::string& p_key, const std::string& p_value)
+void Tools::Filesystem::IniFile::RegisterPair(const std::string& p_key, const std::string& p_value)
 {
 	RegisterPair(std::make_pair(p_key, p_value));
 }
 
-void OvTools::Filesystem::IniFile::RegisterPair(const AttributePair& p_pair)
+void Tools::Filesystem::IniFile::RegisterPair(const AttributePair& p_pair)
 {
 	m_data.insert(p_pair);
 }
 
-std::vector<std::string> OvTools::Filesystem::IniFile::GetFormattedContent() const
+std::vector<std::string> Tools::Filesystem::IniFile::GetFormattedContent() const
 {
 	std::vector<std::string> result;
 
@@ -61,7 +57,7 @@ std::vector<std::string> OvTools::Filesystem::IniFile::GetFormattedContent() con
 	return result;
 }
 
-void OvTools::Filesystem::IniFile::Load()
+void Tools::Filesystem::IniFile::Load()
 {
 	std::fstream iniFile;
 	iniFile.open(m_filePath);
@@ -83,7 +79,7 @@ void OvTools::Filesystem::IniFile::Load()
 	}
 }
 
-void OvTools::Filesystem::IniFile::Rewrite() const
+void Tools::Filesystem::IniFile::Rewrite() const
 {
 	std::ofstream outfile;
 	outfile.open(m_filePath, std::ios_base::trunc);
@@ -97,7 +93,7 @@ void OvTools::Filesystem::IniFile::Rewrite() const
 	outfile.close();
 }
 
-std::pair<std::string, std::string> OvTools::Filesystem::IniFile::ExtractKeyAndValue(const std::string& p_line) const
+std::pair<std::string, std::string> Tools::Filesystem::IniFile::ExtractKeyAndValue(const std::string& p_line) const
 {
 	std::string key;
 	std::string value;
@@ -115,7 +111,7 @@ std::pair<std::string, std::string> OvTools::Filesystem::IniFile::ExtractKeyAndV
 	return std::make_pair(key, value);
 }
 
-bool OvTools::Filesystem::IniFile::IsValidLine(const std::string & p_attributeLine) const
+bool Tools::Filesystem::IniFile::IsValidLine(const std::string & p_attributeLine) const
 {
 	if (p_attributeLine.size() == 0)
 		return false;
@@ -129,7 +125,7 @@ bool OvTools::Filesystem::IniFile::IsValidLine(const std::string & p_attributeLi
 	return true;
 }
 
-bool OvTools::Filesystem::IniFile::StringToBoolean(const std::string & p_value) const
+bool Tools::Filesystem::IniFile::StringToBoolean(const std::string & p_value) const
 {
 	return (p_value == "1" || p_value == "T" || p_value == "t" || p_value == "True" || p_value == "true");
 }

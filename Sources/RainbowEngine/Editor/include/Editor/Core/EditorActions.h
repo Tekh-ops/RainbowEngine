@@ -6,22 +6,22 @@
 
 #pragma once
 
-#include <OvCore/Global/ServiceLocator.h>
-#include <OvTools/Filesystem/IniFile.h>
-#include <OvTools/Utils/PathParser.h>
+#include <EngineCore/Global/ServiceLocator.h>
+#include <Tools/Filesystem/IniFile.h>
+#include <Tools/Utils/PathParser.h>
 
-#include "OvEditor/Core/Context.h"
-#include "OvEditor/Core/EditorRenderer.h"
-#include "OvEditor/Core/PanelsManager.h"
+#include "Editor/Core/Context.h"
+#include "Editor/Core/EditorRenderer.h"
+#include "Editor/Core/PanelsManager.h"
 
-#define EDITOR_EXEC(action)					OvCore::Global::ServiceLocator::Get<OvEditor::Core::EditorActions>().action
-#define EDITOR_BIND(method, ...)			std::bind(&OvEditor::Core::EditorActions::method, &OvCore::Global::ServiceLocator::Get<OvEditor::Core::EditorActions>(), ##__VA_ARGS__)
-#define EDITOR_EVENT(target)				OvCore::Global::ServiceLocator::Get<OvEditor::Core::EditorActions>().target
-#define EDITOR_CONTEXT(instance)			OvCore::Global::ServiceLocator::Get<OvEditor::Core::EditorActions>().GetContext().instance
-#define EDITOR_RENDERER()					OvCore::Global::ServiceLocator::Get<OvEditor::Core::EditorActions>().GetRenderer()
-#define EDITOR_PANEL(type, id)				OvCore::Global::ServiceLocator::Get<OvEditor::Core::EditorActions>().GetPanelsManager().GetPanelAs<type>(id)
+#define EDITOR_EXEC(action)					EngineCore::Global::ServiceLocator::Get<Editor::Core::EditorActions>().action
+#define EDITOR_BIND(method, ...)			std::bind(&Editor::Core::EditorActions::method, &EngineCore::Global::ServiceLocator::Get<Editor::Core::EditorActions>(), ##__VA_ARGS__)
+#define EDITOR_EVENT(target)				EngineCore::Global::ServiceLocator::Get<Editor::Core::EditorActions>().target
+#define EDITOR_CONTEXT(instance)			EngineCore::Global::ServiceLocator::Get<Editor::Core::EditorActions>().GetContext().instance
+#define EDITOR_RENDERER()					EngineCore::Global::ServiceLocator::Get<Editor::Core::EditorActions>().GetRenderer()
+#define EDITOR_PANEL(type, id)				EngineCore::Global::ServiceLocator::Get<Editor::Core::EditorActions>().GetPanelsManager().GetPanelAs<type>(id)
 
-namespace OvEditor::Core
+namespace Editor::Core
 {
 	/**
 	* A set of editor actions
@@ -154,7 +154,7 @@ namespace OvEditor::Core
 		* @param p_focusOnCreation
 		* @param p_parent
 		*/
-		template<typename T> OvCore::ECS::Actor& CreateMonoComponentActor(bool p_focusOnCreation = true, OvCore::ECS::Actor* p_parent = nullptr);
+		template<typename T> EngineCore::ECS::Actor& CreateMonoComponentActor(bool p_focusOnCreation = true, EngineCore::ECS::Actor* p_parent = nullptr);
 
 		/**
 		* Calculate the position where to spawn the actor using the current camera position and forward
@@ -167,7 +167,7 @@ namespace OvEditor::Core
 		* @param p_focusOnCreation
 		* @param p_parent
 		*/
-		OvCore::ECS::Actor&	CreateEmptyActor(bool p_focusOnCreation = true, OvCore::ECS::Actor* p_parent = nullptr);
+		EngineCore::ECS::Actor&	CreateEmptyActor(bool p_focusOnCreation = true, EngineCore::ECS::Actor* p_parent = nullptr);
 
 		/**
 		* Create an actor with a model renderer and a material renderer. The model renderer with use the model identified
@@ -176,35 +176,35 @@ namespace OvEditor::Core
 		* @param p_focusOnCreation
 		* @param p_parent
 		*/
-		OvCore::ECS::Actor&	CreateActorWithModel(const std::string& p_path, bool p_focusOnCreation = true, OvCore::ECS::Actor* p_parent = nullptr);
+		EngineCore::ECS::Actor&	CreateActorWithModel(const std::string& p_path, bool p_focusOnCreation = true, EngineCore::ECS::Actor* p_parent = nullptr);
 
 		/**
 		* Create an actor whith a physical box
 		* @param p_focusOnCreation
 		* @param p_parent
 		*/
-		OvCore::ECS::Actor&	CreatePhysicalBox(bool p_focusOnCreation = true, OvCore::ECS::Actor* p_parent = nullptr);
+		EngineCore::ECS::Actor&	CreatePhysicalBox(bool p_focusOnCreation = true, EngineCore::ECS::Actor* p_parent = nullptr);
 
 		/**
 		* Create an actor whith a physical sphere
 		* @param p_focusOnCreation
 		* @param p_parent
 		*/
-		OvCore::ECS::Actor&	CreatePhysicalSphere(bool p_focusOnCreation = true, OvCore::ECS::Actor* p_parent = nullptr);
+		EngineCore::ECS::Actor&	CreatePhysicalSphere(bool p_focusOnCreation = true, EngineCore::ECS::Actor* p_parent = nullptr);
 
 		/**
 		* Create an actor whith a physical capsule
 		* @param p_focusOnCreation
 		* @param p_parent
 		*/
-		OvCore::ECS::Actor& CreatePhysicalCapsule(bool p_focusOnCreation = true, OvCore::ECS::Actor* p_parent = nullptr);
+		EngineCore::ECS::Actor& CreatePhysicalCapsule(bool p_focusOnCreation = true, EngineCore::ECS::Actor* p_parent = nullptr);
 
 		/**
 		* Destroy an actor from his scene
 		* @param p_focusOnCreation
 		* @param p_parent
 		*/
-		bool DestroyActor(OvCore::ECS::Actor& p_actor);
+		bool DestroyActor(EngineCore::ECS::Actor& p_actor);
 
 		/**
 		* Duplicate an actor
@@ -212,7 +212,7 @@ namespace OvEditor::Core
 		* @param p_forcedParent
 		* @param bool
 		*/
-		void DuplicateActor(OvCore::ECS::Actor& p_toDuplicate, OvCore::ECS::Actor* p_forcedParent = nullptr, bool p_focus = true);
+		void DuplicateActor(EngineCore::ECS::Actor& p_toDuplicate, EngineCore::ECS::Actor* p_forcedParent = nullptr, bool p_focus = true);
 		#pragma endregion
 
 		#pragma region ACTOR_MANIPULATION
@@ -220,7 +220,7 @@ namespace OvEditor::Core
 		* Select an actor and show him in inspector
 		* @param p_target
 		*/
-		void SelectActor(OvCore::ECS::Actor& p_target);
+		void SelectActor(EngineCore::ECS::Actor& p_target);
 
 		/**
 		* Unselect any selected actor and clearing the inspector
@@ -236,12 +236,12 @@ namespace OvEditor::Core
 		* Returns the selected actor. Make sur you verified that an actor is selected
 		* with IsAnyActorSelected() before calling this method
 		*/
-		OvCore::ECS::Actor&		GetSelectedActor() const;
+		EngineCore::ECS::Actor&		GetSelectedActor() const;
 
 		/**
 		* Moves the camera to the target actor
 		*/
-		void					MoveToTarget(OvCore::ECS::Actor& p_target);
+		void					MoveToTarget(EngineCore::ECS::Actor& p_target);
 		#pragma endregion
 
 		#pragma region RESOURCE_MANAGEMENT
@@ -319,7 +319,7 @@ namespace OvEditor::Core
 		* @param p_newName
 		* @param p_fileType
 		*/
-		void PropagateFileRenameThroughSavedFilesOfType(const std::string& p_previousName, const std::string& p_newName, OvTools::Utils::PathParser::EFileType p_fileType);
+		void PropagateFileRenameThroughSavedFilesOfType(const std::string& p_previousName, const std::string& p_newName, Tools::Utils::PathParser::EFileType p_fileType);
 		#pragma endregion
 
 		#pragma region SCENE
@@ -361,7 +361,8 @@ namespace OvEditor::Core
 		/**
 		* Refresh every scripts (Re-interpret)
 		*/
-		void RefreshScripts();
+		//TODO
+		//void RefreshScripts();
 		#pragma endregion
 
 		#pragma region BUILDING
@@ -401,10 +402,10 @@ namespace OvEditor::Core
 		#pragma endregion
 
 	public:
-		OvTools::Eventing::Event<OvCore::ECS::Actor&> ActorSelectedEvent;
-		OvTools::Eventing::Event<OvCore::ECS::Actor&> ActorUnselectedEvent;
-		OvTools::Eventing::Event<EEditorMode> EditorModeChangedEvent;
-		OvTools::Eventing::Event<> PlayEvent;
+		Tools::Eventing::Event<EngineCore::ECS::Actor&> ActorSelectedEvent;
+		Tools::Eventing::Event<EngineCore::ECS::Actor&> ActorUnselectedEvent;
+		Tools::Eventing::Event<EEditorMode> EditorModeChangedEvent;
+		Tools::Eventing::Event<> PlayEvent;
 
 	private:
 		Context& m_context;
@@ -420,4 +421,4 @@ namespace OvEditor::Core
 	};
 }
 
-#include "OvEditor/Core/EditorActions.inl"
+#include "Editor/Core/EditorActions.inl"

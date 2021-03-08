@@ -149,6 +149,7 @@ xcopy "$(SolutionDir)..\..\Dependencies\glew\include\*" "$(SolutionDir)..\..\Bui
 xcopy "$(SolutionDir)..\..\Dependencies\glew\bin\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
 
 
+
 xcopy "$(SolutionDir)..\..\Dependencies\glfw\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
 
 xcopy "$(SolutionDir)..\..\Dependencies\glfw\bin\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
@@ -158,6 +159,7 @@ xcopy "$(SolutionDir)..\..\Dependencies\glfw\bin\*.dll" "$(SolutionDir)..\..\Bui
 xcopy "$(SolutionDir)..\..\Build\Tools\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
 
 xcopy "$(SolutionDir)..\..\Build\Tools\bin\$(Configuration)\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
+
 
 
 xcopy "$(SolutionDir)..\..\Build\OvMaths\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r

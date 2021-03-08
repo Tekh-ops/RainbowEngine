@@ -1,14 +1,10 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
-#include <OvTools/Eventing/Event.h>
+#include <Tools/Eventing/Event.h>
 
-namespace OvEditor::Settings
+namespace Editor::Settings
 {
 	/**
 	* Accessible from anywhere editor settings
@@ -29,7 +25,7 @@ namespace OvEditor::Settings
 			/**
 			* Event called when the property value changes
 			*/
-			OvTools::Eventing::Event<T> OnValueChanged;
+			Tools::Eventing::Event<T> OnValueChanged;
 
 			/**
 			* Assign a new value to the property

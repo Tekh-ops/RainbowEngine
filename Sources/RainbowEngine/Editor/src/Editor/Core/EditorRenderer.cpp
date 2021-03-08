@@ -4,42 +4,40 @@
 * @licence: MIT
 */
 
-#include <OvCore/ECS/Components/CCamera.h>
-#include <OvCore/ECS/Components/CPhysicalBox.h>
-#include <OvCore/ECS/Components/CPhysicalSphere.h>
-#include <OvCore/ECS/Components/CPhysicalCapsule.h>
-#include <OvCore/ECS/Components/CMaterialRenderer.h>
-#include <OvCore/ECS/Components/CPointLight.h>
-#include <OvCore/ECS/Components/CDirectionalLight.h>
-#include <OvCore/ECS/Components/CSpotLight.h>
+#include <EngineCore/ECS/Components/CCamera.h>
 
-#include <OvAnalytics/Profiling/ProfilerSpy.h>
+#include <EngineCore/ECS/Components/CMaterialRenderer.h>
+#include <EngineCore/ECS/Components/CPointLight.h>
+#include <EngineCore/ECS/Components/CDirectionalLight.h>
+#include <EngineCore/ECS/Components/CSpotLight.h>
 
-#include <OvDebug/Utils/Assertion.h>
 
-#include "OvEditor/Core/EditorRenderer.h"
-#include "OvEditor/Core/EditorResources.h"
-#include "OvEditor/Panels/AView.h"
-#include "OvEditor/Panels/GameView.h"
-#include "OvEditor/Core/GizmoBehaviour.h"
-#include "OvEditor/Settings/EditorSettings.h"
 
-#include "OvEditor/Core/EditorActions.h"
+#include <Debug/Utils/Assertion.h>
+
+#include "Editor/Core/EditorRenderer.h"
+#include "Editor/Core/EditorResources.h"
+#include "Editor/Panels/AView.h"
+#include "Editor/Panels/GameView.h"
+#include "Editor/Core/GizmoBehaviour.h"
+#include "Editor/Settings/EditorSettings.h"
+
+#include "Editor/Core/EditorActions.h"
 
 using namespace OvMaths;
-using namespace OvRendering::Resources;
-using namespace OvCore::Resources;
+using namespace Rendering::Resources;
+using namespace EngineCore::Resources;
 
 const OvMaths::FVector3 DEBUG_BOUNDS_COLOR		= { 1.0f, 0.0f, 0.0f };
 const OvMaths::FVector3 LIGHT_VOLUME_COLOR		= { 1.0f, 1.0f, 0.0f };
 const OvMaths::FVector3 COLLIDER_COLOR			= { 0.0f, 1.0f, 0.0f };
 const OvMaths::FVector3 FRUSTUM_COLOR			= { 1.0f, 1.0f, 1.0f };
 
-OvEditor::Core::EditorRenderer::EditorRenderer(Context& p_context) : m_context(p_context)
+Editor::Core::EditorRenderer::EditorRenderer(Context& p_context) : m_context(p_context)
 {
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::STENCIL_TEST, true);
-	m_context.renderer->SetStencilOperations(OvRendering::Settings::EOperation::KEEP, OvRendering::Settings::EOperation::KEEP, OvRendering::Settings::EOperation::REPLACE);
-	m_context.renderer->SetStencilAlgorithm(OvRendering::Settings::EComparaisonAlgorithm::ALWAYS, 1, 0xFF);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::STENCIL_TEST, true);
+	m_context.renderer->SetStencilOperations(Rendering::Settings::EOperation::KEEP, Rendering::Settings::EOperation::KEEP, Rendering::Settings::EOperation::REPLACE);
+	m_context.renderer->SetStencilAlgorithm(Rendering::Settings::EComparaisonAlgorithm::ALWAYS, 1, 0xFF);
 
 	InitMaterials();
 
@@ -64,18 +62,18 @@ OvEditor::Core::EditorRenderer::EditorRenderer(Context& p_context) : m_context(p
 	});
 }
 
-void OvEditor::Core::EditorRenderer::InitMaterials()
+void Editor::Core::EditorRenderer::InitMaterials()
 {
 	/* Default Material */
 	m_defaultMaterial.SetShader(m_context.shaderManager[":Shaders\\Standard.glsl"]);
 	m_defaultMaterial.Set("u_Diffuse", FVector4(1.f, 1.f, 1.f, 1.f));
 	m_defaultMaterial.Set("u_Shininess", 100.0f);
-	m_defaultMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+	m_defaultMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 
 	/* Empty Material */
 	m_emptyMaterial.SetShader(m_context.shaderManager[":Shaders\\Unlit.glsl"]);
 	m_emptyMaterial.Set("u_Diffuse", FVector4(1.f, 0.f, 1.f, 1.0f));
-	m_emptyMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+	m_emptyMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 
 	/* Grid Material */
 	m_gridMaterial.SetShader(m_context.editorResources->GetShader("Grid"));
@@ -86,7 +84,7 @@ void OvEditor::Core::EditorRenderer::InitMaterials()
 	/* Camera Material */
 	m_cameraMaterial.SetShader(m_context.shaderManager[":Shaders\\Lambert.glsl"]);
 	m_cameraMaterial.Set("u_Diffuse", FVector4(0.0f, 0.3f, 0.7f, 1.0f));
-	m_cameraMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+	m_cameraMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 
 	/* Light Material */
 	m_lightMaterial.SetShader(m_context.editorResources->GetShader("Billboard"));
@@ -100,18 +98,18 @@ void OvEditor::Core::EditorRenderer::InitMaterials()
 	m_stencilFillMaterial.SetBackfaceCulling(true);
 	m_stencilFillMaterial.SetDepthTest(false);
 	m_stencilFillMaterial.SetColorWriting(false);
-	m_stencilFillMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+	m_stencilFillMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 
 	/* Texture Material */
 	m_textureMaterial.SetShader(m_context.shaderManager[":Shaders\\Unlit.glsl"]);
 	m_textureMaterial.Set("u_Diffuse", FVector4(1.f, 1.f, 1.f, 1.f));
 	m_textureMaterial.SetBackfaceCulling(false);
 	m_textureMaterial.SetBlendable(true);
-	m_textureMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+	m_textureMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 
 	/* Outline Material */
 	m_outlineMaterial.SetShader(m_context.shaderManager[":Shaders\\Unlit.glsl"]);
-	m_outlineMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+	m_outlineMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 	m_outlineMaterial.SetDepthTest(false);
 
 	/* Gizmo Arrow Material */
@@ -134,12 +132,12 @@ void OvEditor::Core::EditorRenderer::InitMaterials()
 	/* Picking Material */
 	m_actorPickingMaterial.SetShader(m_context.shaderManager[":Shaders\\Unlit.glsl"]);
 	m_actorPickingMaterial.Set("u_Diffuse", FVector4(1.f, 1.f, 1.f, 1.0f));
-	m_actorPickingMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+	m_actorPickingMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 	m_actorPickingMaterial.SetFrontfaceCulling(false);
 	m_actorPickingMaterial.SetBackfaceCulling(false);
 }
 
-void OvEditor::Core::EditorRenderer::PreparePickingMaterial(OvCore::ECS::Actor& p_actor, OvCore::Resources::Material& p_material)
+void Editor::Core::EditorRenderer::PreparePickingMaterial(EngineCore::ECS::Actor& p_actor, EngineCore::Resources::Material& p_material)
 {
 	uint32_t actorID = static_cast<uint32_t>(p_actor.GetID());
 
@@ -149,7 +147,7 @@ void OvEditor::Core::EditorRenderer::PreparePickingMaterial(OvCore::ECS::Actor& 
 	p_material.Set("u_Diffuse", color);
 }
 
-OvMaths::FMatrix4 OvEditor::Core::EditorRenderer::CalculateCameraModelMatrix(OvCore::ECS::Actor& p_actor)
+OvMaths::FMatrix4 Editor::Core::EditorRenderer::CalculateCameraModelMatrix(EngineCore::ECS::Actor& p_actor)
 {
 	auto translation = FMatrix4::Translation(p_actor.transform.GetWorldPosition());
 	auto rotation = FQuaternion::ToMatrix4(p_actor.transform.GetWorldRotation());
@@ -158,7 +156,7 @@ OvMaths::FMatrix4 OvEditor::Core::EditorRenderer::CalculateCameraModelMatrix(OvC
 	return translation * rotation * scale;
 }
 
-void OvEditor::Core::EditorRenderer::RenderScene(const OvMaths::FVector3& p_cameraPosition, const OvRendering::LowRenderer::Camera& p_camera, const OvRendering::Data::Frustum* p_customFrustum)
+void Editor::Core::EditorRenderer::RenderScene(const OvMaths::FVector3& p_cameraPosition, const Rendering::LowRenderer::Camera& p_camera, const Rendering::Data::Frustum* p_customFrustum)
 {
 	/* Render the actors */
 	m_context.lightSSBO->Bind(0);
@@ -166,7 +164,7 @@ void OvEditor::Core::EditorRenderer::RenderScene(const OvMaths::FVector3& p_came
 	m_context.lightSSBO->Unbind();
 }
 
-void OvEditor::Core::EditorRenderer::RenderSceneForActorPicking()
+void Editor::Core::EditorRenderer::RenderSceneForActorPicking()
 {
 	auto& scene = *m_context.sceneManager.GetCurrentScene();
 
@@ -179,16 +177,16 @@ void OvEditor::Core::EditorRenderer::RenderSceneForActorPicking()
 		{
 			if (auto model = modelRenderer->GetModel())
 			{
-				if (auto materialRenderer = modelRenderer->owner.GetComponent<OvCore::ECS::Components::CMaterialRenderer>())
+				if (auto materialRenderer = modelRenderer->owner.GetComponent<EngineCore::ECS::Components::CMaterialRenderer>())
 				{
-					const OvCore::ECS::Components::CMaterialRenderer::MaterialList& materials = materialRenderer->GetMaterials();
+					const EngineCore::ECS::Components::CMaterialRenderer::MaterialList& materials = materialRenderer->GetMaterials();
 					const auto& modelMatrix = actor.transform.GetWorldMatrix();
 
 					PreparePickingMaterial(actor, m_actorPickingMaterial);
 
 					for (auto mesh : model->GetMeshes())
 					{
-						OvCore::Resources::Material* material = nullptr;
+						EngineCore::Resources::Material* material = nullptr;
 
 						if (mesh->GetMaterialIndex() < MAX_MATERIAL_COUNT)
 						{
@@ -235,7 +233,7 @@ void OvEditor::Core::EditorRenderer::RenderSceneForActorPicking()
 
 		m_lightMaterial.SetDepthTest(true);
 		m_lightMaterial.Set<float>("u_Scale", Settings::EditorSettings::LightBillboardScale * 0.1f);
-		m_lightMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", nullptr);
+		m_lightMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", nullptr);
 
 		for (auto light : m_context.sceneManager.GetCurrentScene()->GetFastAccessComponents().lights)
 		{
@@ -252,12 +250,12 @@ void OvEditor::Core::EditorRenderer::RenderSceneForActorPicking()
 	}
 }
 
-void OvEditor::Core::EditorRenderer::RenderUI()
+void Editor::Core::EditorRenderer::RenderUI()
 {
 	m_context.uiManager->Render();
 }
 
-void OvEditor::Core::EditorRenderer::RenderCameras()
+void Editor::Core::EditorRenderer::RenderCameras()
 {
 	using namespace OvMaths;
 
@@ -275,7 +273,7 @@ void OvEditor::Core::EditorRenderer::RenderCameras()
 	}
 }
 
-void OvEditor::Core::EditorRenderer::RenderLights()
+void Editor::Core::EditorRenderer::RenderLights()
 {
 	using namespace OvMaths;
 
@@ -291,32 +289,32 @@ void OvEditor::Core::EditorRenderer::RenderLights()
 			auto& model = *m_context.editorResources->GetModel("Vertical_Plane");
 			auto modelMatrix = FMatrix4::Translation(actor.transform.GetWorldPosition());
 
-			OvRendering::Resources::Texture* texture = nullptr;
+			Rendering::Resources::Texture* texture = nullptr;
 
-			switch (static_cast<OvRendering::Entities::Light::Type>(static_cast<int>(light->GetData().type)))
+			switch (static_cast<Rendering::Entities::Light::Type>(static_cast<int>(light->GetData().type)))
 			{
-			case OvRendering::Entities::Light::Type::POINT:				texture = m_context.editorResources->GetTexture("Bill_Point_Light");			break;
-			case OvRendering::Entities::Light::Type::SPOT:				texture = m_context.editorResources->GetTexture("Bill_Spot_Light");				break;
-			case OvRendering::Entities::Light::Type::DIRECTIONAL:		texture = m_context.editorResources->GetTexture("Bill_Directional_Light");		break;
-			case OvRendering::Entities::Light::Type::AMBIENT_BOX:		texture = m_context.editorResources->GetTexture("Bill_Ambient_Box_Light");		break;
-			case OvRendering::Entities::Light::Type::AMBIENT_SPHERE:	texture = m_context.editorResources->GetTexture("Bill_Ambient_Sphere_Light");	break;
+			case Rendering::Entities::Light::Type::POINT:				texture = m_context.editorResources->GetTexture("Bill_Point_Light");			break;
+			case Rendering::Entities::Light::Type::SPOT:				texture = m_context.editorResources->GetTexture("Bill_Spot_Light");				break;
+			case Rendering::Entities::Light::Type::DIRECTIONAL:		texture = m_context.editorResources->GetTexture("Bill_Directional_Light");		break;
+			case Rendering::Entities::Light::Type::AMBIENT_BOX:		texture = m_context.editorResources->GetTexture("Bill_Ambient_Box_Light");		break;
+			case Rendering::Entities::Light::Type::AMBIENT_SPHERE:	texture = m_context.editorResources->GetTexture("Bill_Ambient_Sphere_Light");	break;
 			}
 
 			const auto& lightColor = light->GetColor();
-			m_lightMaterial.Set<OvRendering::Resources::Texture*>("u_DiffuseMap", texture);
+			m_lightMaterial.Set<Rendering::Resources::Texture*>("u_DiffuseMap", texture);
 			m_lightMaterial.Set<OvMaths::FVector4>("u_Diffuse", OvMaths::FVector4(lightColor.x, lightColor.y, lightColor.z, 0.75f));
 			m_context.renderer->DrawModelWithSingleMaterial(model, m_lightMaterial, &modelMatrix);
 		}
 	}
 }
 
-void OvEditor::Core::EditorRenderer::RenderGizmo(const OvMaths::FVector3& p_position, const OvMaths::FQuaternion& p_rotation, OvEditor::Core::EGizmoOperation p_operation, bool p_pickable, int p_highlightedAxis)
+void Editor::Core::EditorRenderer::RenderGizmo(const OvMaths::FVector3& p_position, const OvMaths::FQuaternion& p_rotation, Editor::Core::EGizmoOperation p_operation, bool p_pickable, int p_highlightedAxis)
 {
 	using namespace OvMaths;
 
 	FMatrix4 model = FMatrix4::Translation(p_position) * FQuaternion::ToMatrix4(FQuaternion::Normalize(p_rotation));
 
-	OvRendering::Resources::Model* arrowModel = nullptr;
+	Rendering::Resources::Model* arrowModel = nullptr;
 
 	if (!p_pickable)
 	{
@@ -326,13 +324,13 @@ void OvEditor::Core::EditorRenderer::RenderGizmo(const OvMaths::FVector3& p_posi
 
 		switch (p_operation)
 		{
-		case OvEditor::Core::EGizmoOperation::TRANSLATE:
+		case Editor::Core::EGizmoOperation::TRANSLATE:
 			arrowModel = m_context.editorResources->GetModel("Arrow_Translate");
 			break;
-		case OvEditor::Core::EGizmoOperation::ROTATE:
+		case Editor::Core::EGizmoOperation::ROTATE:
 			arrowModel = m_context.editorResources->GetModel("Arrow_Rotate");
 			break;
-		case OvEditor::Core::EGizmoOperation::SCALE:
+		case Editor::Core::EGizmoOperation::SCALE:
 			arrowModel = m_context.editorResources->GetModel("Arrow_Scale");
 			break;
 		}
@@ -348,25 +346,25 @@ void OvEditor::Core::EditorRenderer::RenderGizmo(const OvMaths::FVector3& p_posi
 	}
 }
 
-void OvEditor::Core::EditorRenderer::RenderModelToStencil(const OvMaths::FMatrix4& p_worldMatrix, OvRendering::Resources::Model& p_model)
+void Editor::Core::EditorRenderer::RenderModelToStencil(const OvMaths::FMatrix4& p_worldMatrix, Rendering::Resources::Model& p_model)
 {
 	m_context.renderer->SetStencilMask(0xFF);
 	m_context.renderer->DrawModelWithSingleMaterial(p_model, m_stencilFillMaterial, &p_worldMatrix);
 	m_context.renderer->SetStencilMask(0x00);
 }
 
-void OvEditor::Core::EditorRenderer::RenderModelOutline(const OvMaths::FMatrix4& p_worldMatrix, OvRendering::Resources::Model& p_model, float p_width)
+void Editor::Core::EditorRenderer::RenderModelOutline(const OvMaths::FMatrix4& p_worldMatrix, Rendering::Resources::Model& p_model, float p_width)
 {
-	m_context.renderer->SetStencilAlgorithm(OvRendering::Settings::EComparaisonAlgorithm::NOTEQUAL, 1, 0xFF);
-	m_context.renderer->SetRasterizationMode(OvRendering::Settings::ERasterizationMode::LINE);
+	m_context.renderer->SetStencilAlgorithm(Rendering::Settings::EComparaisonAlgorithm::NOTEQUAL, 1, 0xFF);
+	m_context.renderer->SetRasterizationMode(Rendering::Settings::ERasterizationMode::LINE);
 	m_context.renderer->SetRasterizationLinesWidth(p_width);
 	m_context.renderer->DrawModelWithSingleMaterial(p_model, m_outlineMaterial, &p_worldMatrix);
 	m_context.renderer->SetRasterizationLinesWidth(1.f);
-	m_context.renderer->SetRasterizationMode(OvRendering::Settings::ERasterizationMode::FILL);
-	m_context.renderer->SetStencilAlgorithm(OvRendering::Settings::EComparaisonAlgorithm::ALWAYS, 1, 0xFF);
+	m_context.renderer->SetRasterizationMode(Rendering::Settings::ERasterizationMode::FILL);
+	m_context.renderer->SetStencilAlgorithm(Rendering::Settings::EComparaisonAlgorithm::ALWAYS, 1, 0xFF);
 }
 
-void OvEditor::Core::EditorRenderer::RenderActorOutlinePass(OvCore::ECS::Actor& p_actor, bool p_toStencil, bool p_isSelected)
+void Editor::Core::EditorRenderer::RenderActorOutlinePass(EngineCore::ECS::Actor& p_actor, bool p_toStencil, bool p_isSelected)
 {
 	float outlineWidth = p_isSelected ? 5.0f : 2.5f;
 
@@ -375,7 +373,7 @@ void OvEditor::Core::EditorRenderer::RenderActorOutlinePass(OvCore::ECS::Actor& 
 	if (p_actor.IsActive())
 	{
 		/* Render static mesh outline and bounding spheres */
-		if (auto modelRenderer = p_actor.GetComponent<OvCore::ECS::Components::CModelRenderer>(); modelRenderer && modelRenderer->GetModel())
+		if (auto modelRenderer = p_actor.GetComponent<EngineCore::ECS::Components::CModelRenderer>(); modelRenderer && modelRenderer->GetModel())
 		{
 			if (p_toStencil)
 				RenderModelToStencil(p_actor.transform.GetWorldMatrix(), *modelRenderer->GetModel());
@@ -389,7 +387,7 @@ void OvEditor::Core::EditorRenderer::RenderActorOutlinePass(OvCore::ECS::Actor& 
 		}
 
 		/* Render camera component outline */
-		if (auto cameraComponent = p_actor.GetComponent<OvCore::ECS::Components::CCamera>(); cameraComponent)
+		if (auto cameraComponent = p_actor.GetComponent<EngineCore::ECS::Components::CCamera>(); cameraComponent)
 		{
 			auto model = FMatrix4::Translation(p_actor.transform.GetWorldPosition()) * FQuaternion::ToMatrix4(FQuaternion::Normalize(p_actor.transform.GetWorldRotation())) * FMatrix4::Scaling({ 0.4f, 0.4f, 0.4f });
 
@@ -406,26 +404,27 @@ void OvEditor::Core::EditorRenderer::RenderActorOutlinePass(OvCore::ECS::Actor& 
 
 		if (p_isSelected && !p_toStencil)
 		{
+			//TODO
 			/* Render the actor collider */
-			if (p_actor.GetComponent<OvCore::ECS::Components::CPhysicalObject>())
+			/*if (p_actor.GetComponent<EngineCore::ECS::Components::CPhysicalObject>())
 			{
 				RenderActorCollider(p_actor);
-			}
+			}*/
 
 			/* Render the actor ambient light */
-			if (auto ambientBoxComp = p_actor.GetComponent<OvCore::ECS::Components::CAmbientBoxLight>())
+			if (auto ambientBoxComp = p_actor.GetComponent<EngineCore::ECS::Components::CAmbientBoxLight>())
 			{
 				RenderAmbientBoxVolume(*ambientBoxComp);
 			}
 
-			if (auto ambientSphereComp = p_actor.GetComponent<OvCore::ECS::Components::CAmbientSphereLight>())
+			if (auto ambientSphereComp = p_actor.GetComponent<EngineCore::ECS::Components::CAmbientSphereLight>())
 			{
 				RenderAmbientSphereVolume(*ambientSphereComp);
 			}
 
-			if (OvEditor::Settings::EditorSettings::ShowLightBounds)
+			if (Editor::Settings::EditorSettings::ShowLightBounds)
 			{
-				if (auto light = p_actor.GetComponent<OvCore::ECS::Components::CLight>())
+				if (auto light = p_actor.GetComponent<EngineCore::ECS::Components::CLight>())
 				{
 					RenderLightBounds(*light);
 				}
@@ -439,7 +438,7 @@ void OvEditor::Core::EditorRenderer::RenderActorOutlinePass(OvCore::ECS::Actor& 
 	}
 }
 
-void DrawFrustumLines(OvRendering::Core::ShapeDrawer& p_drawer,
+void DrawFrustumLines(Rendering::Core::ShapeDrawer& p_drawer,
                       const OvMaths::FVector3& pos,
                       const OvMaths::FVector3& forward,
                       float near,
@@ -481,7 +480,7 @@ void DrawFrustumLines(OvRendering::Core::ShapeDrawer& p_drawer,
     draw(d + forward * near, h + forward * far, 0);
 }
 
-void OvEditor::Core::EditorRenderer::RenderCameraPerspectiveFrustum(std::pair<uint16_t, uint16_t>& p_size, OvCore::ECS::Components::CCamera& p_camera)
+void Editor::Core::EditorRenderer::RenderCameraPerspectiveFrustum(std::pair<uint16_t, uint16_t>& p_size, EngineCore::ECS::Components::CCamera& p_camera)
 {
     const auto& owner = p_camera.owner;
     auto& camera = p_camera.GetCamera();
@@ -517,7 +516,7 @@ void OvEditor::Core::EditorRenderer::RenderCameraPerspectiveFrustum(std::pair<ui
     DrawFrustumLines(*m_context.shapeDrawer, cameraPos, cameraForward, near, far, a, b, c, d, e, f, g, h);
 }
 
-void OvEditor::Core::EditorRenderer::RenderCameraOrthographicFrustum(std::pair<uint16_t, uint16_t>& p_size, OvCore::ECS::Components::CCamera& p_camera)
+void Editor::Core::EditorRenderer::RenderCameraOrthographicFrustum(std::pair<uint16_t, uint16_t>& p_size, EngineCore::ECS::Components::CCamera& p_camera)
 {
     auto& owner = p_camera.owner;
     auto& camera = p_camera.GetCamera();
@@ -544,7 +543,7 @@ void OvEditor::Core::EditorRenderer::RenderCameraOrthographicFrustum(std::pair<u
     DrawFrustumLines(*m_context.shapeDrawer, cameraPos, cameraForward, near, far, a, b, c, d, a, b, c, d);
 }
 
-void OvEditor::Core::EditorRenderer::RenderCameraFrustum(OvCore::ECS::Components::CCamera& p_camera)
+void Editor::Core::EditorRenderer::RenderCameraFrustum(EngineCore::ECS::Components::CCamera& p_camera)
 {
     auto& gameView = EDITOR_PANEL(Panels::GameView, "Game View");
     auto gameViewSize = gameView.GetSafeSize();
@@ -556,107 +555,109 @@ void OvEditor::Core::EditorRenderer::RenderCameraFrustum(OvCore::ECS::Components
 
     switch (p_camera.GetProjectionMode())
     {
-    case OvRendering::Settings::EProjectionMode::ORTHOGRAPHIC:
+    case Rendering::Settings::EProjectionMode::ORTHOGRAPHIC:
         RenderCameraOrthographicFrustum(gameViewSize, p_camera);
         break;
     
-    case OvRendering::Settings::EProjectionMode::PERSPECTIVE:
+    case Rendering::Settings::EProjectionMode::PERSPECTIVE:
         RenderCameraPerspectiveFrustum(gameViewSize, p_camera);
         break;
     }
 }
 
-void OvEditor::Core::EditorRenderer::RenderActorCollider(OvCore::ECS::Actor & p_actor)
+void Editor::Core::EditorRenderer::RenderActorCollider(EngineCore::ECS::Actor & p_actor)
 {
-	using namespace OvCore::ECS::Components;
-	using namespace OvPhysics::Entities;
+	using namespace EngineCore::ECS::Components;
+	//TODO
+	//using namespace Physics::Entities;
 
-	bool depthTestBackup = m_context.renderer->GetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST);
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, false);
+	bool depthTestBackup = m_context.renderer->GetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, false);
 
+	//TODO
 	/* Draw the box collider if any */
-	if (auto boxColliderComponent = p_actor.GetComponent<OvCore::ECS::Components::CPhysicalBox>(); boxColliderComponent)
-	{
-		OvMaths::FQuaternion rotation = p_actor.transform.GetWorldRotation();
-		OvMaths::FVector3 center = p_actor.transform.GetWorldPosition();
-		OvMaths::FVector3 colliderSize = boxColliderComponent->GetSize();
-		OvMaths::FVector3 actorScale = p_actor.transform.GetWorldScale();
-		OvMaths::FVector3 halfSize = { colliderSize.x * actorScale.x, colliderSize.y * actorScale.y, colliderSize.z * actorScale.z };
-		OvMaths::FVector3 size = halfSize * 2.f;
-		
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-	}
+	//if (auto boxColliderComponent = p_actor.GetComponent<EngineCore::ECS::Components::CPhysicalBox>(); boxColliderComponent)
+	//{
+	//	OvMaths::FQuaternion rotation = p_actor.transform.GetWorldRotation();
+	//	OvMaths::FVector3 center = p_actor.transform.GetWorldPosition();
+	//	OvMaths::FVector3 colliderSize = boxColliderComponent->GetSize();
+	//	OvMaths::FVector3 actorScale = p_actor.transform.GetWorldScale();
+	//	OvMaths::FVector3 halfSize = { colliderSize.x * actorScale.x, colliderSize.y * actorScale.y, colliderSize.z * actorScale.z };
+	//	OvMaths::FVector3 size = halfSize * 2.f;
+	//	
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, -halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, -halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, -halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, -halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * OvMaths::FVector3{ -halfSize.x, +halfSize.y, +halfSize.z }, center	+ rotation * OvMaths::FVector3{ +halfSize.x, +halfSize.y, +halfSize.z }, OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//}
 
-	/* Draw the sphere collider if any */
-	if (auto sphereColliderComponent = p_actor.GetComponent<OvCore::ECS::Components::CPhysicalSphere>(); sphereColliderComponent)
-	{
-		FVector3 actorScale = p_actor.transform.GetWorldScale();
-		OvMaths::FQuaternion rotation = p_actor.transform.GetWorldRotation();
-		OvMaths::FVector3 center = p_actor.transform.GetWorldPosition();
-		float radius = sphereColliderComponent->GetRadius() * std::max(std::max(std::max(actorScale.x, actorScale.y), actorScale.z), 0.0f);
+	///* Draw the sphere collider if any */
+	//if (auto sphereColliderComponent = p_actor.GetComponent<EngineCore::ECS::Components::CPhysicalSphere>(); sphereColliderComponent)
+	//{
+	//	FVector3 actorScale = p_actor.transform.GetWorldScale();
+	//	OvMaths::FQuaternion rotation = p_actor.transform.GetWorldRotation();
+	//	OvMaths::FVector3 center = p_actor.transform.GetWorldPosition();
+	//	float radius = sphereColliderComponent->GetRadius() * std::max(std::max(std::max(actorScale.x, actorScale.y), actorScale.z), 0.0f);
 
-		for (float i = 0; i <= 360.0f; i += 10.0f)
-		{
-			m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), sin(i * (3.14f / 180.0f)), 0.f } * radius), center + rotation * (OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), sin((i + 10.0f) * (3.14f / 180.0f)), 0.f } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-			m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ 0.f, sin(i * (3.14f / 180.0f)), cos(i * (3.14f / 180.0f)) } * radius), center + rotation * (OvMaths::FVector3{ 0.f, sin((i + 10.0f) * (3.14f / 180.0f)), cos((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-			m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } * radius), center + rotation * (OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		}
-	}
+	//	for (float i = 0; i <= 360.0f; i += 10.0f)
+	//	{
+	//		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), sin(i * (3.14f / 180.0f)), 0.f } * radius), center + rotation * (OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), sin((i + 10.0f) * (3.14f / 180.0f)), 0.f } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ 0.f, sin(i * (3.14f / 180.0f)), cos(i * (3.14f / 180.0f)) } * radius), center + rotation * (OvMaths::FVector3{ 0.f, sin((i + 10.0f) * (3.14f / 180.0f)), cos((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } * radius), center + rotation * (OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	}
+	//}
 
-	/* Draw the capsule collider if any */
-	if (auto capsuleColliderComponent = p_actor.GetComponent<OvCore::ECS::Components::CPhysicalCapsule>(); capsuleColliderComponent)
-	{
-		float radius = abs(capsuleColliderComponent->GetRadius() * std::max(std::max(p_actor.transform.GetWorldScale().x, p_actor.transform.GetWorldScale().z), 0.f));
-		float height = abs(capsuleColliderComponent->GetHeight() * p_actor.transform.GetWorldScale().y);
-		float halfHeight = height / 2;
+	///* Draw the capsule collider if any */
+	//if (auto capsuleColliderComponent = p_actor.GetComponent<EngineCore::ECS::Components::CPhysicalCapsule>(); capsuleColliderComponent)
+	//{
+	//	float radius = abs(capsuleColliderComponent->GetRadius() * std::max(std::max(p_actor.transform.GetWorldScale().x, p_actor.transform.GetWorldScale().z), 0.f));
+	//	float height = abs(capsuleColliderComponent->GetHeight() * p_actor.transform.GetWorldScale().y);
+	//	float halfHeight = height / 2;
 
-		FVector3 actorScale = p_actor.transform.GetWorldScale();
-		OvMaths::FQuaternion rotation = p_actor.transform.GetWorldRotation();
-		OvMaths::FVector3 center = p_actor.transform.GetWorldPosition();
+	//	FVector3 actorScale = p_actor.transform.GetWorldScale();
+	//	OvMaths::FQuaternion rotation = p_actor.transform.GetWorldRotation();
+	//	OvMaths::FVector3 center = p_actor.transform.GetWorldPosition();
 
-		OvMaths::FVector3 hVec = { 0.0f, halfHeight, 0.0f };
-		for (float i = 0; i < 360.0f; i += 10.0f)
-		{
-			m_context.shapeDrawer->DrawLine(center + rotation * (hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } *radius), center + rotation * (hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } *radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-			m_context.shapeDrawer->DrawLine(center + rotation * (-hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } *radius), center + rotation * (-hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } *radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	OvMaths::FVector3 hVec = { 0.0f, halfHeight, 0.0f };
+	//	for (float i = 0; i < 360.0f; i += 10.0f)
+	//	{
+	//		m_context.shapeDrawer->DrawLine(center + rotation * (hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } *radius), center + rotation * (hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } *radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//		m_context.shapeDrawer->DrawLine(center + rotation * (-hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } *radius), center + rotation * (-hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } *radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
 
-			if (i < 180.f)
-			{
-				m_context.shapeDrawer->DrawLine(center + rotation * (hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), sin(i * (3.14f / 180.0f)), 0.f } * radius), center + rotation * (hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), sin((i + 10.0f) * (3.14f / 180.0f)), 0.f } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-				m_context.shapeDrawer->DrawLine(center + rotation * (hVec + OvMaths::FVector3{ 0.f, sin(i * (3.14f / 180.0f)), cos(i * (3.14f / 180.0f)) } * radius), center + rotation * (hVec + OvMaths::FVector3{ 0.f, sin((i + 10.0f) * (3.14f / 180.0f)), cos((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-			}
-			else
-			{
-				m_context.shapeDrawer->DrawLine(center + rotation * (-hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), sin(i * (3.14f / 180.0f)), 0.f } * radius), center + rotation * (-hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), sin((i + 10.0f) * (3.14f / 180.0f)), 0.f } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-				m_context.shapeDrawer->DrawLine(center + rotation * (-hVec + OvMaths::FVector3{ 0.f, sin(i * (3.14f / 180.0f)), cos(i * (3.14f / 180.0f)) } * radius), center + rotation * (-hVec + OvMaths::FVector3{ 0.f, sin((i + 10.0f) * (3.14f / 180.0f)), cos((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-			}
-		}
+	//		if (i < 180.f)
+	//		{
+	//			m_context.shapeDrawer->DrawLine(center + rotation * (hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), sin(i * (3.14f / 180.0f)), 0.f } * radius), center + rotation * (hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), sin((i + 10.0f) * (3.14f / 180.0f)), 0.f } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//			m_context.shapeDrawer->DrawLine(center + rotation * (hVec + OvMaths::FVector3{ 0.f, sin(i * (3.14f / 180.0f)), cos(i * (3.14f / 180.0f)) } * radius), center + rotation * (hVec + OvMaths::FVector3{ 0.f, sin((i + 10.0f) * (3.14f / 180.0f)), cos((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//		}
+	//		else
+	//		{
+	//			m_context.shapeDrawer->DrawLine(center + rotation * (-hVec + OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), sin(i * (3.14f / 180.0f)), 0.f } * radius), center + rotation * (-hVec + OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), sin((i + 10.0f) * (3.14f / 180.0f)), 0.f } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//			m_context.shapeDrawer->DrawLine(center + rotation * (-hVec + OvMaths::FVector3{ 0.f, sin(i * (3.14f / 180.0f)), cos(i * (3.14f / 180.0f)) } * radius), center + rotation * (-hVec + OvMaths::FVector3{ 0.f, sin((i + 10.0f) * (3.14f / 180.0f)), cos((i + 10.0f) * (3.14f / 180.0f)) } * radius), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//		}
+	//	}
 
-		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ -radius, -halfHeight, 0.f }),	center + rotation * (OvMaths::FVector3{ -radius, +halfHeight, 0.f }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ radius, -halfHeight, 0.f }),	center + rotation * (OvMaths::FVector3{ radius, +halfHeight, 0.f }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ 0.f, -halfHeight, -radius }),	center + rotation * (OvMaths::FVector3{ 0.f, +halfHeight, -radius }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ 0.f, -halfHeight, radius }),	center + rotation * (OvMaths::FVector3{ 0.f, +halfHeight, radius }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
-	}
+	//	m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ -radius, -halfHeight, 0.f }),	center + rotation * (OvMaths::FVector3{ -radius, +halfHeight, 0.f }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ radius, -halfHeight, 0.f }),	center + rotation * (OvMaths::FVector3{ radius, +halfHeight, 0.f }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ 0.f, -halfHeight, -radius }),	center + rotation * (OvMaths::FVector3{ 0.f, +halfHeight, -radius }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//	m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ 0.f, -halfHeight, radius }),	center + rotation * (OvMaths::FVector3{ 0.f, +halfHeight, radius }), OvMaths::FVector3{ 0.f, 1.f, 0.f }, 1.f);
+	//}
 
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
 	m_context.renderer->SetRasterizationLinesWidth(1.0f);
 }
 
-void OvEditor::Core::EditorRenderer::RenderLightBounds(OvCore::ECS::Components::CLight& p_light)
+void Editor::Core::EditorRenderer::RenderLightBounds(EngineCore::ECS::Components::CLight& p_light)
 {
-	bool depthTestBackup = m_context.renderer->GetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST);
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, false);
+	bool depthTestBackup = m_context.renderer->GetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, false);
 
 	auto& data = p_light.GetData();
 
@@ -674,13 +675,13 @@ void OvEditor::Core::EditorRenderer::RenderLightBounds(OvCore::ECS::Components::
 		}
 	}
 
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
 }
 
-void OvEditor::Core::EditorRenderer::RenderAmbientBoxVolume(OvCore::ECS::Components::CAmbientBoxLight & p_ambientBoxLight)
+void Editor::Core::EditorRenderer::RenderAmbientBoxVolume(EngineCore::ECS::Components::CAmbientBoxLight & p_ambientBoxLight)
 {
-	bool depthTestBackup = m_context.renderer->GetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST);
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, false);
+	bool depthTestBackup = m_context.renderer->GetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, false);
 
 	auto& data = p_ambientBoxLight.GetData();
 
@@ -706,13 +707,13 @@ void OvEditor::Core::EditorRenderer::RenderAmbientBoxVolume(OvCore::ECS::Compone
 	m_context.shapeDrawer->DrawLine(center + OvMaths::FVector3{ -halfSize.x, -halfSize.y, +halfSize.z }, center + OvMaths::FVector3{ +halfSize.x, -halfSize.y, +halfSize.z }, LIGHT_VOLUME_COLOR, 1.f);
 	m_context.shapeDrawer->DrawLine(center + OvMaths::FVector3{ -halfSize.x, +halfSize.y, +halfSize.z }, center + OvMaths::FVector3{ +halfSize.x, +halfSize.y, +halfSize.z }, LIGHT_VOLUME_COLOR, 1.f);
 
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
 }
 
-void OvEditor::Core::EditorRenderer::RenderAmbientSphereVolume(OvCore::ECS::Components::CAmbientSphereLight & p_ambientSphereLight)
+void Editor::Core::EditorRenderer::RenderAmbientSphereVolume(EngineCore::ECS::Components::CAmbientSphereLight & p_ambientSphereLight)
 {
-	bool depthTestBackup = m_context.renderer->GetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST);
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, false);
+	bool depthTestBackup = m_context.renderer->GetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, false);
 
 	auto& data = p_ambientSphereLight.GetData();
 
@@ -727,16 +728,17 @@ void OvEditor::Core::EditorRenderer::RenderAmbientSphereVolume(OvCore::ECS::Comp
 		m_context.shapeDrawer->DrawLine(center + rotation * (OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } *radius), center + rotation * (OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } *radius), LIGHT_VOLUME_COLOR, 1.f);
 	}
 
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
 }
 
-void OvEditor::Core::EditorRenderer::RenderBoundingSpheres(OvCore::ECS::Components::CModelRenderer& p_modelRenderer)
+void Editor::Core::EditorRenderer::RenderBoundingSpheres(EngineCore::ECS::Components::CModelRenderer& p_modelRenderer)
 {
-	using namespace OvCore::ECS::Components;
-	using namespace OvPhysics::Entities;
+	using namespace EngineCore::ECS::Components;
+	//TODO:
+	//using namespace OvPhysics::Entities;
 
-	bool depthTestBackup = m_context.renderer->GetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST);
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, false);
+	bool depthTestBackup = m_context.renderer->GetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, false);
 
 	/* Draw the sphere collider if any */
 	if (auto model = p_modelRenderer.GetModel())
@@ -748,7 +750,7 @@ void OvEditor::Core::EditorRenderer::RenderBoundingSpheres(OvCore::ECS::Componen
 		OvMaths::FVector3 actorPosition = actor.transform.GetWorldPosition();
 
 		const auto& modelBoundingsphere = 
-			p_modelRenderer.GetFrustumBehaviour() == OvCore::ECS::Components::CModelRenderer::EFrustumBehaviour::CULL_CUSTOM ?
+			p_modelRenderer.GetFrustumBehaviour() == EngineCore::ECS::Components::CModelRenderer::EFrustumBehaviour::CULL_CUSTOM ?
 			p_modelRenderer.GetCustomBoundingSphere() :
 			model->GetBoundingSphere();
 
@@ -765,7 +767,7 @@ void OvEditor::Core::EditorRenderer::RenderBoundingSpheres(OvCore::ECS::Componen
 			m_context.shapeDrawer->DrawLine(boundingSphereCenter + actorRotation * (OvMaths::FVector3{ cos(i * (3.14f / 180.0f)), 0.f, sin(i * (3.14f / 180.0f)) } *scaledRadius), boundingSphereCenter + actorRotation * (OvMaths::FVector3{ cos((i + 10.0f) * (3.14f / 180.0f)), 0.f, sin((i + 10.0f) * (3.14f / 180.0f)) } *scaledRadius), DEBUG_BOUNDS_COLOR, 1.f);
 		}
 
-		if (p_modelRenderer.GetFrustumBehaviour() == OvCore::ECS::Components::CModelRenderer::EFrustumBehaviour::CULL_MESHES)
+		if (p_modelRenderer.GetFrustumBehaviour() == EngineCore::ECS::Components::CModelRenderer::EFrustumBehaviour::CULL_MESHES)
 		{
 			const auto& meshes = model->GetMeshes();
 
@@ -790,17 +792,17 @@ void OvEditor::Core::EditorRenderer::RenderBoundingSpheres(OvCore::ECS::Componen
 		}
 	}
 
-	m_context.renderer->SetCapability(OvRendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
+	m_context.renderer->SetCapability(Rendering::Settings::ERenderingCapability::DEPTH_TEST, depthTestBackup);
 	m_context.renderer->SetRasterizationLinesWidth(1.0f);
 }
 
-void OvEditor::Core::EditorRenderer::RenderModelAsset(OvRendering::Resources::Model& p_model)
+void Editor::Core::EditorRenderer::RenderModelAsset(Rendering::Resources::Model& p_model)
 {
 	FMatrix4 model = OvMaths::FMatrix4::Scaling({ 3.f, 3.f, 3.f });
 	m_context.renderer->DrawModelWithSingleMaterial(p_model, m_defaultMaterial, &model);
 }
 
-void OvEditor::Core::EditorRenderer::RenderTextureAsset(OvRendering::Resources::Texture & p_texture)
+void Editor::Core::EditorRenderer::RenderTextureAsset(Rendering::Resources::Texture & p_texture)
 {
 	FMatrix4 model = FMatrix4::RotateOnAxisX(FMatrix4::Scaling({ 5.f, 5.f, 5.f }), 90.f * 0.0174f);
 
@@ -808,29 +810,31 @@ void OvEditor::Core::EditorRenderer::RenderTextureAsset(OvRendering::Resources::
 	m_context.renderer->DrawModelWithSingleMaterial(*m_context.editorResources->GetModel("Plane"), m_textureMaterial, &model);
 }
 
-void OvEditor::Core::EditorRenderer::RenderMaterialAsset(OvCore::Resources::Material & p_material)
+void Editor::Core::EditorRenderer::RenderMaterialAsset(EngineCore::Resources::Material & p_material)
 {
 	FMatrix4 model = OvMaths::FMatrix4::Scaling({ 3.f, 3.f, 3.f });
 	m_context.renderer->DrawModelWithSingleMaterial(*m_context.editorResources->GetModel("Sphere"), p_material, &model, &m_emptyMaterial);
 }
 
-void OvEditor::Core::EditorRenderer::RenderGrid(const OvMaths::FVector3& p_viewPos, const OvMaths::FVector3& p_color)
+void Editor::Core::EditorRenderer::RenderGrid(const OvMaths::FVector3& p_viewPos, const OvMaths::FVector3& p_color)
 {
 	FMatrix4 model = FMatrix4::Scaling({ 1000.f, 1.f, 1000.f });
 	m_gridMaterial.Set("u_Color", p_color);
 	m_context.renderer->DrawModelWithSingleMaterial(*m_context.editorResources->GetModel("Plane"), m_gridMaterial, &model);
 }
 
-void OvEditor::Core::EditorRenderer::UpdateLights(OvCore::SceneSystem::Scene& p_scene)
+void Editor::Core::EditorRenderer::UpdateLights(EngineCore::SceneSystem::Scene& p_scene)
 {
-	PROFILER_SPY("Light SSBO Update");
+	//TODO
+	//PROFILER_SPY("Light SSBO Update");
 	auto lightMatrices = m_context.renderer->FindLightMatrices(p_scene);
 	m_context.lightSSBO->SendBlocks<FMatrix4>(lightMatrices.data(), lightMatrices.size() * sizeof(FMatrix4));
 }
 
-void OvEditor::Core::EditorRenderer::UpdateLightsInFrustum(OvCore::SceneSystem::Scene& p_scene, const OvRendering::Data::Frustum& p_frustum)
+void Editor::Core::EditorRenderer::UpdateLightsInFrustum(EngineCore::SceneSystem::Scene& p_scene, const Rendering::Data::Frustum& p_frustum)
 {
-	PROFILER_SPY("Light SSBO Update (Frustum culled)");
+	//TODO
+	//PROFILER_SPY("Light SSBO Update (Frustum culled)");
 	auto lightMatrices = m_context.renderer->FindLightMatricesInFrustum(p_scene, p_frustum);
 	m_context.lightSSBO->SendBlocks<FMatrix4>(lightMatrices.data(), lightMatrices.size() * sizeof(FMatrix4));
 }

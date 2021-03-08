@@ -80,9 +80,10 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\Bin\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Bin-Int\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>E:\CG\RainbowEngine\Dependencies\glfw\include;$(SolutionDir)..\..\Build\OvMaths\include\;$(SolutionDir)..\..\Build\Debug\include\;$(SolutionDir)..\..\Build\Rendering\include\;$(SolutionDir)..\..\Build\UI\include\;$(SolutionDir)..\..\Build\Windowing\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\CG\RainbowEngine\Dependencies\glfw\lib;$(SolutionDir)..\..\Build\OvMaths\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Tools\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Rendering\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Windowing\lib\$(Configuration)\;$(SolutionDir)..\..\Build\UI\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Debug\lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\..\Build\EngineCore\include\;$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\..\Dependencies\glfw\lib;$(SolutionDir)..\..\Build\OvMaths\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Tools\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Rendering\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Windowing\lib\$(Configuration)\;$(SolutionDir)..\..\Build\UI\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Debug\lib\$(Configuration)\;$(SolutionDir)..\..\Dependencies\glew\lib;$(SolutionDir)..\..\Build\EngineCore\lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)src\;$(SourcePath)</SourcePath>
+    <TargetName>RainbowEngine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -126,12 +127,17 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Debug.lib;Rendering.lib;Windowing.lib;Tools.lib;OvMaths.lib;UI.lib;glew32.lib;opengl32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Debug.lib;Rendering.lib;Windowing.lib;Tools.lib;OvMaths.lib;UI.lib;EngineCore.lib;glew32.lib;opengl32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)..\..\Build\UI\bin\$(Configuration)\*.dll" "$(OutDir)" /y /i
-xcopy "$(SolutionDir)..\..\Build\Windowing\bin\$(Configuration)\*.dll" "$(OutDir)" /y /i 
-xcopy "$(SolutionDir)..\..\Build\Rendering\bin\$(Configuration)\*.dll" "$(OutDir)" /y /i </Command>
+      <Command>xcopy "$(SolutionDir)..\..\Build\EngineCore\bin\$(Configuration)\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\$(Configuration)" /e /y /i /r
+xcopy "$(OutDir)*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\$(Configuration)" /y /i
+
+xcopy "$(OutDir)*.exe" "$(SolutionDir)..\..\Build\$(ProjectName)\$(Configuration)" /y /i
+xcopy "$(ProjectDir)Layout.ini" "$(SolutionDir)..\..\Build\$(ProjectName)\$(Configuration)\Config\" /y /i
+xcopy "$(SolutionDir)..\..\Resources\Engine\*" "$(SolutionDir)..\..\Build\$(ProjectName)\$(Configuration)\Data\Engine" /y /i /r /e
+xcopy "$(SolutionDir)..\..\Resources\Editor\*" "$(SolutionDir)..\..\Build\$(ProjectName)\$(Configuration)\Data\Editor" /y /i /r /e
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,7 +157,16 @@ xcopy "$(SolutionDir)..\..\Build\Rendering\bin\$(Configuration)\*.dll" "$(OutDir
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Editor\Core\Application.cpp" />
+    <ClCompile Include="src\Editor\Core\CameraController.cpp" />
+    <ClCompile Include="src\Editor\Core\Context.cpp" />
+    <ClCompile Include="src\Editor\Core\Editor.cpp" />
+    <ClCompile Include="src\Editor\Core\EditorActions.cpp" />
+    <ClCompile Include="src\Editor\Core\EditorRenderer.cpp" />
+    <ClCompile Include="src\Editor\Core\EditorResources.cpp" />
+    <ClCompile Include="src\Editor\Core\GizmoBehaviour.cpp" />
     <ClCompile Include="src\Editor\Core\PanelsManager.cpp" />
+    <ClCompile Include="src\Editor\Core\ProjectHub.cpp" />
     <ClCompile Include="src\Editor\Main.cpp" />
     <ClCompile Include="src\Editor\Panels\AssetBrowser.cpp" />
     <ClCompile Include="src\Editor\Panels\AssetProperties.cpp" />
@@ -170,9 +185,20 @@ xcopy "$(SolutionDir)..\..\Build\Rendering\bin\$(Configuration)\*.dll" "$(OutDir
     <ClCompile Include="src\Editor\Panels\ProjectSettings.cpp" />
     <ClCompile Include="src\Editor\Panels\SceneView.cpp" />
     <ClCompile Include="src\Editor\Panels\Toolbar.cpp" />
+    <ClCompile Include="src\Editor\Resources\RawShaders.cpp" />
+    <ClCompile Include="src\Editor\Settings\EditorSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Editor\Core\Application.h" />
+    <ClInclude Include="include\Editor\Core\CameraController.h" />
+    <ClInclude Include="include\Editor\Core\Context.h" />
+    <ClInclude Include="include\Editor\Core\Editor.h" />
+    <ClInclude Include="include\Editor\Core\EditorActions.h" />
+    <ClInclude Include="include\Editor\Core\EditorRenderer.h" />
+    <ClInclude Include="include\Editor\Core\EditorResources.h" />
+    <ClInclude Include="include\Editor\Core\GizmoBehaviour.h" />
     <ClInclude Include="include\Editor\Core\PanelsManager.h" />
+    <ClInclude Include="include\Editor\Core\ProjectHub.h" />
     <ClInclude Include="include\Editor\Panels\AssetBrowser.h" />
     <ClInclude Include="include\Editor\Panels\AssetProperties.h" />
     <ClInclude Include="include\Editor\Panels\AssetView.h" />
@@ -190,6 +216,19 @@ xcopy "$(SolutionDir)..\..\Build\Rendering\bin\$(Configuration)\*.dll" "$(OutDir
     <ClInclude Include="include\Editor\Panels\ProjectSettings.h" />
     <ClInclude Include="include\Editor\Panels\SceneView.h" />
     <ClInclude Include="include\Editor\Panels\Toolbar.h" />
+    <ClInclude Include="include\Editor\Resources\RawShaders.h" />
+    <ClInclude Include="include\Editor\Resources\RawTextures.h" />
+    <ClInclude Include="include\Editor\Settings\EditorSettings.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Editor\Core\EditorActions.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Editor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

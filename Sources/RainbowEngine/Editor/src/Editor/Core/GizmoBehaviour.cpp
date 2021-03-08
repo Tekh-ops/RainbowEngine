@@ -1,27 +1,22 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
-#include "OvEditor/Core/GizmoBehaviour.h"
-#include "OvEditor/Core/EditorActions.h"
-#include "OvEditor/Settings/EditorSettings.h"
+#include "Editor/Core/GizmoBehaviour.h"
+#include "Editor/Core/EditorActions.h"
+#include "Editor/Settings/EditorSettings.h"
 
 float SnapValue(float p_value, float p_step)
 {
 	return p_value - std::fmod(p_value, p_step);
 }
 
-bool OvEditor::Core::GizmoBehaviour::IsSnappedBehaviourEnabled() const
+bool Editor::Core::GizmoBehaviour::IsSnappedBehaviourEnabled() const
 {
-	using namespace OvWindowing::Inputs;
+	using namespace Windowing::Inputs;
 
 	const auto& inputManager = EDITOR_CONTEXT(inputManager);
 	return inputManager->GetKeyState(EKey::KEY_LEFT_CONTROL) == EKeyState::KEY_DOWN || inputManager->GetKeyState(EKey::KEY_RIGHT_CONTROL) == EKeyState::KEY_DOWN;
 }
 
-void OvEditor::Core::GizmoBehaviour::StartPicking(OvCore::ECS::Actor& p_target, const OvMaths::FVector3& p_cameraPosition, EGizmoOperation p_operation, EDirection p_direction)
+void Editor::Core::GizmoBehaviour::StartPicking(EngineCore::ECS::Actor& p_target, const OvMaths::FVector3& p_cameraPosition, EGizmoOperation p_operation, EDirection p_direction)
 {
 	m_target = &p_target;
 	m_firstMouse = true;
@@ -31,24 +26,24 @@ void OvEditor::Core::GizmoBehaviour::StartPicking(OvCore::ECS::Actor& p_target, 
 	m_direction = p_direction;
 }
 
-void OvEditor::Core::GizmoBehaviour::StopPicking()
+void Editor::Core::GizmoBehaviour::StopPicking()
 {
 	m_target = nullptr;
 }
 
-OvMaths::FVector3 OvEditor::Core::GizmoBehaviour::GetFakeDirection() const
+OvMaths::FVector3 Editor::Core::GizmoBehaviour::GetFakeDirection() const
 {
 	auto result = OvMaths::FVector3();
 
 	switch (m_direction)
 	{
-	case OvEditor::Core::GizmoBehaviour::EDirection::X:
+	case Editor::Core::GizmoBehaviour::EDirection::X:
 		result = OvMaths::FVector3::Right;
 		break;
-	case OvEditor::Core::GizmoBehaviour::EDirection::Y:
+	case Editor::Core::GizmoBehaviour::EDirection::Y:
 		result = OvMaths::FVector3::Up;
 		break;
-	case OvEditor::Core::GizmoBehaviour::EDirection::Z:
+	case Editor::Core::GizmoBehaviour::EDirection::Z:
 		result = OvMaths::FVector3::Forward;
 		break;
 	}
@@ -56,19 +51,19 @@ OvMaths::FVector3 OvEditor::Core::GizmoBehaviour::GetFakeDirection() const
 	return result;
 }
 
-OvMaths::FVector3 OvEditor::Core::GizmoBehaviour::GetRealDirection(bool p_relative) const
+OvMaths::FVector3 Editor::Core::GizmoBehaviour::GetRealDirection(bool p_relative) const
 {
 	auto result = OvMaths::FVector3();
 
 	switch (m_direction)
 	{
-	case OvEditor::Core::GizmoBehaviour::EDirection::X:
+	case Editor::Core::GizmoBehaviour::EDirection::X:
 		result = p_relative ? m_originalTransform.GetWorldRight() : m_originalTransform.GetLocalRight();
 		break;
-	case OvEditor::Core::GizmoBehaviour::EDirection::Y:
+	case Editor::Core::GizmoBehaviour::EDirection::Y:
 		result = p_relative ? m_originalTransform.GetWorldUp() : m_originalTransform.GetLocalUp();
 		break;
-	case OvEditor::Core::GizmoBehaviour::EDirection::Z:
+	case Editor::Core::GizmoBehaviour::EDirection::Z:
 		result = p_relative ? m_originalTransform.GetWorldForward() : m_originalTransform.GetLocalForward();
 		break;
 	}
@@ -76,7 +71,7 @@ OvMaths::FVector3 OvEditor::Core::GizmoBehaviour::GetRealDirection(bool p_relati
 	return result;
 }
 
-OvMaths::FVector2 OvEditor::Core::GizmoBehaviour::GetScreenDirection(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
+OvMaths::FVector2 Editor::Core::GizmoBehaviour::GetScreenDirection(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
 {
 	auto start = m_originalTransform.GetWorldPosition();
 	auto end = m_originalTransform.GetWorldPosition() + GetRealDirection(true) * 0.01f;
@@ -108,7 +103,7 @@ OvMaths::FVector2 OvEditor::Core::GizmoBehaviour::GetScreenDirection(const OvMat
 	return OvMaths::FVector2::Normalize(result);
 }
 
-void OvEditor::Core::GizmoBehaviour::ApplyTranslation(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
+void Editor::Core::GizmoBehaviour::ApplyTranslation(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
 {
 	auto unitsPerPixel = 0.001f * m_distanceToActor;
 	auto originPosition = m_originalTransform.GetLocalPosition();
@@ -120,13 +115,13 @@ void OvEditor::Core::GizmoBehaviour::ApplyTranslation(const OvMaths::FMatrix4& p
 
 	if (IsSnappedBehaviourEnabled())
 	{
-		translationCoefficient = SnapValue(translationCoefficient, OvEditor::Settings::EditorSettings::TranslationSnapUnit);
+		translationCoefficient = SnapValue(translationCoefficient, Editor::Settings::EditorSettings::TranslationSnapUnit);
 	}
 
 	m_target->transform.SetLocalPosition(originPosition + GetRealDirection() * translationCoefficient);
 }
 
-void OvEditor::Core::GizmoBehaviour::ApplyRotation(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
+void Editor::Core::GizmoBehaviour::ApplyRotation(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
 {
 	auto unitsPerPixel = 0.2f;
 	auto originRotation = m_originalTransform.GetLocalRotation();
@@ -139,14 +134,14 @@ void OvEditor::Core::GizmoBehaviour::ApplyRotation(const OvMaths::FMatrix4& p_vi
 
 	if (IsSnappedBehaviourEnabled())
 	{
-		rotationCoefficient = SnapValue(rotationCoefficient, OvEditor::Settings::EditorSettings::RotationSnapUnit);
+		rotationCoefficient = SnapValue(rotationCoefficient, Editor::Settings::EditorSettings::RotationSnapUnit);
 	}
 
 	auto rotationToApply = OvMaths::FQuaternion(OvMaths::FVector3(GetFakeDirection() * rotationCoefficient));
 	m_target->transform.SetLocalRotation(originRotation * rotationToApply);
 }
 
-void OvEditor::Core::GizmoBehaviour::ApplyScale(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
+void Editor::Core::GizmoBehaviour::ApplyScale(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize) const
 {
 	auto unitsPerPixel = 0.01f;
 	auto originScale = m_originalTransform.GetLocalScale();
@@ -158,7 +153,7 @@ void OvEditor::Core::GizmoBehaviour::ApplyScale(const OvMaths::FMatrix4& p_viewM
 
 	if (IsSnappedBehaviourEnabled())
 	{
-		scaleCoefficient = SnapValue(scaleCoefficient, OvEditor::Settings::EditorSettings::ScalingSnapUnit);
+		scaleCoefficient = SnapValue(scaleCoefficient, Editor::Settings::EditorSettings::ScalingSnapUnit);
 	}
 
 	auto newScale = originScale + GetFakeDirection() * scaleCoefficient;
@@ -171,7 +166,7 @@ void OvEditor::Core::GizmoBehaviour::ApplyScale(const OvMaths::FMatrix4& p_viewM
 	m_target->transform.SetLocalScale(newScale);
 }
 
-void OvEditor::Core::GizmoBehaviour::ApplyOperation(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize)
+void Editor::Core::GizmoBehaviour::ApplyOperation(const OvMaths::FMatrix4& p_viewMatrix, const OvMaths::FMatrix4& p_projectionMatrix, const OvMaths::FVector2& p_viewSize)
 {
 	switch (m_currentOperation)
 	{
@@ -189,7 +184,7 @@ void OvEditor::Core::GizmoBehaviour::ApplyOperation(const OvMaths::FMatrix4& p_v
 	}
 }
 
-void OvEditor::Core::GizmoBehaviour::SetCurrentMouse(const OvMaths::FVector2& p_mousePosition)
+void Editor::Core::GizmoBehaviour::SetCurrentMouse(const OvMaths::FVector2& p_mousePosition)
 {
 	if (m_firstMouse)
 	{
@@ -202,12 +197,12 @@ void OvEditor::Core::GizmoBehaviour::SetCurrentMouse(const OvMaths::FVector2& p_
 	}
 }
 
-bool OvEditor::Core::GizmoBehaviour::IsPicking() const
+bool Editor::Core::GizmoBehaviour::IsPicking() const
 {
 	return m_target;
 }
 
-OvEditor::Core::GizmoBehaviour::EDirection OvEditor::Core::GizmoBehaviour::GetDirection() const
+Editor::Core::GizmoBehaviour::EDirection Editor::Core::GizmoBehaviour::GetDirection() const
 {
 	return m_direction;
 }

@@ -1,18 +1,13 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include "OvEditor/Core/Context.h"
-#include "OvEditor/Core/Editor.h"
+#include "Editor/Core/Context.h"
+#include "Editor/Core/Editor.h"
 
-namespace OvEditor::Core
+namespace Editor::Core
 {
 	/**
-	* Entry point of OvEditor
+	* Entry point of Editor
 	*/
 	class Application
 	{
@@ -41,6 +36,6 @@ namespace OvEditor::Core
 
 	private:
 		Context m_context;
-		Editor m_editor;
+		RainbowEditor m_editor;
 	};
 }

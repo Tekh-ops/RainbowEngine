@@ -1,8 +1,4 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
@@ -10,14 +6,14 @@
 #include <tuple>
 #include <string>
 
-#include "OvTools/API/Export.h"
+#include "Tools/API/Export.h"
 
-namespace OvTools::Utils
+namespace Tools::Utils
 {
     /*
     * Handles size conversions
     */
-    class API_OVTOOLS SizeConverter
+    class API_TOOLS SizeConverter
     {
     public:
         enum class ESizeUnit

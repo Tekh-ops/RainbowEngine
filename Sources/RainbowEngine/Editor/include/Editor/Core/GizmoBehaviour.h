@@ -9,9 +9,9 @@
 #include <OvMaths/FTransform.h>
 #include <OvMaths/FVector2.h>
 
-#include <OvCore/ECS/Actor.h>
+#include <EngineCore/ECS/Actor.h>
 
-namespace OvEditor::Core
+namespace Editor::Core
 {
 	enum class EGizmoOperation
 	{
@@ -43,7 +43,7 @@ namespace OvEditor::Core
 		* @param p_operation
 		* @param p_direction
 		*/
-		void StartPicking(OvCore::ECS::Actor& p_target, const OvMaths::FVector3& p_cameraPosition, EGizmoOperation p_operation, EDirection p_direction);
+		void StartPicking(EngineCore::ECS::Actor& p_target, const OvMaths::FVector3& p_cameraPosition, EGizmoOperation p_operation, EDirection p_direction);
 
 		/**
 		* Stops the gizmo picking behaviour
@@ -121,7 +121,7 @@ namespace OvEditor::Core
 	private:
 		bool m_firstMouse = true;
 		float m_distanceToActor = 0.0f;
-		OvCore::ECS::Actor* m_target = nullptr;
+		EngineCore::ECS::Actor* m_target = nullptr;
 		EGizmoOperation m_currentOperation;
 		EDirection m_direction;
 		OvMaths::FTransform m_originalTransform;

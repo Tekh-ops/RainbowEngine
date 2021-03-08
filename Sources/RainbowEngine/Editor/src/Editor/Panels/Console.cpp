@@ -6,20 +6,20 @@
 
 #include <algorithm>
 
-#include "OvEditor/Panels/Console.h"
-#include "OvEditor/Core/EditorActions.h"
+#include "Editor/Panels/Console.h"
+#include "Editor/Core/EditorActions.h"
 
-#include <OvUI/Widgets/Buttons/Button.h>
-#include <OvUI/Widgets/Selection/CheckBox.h>
-#include <OvUI/Widgets/Visual/Separator.h>
-#include <OvUI/Widgets/Layout/Spacing.h>
+#include <UI/Widgets/Buttons/Button.h>
+#include <UI/Widgets/Selection/CheckBox.h>
+#include <UI/Widgets/Visual/Separator.h>
+#include <UI/Widgets/Layout/Spacing.h>
 
-using namespace OvUI::Panels;
-using namespace OvUI::Widgets;
+using namespace UI::Panels;
+using namespace UI::Widgets;
 
-std::pair<OvUI::Types::Color, std::string> GetWidgetSettingsFromLogData(const OvDebug::LogData& p_logData)
+std::pair<UI::Types::Color, std::string> GetWidgetSettingsFromLogData(const Debug::LogData& p_logData)
 {
-	OvUI::Types::Color logColor;
+	UI::Types::Color logColor;
 	std::string logHeader;
 	std::string logDateFormated = "[";
 	bool isSecondPart = false;
@@ -37,18 +37,18 @@ std::pair<OvUI::Types::Color, std::string> GetWidgetSettingsFromLogData(const Ov
 	switch (p_logData.logLevel)
 	{
 	default:
-	case OvDebug::ELogLevel::LOG_DEFAULT:	return { { 1.f, 1.f, 1.f, 1.f }, logDateFormated };
-	case OvDebug::ELogLevel::LOG_INFO:		return { { 0.f, 1.f, 1.f, 1.f }, logDateFormated };
-	case OvDebug::ELogLevel::LOG_WARNING:	return { { 1.f, 1.f, 0.f, 1.f }, logDateFormated };
-	case OvDebug::ELogLevel::LOG_ERROR:		return { { 1.f, 0.f, 0.f, 1.f }, logDateFormated };
+	case Debug::ELogLevel::LOG_DEFAULT:	return { { 1.f, 1.f, 1.f, 1.f }, logDateFormated };
+	case Debug::ELogLevel::LOG_INFO:		return { { 0.f, 1.f, 1.f, 1.f }, logDateFormated };
+	case Debug::ELogLevel::LOG_WARNING:	return { { 1.f, 1.f, 0.f, 1.f }, logDateFormated };
+	case Debug::ELogLevel::LOG_ERROR:		return { { 1.f, 0.f, 0.f, 1.f }, logDateFormated };
 	}
 }
 
-OvEditor::Panels::Console::Console
+Editor::Panels::Console::Console
 (
 	const std::string& p_title,
 	bool p_opened,
-	const OvUI::Settings::PanelWindowSettings& p_windowSettings
+	const UI::Settings::PanelWindowSettings& p_windowSettings
 ) :
 	PanelWindow(p_title, p_opened, p_windowSettings)
 {
@@ -87,10 +87,10 @@ OvEditor::Panels::Console::Console
 
 	EDITOR_EVENT(PlayEvent) += std::bind(&Console::ClearOnPlay, this);
 
-	OvDebug::Logger::LogEvent += std::bind(&Console::OnLogIntercepted, this, std::placeholders::_1);
+	Debug::Logger::LogEvent += std::bind(&Console::OnLogIntercepted, this, std::placeholders::_1);
 }
 
-void OvEditor::Panels::Console::OnLogIntercepted(const OvDebug::LogData & p_logData)
+void Editor::Panels::Console::OnLogIntercepted(const Debug::LogData & p_logData)
 {
 	auto[logColor, logDate] = GetWidgetSettingsFromLogData(p_logData);
 
@@ -101,56 +101,56 @@ void OvEditor::Panels::Console::OnLogIntercepted(const OvDebug::LogData & p_logD
 	m_logTextWidgets[&consoleItem1] = p_logData.logLevel;
 }
 
-void OvEditor::Panels::Console::ClearOnPlay()
+void Editor::Panels::Console::ClearOnPlay()
 {
 	if (m_clearOnPlay)
 		Clear();
 }
 
-void OvEditor::Panels::Console::Clear()
+void Editor::Panels::Console::Clear()
 {
 	m_logTextWidgets.clear();
 	m_logGroup->RemoveAllWidgets();
 }
 
-void OvEditor::Panels::Console::FilterLogs()
+void Editor::Panels::Console::FilterLogs()
 {
 	for (const auto&[widget, logLevel] : m_logTextWidgets)
 		widget->enabled = IsAllowedByFilter(logLevel);
 }
 
-bool OvEditor::Panels::Console::IsAllowedByFilter(OvDebug::ELogLevel p_logLevel)
+bool Editor::Panels::Console::IsAllowedByFilter(Debug::ELogLevel p_logLevel)
 {
 	switch (p_logLevel)
 	{
-	case OvDebug::ELogLevel::LOG_DEFAULT:	return m_showDefaultLog;
-	case OvDebug::ELogLevel::LOG_INFO:		return m_showInfoLog;
-	case OvDebug::ELogLevel::LOG_WARNING:	return m_showWarningLog;
-	case OvDebug::ELogLevel::LOG_ERROR:		return m_showErrorLog;
+	case Debug::ELogLevel::LOG_DEFAULT:	return m_showDefaultLog;
+	case Debug::ELogLevel::LOG_INFO:		return m_showInfoLog;
+	case Debug::ELogLevel::LOG_WARNING:	return m_showWarningLog;
+	case Debug::ELogLevel::LOG_ERROR:		return m_showErrorLog;
 	}
 
 	return false;
 }
 
-void OvEditor::Panels::Console::SetShowDefaultLogs(bool p_value)
+void Editor::Panels::Console::SetShowDefaultLogs(bool p_value)
 {
 	m_showDefaultLog = p_value;
 	FilterLogs();
 }
 
-void OvEditor::Panels::Console::SetShowInfoLogs(bool p_value)
+void Editor::Panels::Console::SetShowInfoLogs(bool p_value)
 {
 	m_showInfoLog = p_value;
 	FilterLogs();
 }
 
-void OvEditor::Panels::Console::SetShowWarningLogs(bool p_value)
+void Editor::Panels::Console::SetShowWarningLogs(bool p_value)
 {
 	m_showWarningLog = p_value;
 	FilterLogs();
 }
 
-void OvEditor::Panels::Console::SetShowErrorLogs(bool p_value)
+void Editor::Panels::Console::SetShowErrorLogs(bool p_value)
 {
 	m_showErrorLog = p_value;
 	FilterLogs();

@@ -4,47 +4,47 @@
 * @licence: MIT
 */
 
-#include "OvEditor/Panels/MaterialEditor.h"
-#include "OvEditor/Panels/AssetView.h"
+#include "Editor/Panels/MaterialEditor.h"
+#include "Editor/Panels/AssetView.h"
 
-#include "OvEditor/Core/EditorActions.h"
+#include "Editor/Core/EditorActions.h"
 
-#include <OvCore/Resources/Loaders/MaterialLoader.h>
-#include <OvCore/Helpers/GUIDrawer.h>
-#include <OvUI/Widgets/Layout/Columns.h>
-#include <OvUI/Widgets/Layout/GroupCollapsable.h>
-#include <OvUI/Widgets/Visual/Separator.h>
-#include <OvUI/Widgets/Texts/TextColored.h>
-#include <OvUI/Widgets/Buttons/Button.h>
-#include <OvUI/Widgets/Buttons/ButtonSmall.h>
-#include <OvUI/Widgets/Selection/ColorEdit.h>
+#include <EngineCore/Resources/Loaders/MaterialLoader.h>
+#include <EngineCore/Helpers/GUIDrawer.h>
+#include <UI/Widgets/Layout/Columns.h>
+#include <UI/Widgets/Layout/GroupCollapsable.h>
+#include <UI/Widgets/Visual/Separator.h>
+#include <UI/Widgets/Texts/TextColored.h>
+#include <UI/Widgets/Buttons/Button.h>
+#include <UI/Widgets/Buttons/ButtonSmall.h>
+#include <UI/Widgets/Selection/ColorEdit.h>
 
-using namespace OvUI::Panels;
-using namespace OvUI::Widgets;
-using namespace OvCore::Helpers;
+using namespace UI::Panels;
+using namespace UI::Widgets;
+using namespace EngineCore::Helpers;
 
-void DrawHybridVec3(OvUI::Internal::WidgetContainer& p_root, const std::string& p_name, OvMaths::FVector3& p_data, float p_step, float p_min, float p_max)
+void DrawHybridVec3(UI::Internal::WidgetContainer& p_root, const std::string& p_name, OvMaths::FVector3& p_data, float p_step, float p_min, float p_max)
 {
-	OvCore::Helpers::GUIDrawer::CreateTitle(p_root, p_name);
+	EngineCore::Helpers::GUIDrawer::CreateTitle(p_root, p_name);
 
-	auto& rightSide = p_root.CreateWidget<OvUI::Widgets::Layout::Group>();
+	auto& rightSide = p_root.CreateWidget<UI::Widgets::Layout::Group>();
 
-	auto& xyzWidget = rightSide.CreateWidget<OvUI::Widgets::Drags::DragMultipleScalars<float, 3>>(OvCore::Helpers::GUIDrawer::GetDataType<float>(), p_min, p_max, 0.f, p_step, "", OvCore::Helpers::GUIDrawer::GetFormat<float>());
-	auto& xyzDispatcher = xyzWidget.AddPlugin<OvUI::Plugins::DataDispatcher<std::array<float, 3>>>();
+	auto& xyzWidget = rightSide.CreateWidget<UI::Widgets::Drags::DragMultipleScalars<float, 3>>(EngineCore::Helpers::GUIDrawer::GetDataType<float>(), p_min, p_max, 0.f, p_step, "", EngineCore::Helpers::GUIDrawer::GetFormat<float>());
+	auto& xyzDispatcher = xyzWidget.AddPlugin<UI::Plugins::DataDispatcher<std::array<float, 3>>>();
 	xyzDispatcher.RegisterReference(reinterpret_cast<std::array<float, 3>&>(p_data));
 	xyzWidget.lineBreak = false;
 
-	auto& rgbWidget = rightSide.CreateWidget<OvUI::Widgets::Selection::ColorEdit>(false, OvUI::Types::Color{ p_data.x, p_data.y, p_data.z });
-	auto& rgbDispatcher = rgbWidget.AddPlugin<OvUI::Plugins::DataDispatcher<OvUI::Types::Color>>();
-	rgbDispatcher.RegisterReference(reinterpret_cast<OvUI::Types::Color&>(p_data));
+	auto& rgbWidget = rightSide.CreateWidget<UI::Widgets::Selection::ColorEdit>(false, UI::Types::Color{ p_data.x, p_data.y, p_data.z });
+	auto& rgbDispatcher = rgbWidget.AddPlugin<UI::Plugins::DataDispatcher<UI::Types::Color>>();
+	rgbDispatcher.RegisterReference(reinterpret_cast<UI::Types::Color&>(p_data));
 	rgbWidget.enabled = false;
 	rgbWidget.lineBreak = false;
 
-	auto& xyzButton = rightSide.CreateWidget<OvUI::Widgets::Buttons::Button>("XYZ");
+	auto& xyzButton = rightSide.CreateWidget<UI::Widgets::Buttons::Button>("XYZ");
 	xyzButton.idleBackgroundColor = { 0.7f, 0.5f, 0.0f };
 	xyzButton.lineBreak = false;
 
-	auto& rgbButton = rightSide.CreateWidget<OvUI::Widgets::Buttons::Button>("RGB");
+	auto& rgbButton = rightSide.CreateWidget<UI::Widgets::Buttons::Button>("RGB");
 	rgbButton.idleBackgroundColor = { 0.7f, 0.5f, 0.0f };
 
 	xyzButton.ClickedEvent += [&]
@@ -60,28 +60,28 @@ void DrawHybridVec3(OvUI::Internal::WidgetContainer& p_root, const std::string& 
 	};
 }
 
-void DrawHybridVec4(OvUI::Internal::WidgetContainer& p_root, const std::string& p_name, OvMaths::FVector4& p_data, float p_step, float p_min, float p_max)
+void DrawHybridVec4(UI::Internal::WidgetContainer& p_root, const std::string& p_name, OvMaths::FVector4& p_data, float p_step, float p_min, float p_max)
 {
-	OvCore::Helpers::GUIDrawer::CreateTitle(p_root, p_name);
+	EngineCore::Helpers::GUIDrawer::CreateTitle(p_root, p_name);
 
-	auto& rightSide = p_root.CreateWidget<OvUI::Widgets::Layout::Group>();
+	auto& rightSide = p_root.CreateWidget<UI::Widgets::Layout::Group>();
 
-	auto& xyzWidget = rightSide.CreateWidget<OvUI::Widgets::Drags::DragMultipleScalars<float, 4>>(OvCore::Helpers::GUIDrawer::GetDataType<float>(), p_min, p_max, 0.f, p_step, "", OvCore::Helpers::GUIDrawer::GetFormat<float>());
-	auto& xyzDispatcher = xyzWidget.AddPlugin<OvUI::Plugins::DataDispatcher<std::array<float, 4>>>();
+	auto& xyzWidget = rightSide.CreateWidget<UI::Widgets::Drags::DragMultipleScalars<float, 4>>(EngineCore::Helpers::GUIDrawer::GetDataType<float>(), p_min, p_max, 0.f, p_step, "", EngineCore::Helpers::GUIDrawer::GetFormat<float>());
+	auto& xyzDispatcher = xyzWidget.AddPlugin<UI::Plugins::DataDispatcher<std::array<float, 4>>>();
 	xyzDispatcher.RegisterReference(reinterpret_cast<std::array<float, 4>&>(p_data));
 	xyzWidget.lineBreak = false;
 
-	auto& rgbaWidget = rightSide.CreateWidget<OvUI::Widgets::Selection::ColorEdit>(true, OvUI::Types::Color{ p_data.x, p_data.y, p_data.z, p_data.w });
-	auto& rgbaDispatcher = rgbaWidget.AddPlugin<OvUI::Plugins::DataDispatcher<OvUI::Types::Color>>();
-	rgbaDispatcher.RegisterReference(reinterpret_cast<OvUI::Types::Color&>(p_data));
+	auto& rgbaWidget = rightSide.CreateWidget<UI::Widgets::Selection::ColorEdit>(true, UI::Types::Color{ p_data.x, p_data.y, p_data.z, p_data.w });
+	auto& rgbaDispatcher = rgbaWidget.AddPlugin<UI::Plugins::DataDispatcher<UI::Types::Color>>();
+	rgbaDispatcher.RegisterReference(reinterpret_cast<UI::Types::Color&>(p_data));
 	rgbaWidget.enabled = false;
 	rgbaWidget.lineBreak = false;
 
-	auto& xyzwButton = rightSide.CreateWidget<OvUI::Widgets::Buttons::Button>("XYZW");
+	auto& xyzwButton = rightSide.CreateWidget<UI::Widgets::Buttons::Button>("XYZW");
 	xyzwButton.idleBackgroundColor = { 0.7f, 0.5f, 0.0f };
 	xyzwButton.lineBreak = false;
 
-	auto& rgbaButton = rightSide.CreateWidget<OvUI::Widgets::Buttons::Button>("RGBA");
+	auto& rgbaButton = rightSide.CreateWidget<UI::Widgets::Buttons::Button>("RGBA");
 	rgbaButton.idleBackgroundColor = { 0.7f, 0.5f, 0.0f };
 
 	xyzwButton.ClickedEvent += [&]
@@ -97,16 +97,16 @@ void DrawHybridVec4(OvUI::Internal::WidgetContainer& p_root, const std::string& 
 	};
 }
 
-OvEditor::Panels::MaterialEditor::MaterialEditor
+Editor::Panels::MaterialEditor::MaterialEditor
 (
 	const std::string& p_title,
 	bool p_opened,
-	const OvUI::Settings::PanelWindowSettings& p_windowSettings
+	const UI::Settings::PanelWindowSettings& p_windowSettings
 ) :
 	PanelWindow(p_title, p_opened, p_windowSettings)
 {
 	CreateHeaderButtons();
-	CreateWidget<OvUI::Widgets::Visual::Separator>();
+	CreateWidget<UI::Widgets::Visual::Separator>();
 	CreateMaterialSelector();
 	m_settings = &CreateWidget<Layout::Group>();
 	CreateShaderSelector();
@@ -120,32 +120,32 @@ OvEditor::Panels::MaterialEditor::MaterialEditor
 	m_shaderDroppedEvent	+= std::bind(&MaterialEditor::OnShaderDropped, this);
 }
 
-void OvEditor::Panels::MaterialEditor::Refresh()
+void Editor::Panels::MaterialEditor::Refresh()
 {
 	if (m_target)
 		SetTarget(*m_target);
 }
 
-void OvEditor::Panels::MaterialEditor::SetTarget(OvCore::Resources::Material & p_newTarget)
+void Editor::Panels::MaterialEditor::SetTarget(EngineCore::Resources::Material & p_newTarget)
 {
 	m_target = &p_newTarget;
 	m_targetMaterialText->content = m_target->path;
 	OnMaterialDropped();
 }
 
-OvCore::Resources::Material * OvEditor::Panels::MaterialEditor::GetTarget() const
+EngineCore::Resources::Material * Editor::Panels::MaterialEditor::GetTarget() const
 {
 	return m_target;
 }
 
-void OvEditor::Panels::MaterialEditor::RemoveTarget()
+void Editor::Panels::MaterialEditor::RemoveTarget()
 {
 	m_target = nullptr;
 	m_targetMaterialText->content = "Empty";
 	OnMaterialDropped();
 }
 
-void OvEditor::Panels::MaterialEditor::Preview()
+void Editor::Panels::MaterialEditor::Preview()
 {
 	auto& assetView = EDITOR_PANEL(Panels::AssetView, "Asset View");
 
@@ -155,7 +155,7 @@ void OvEditor::Panels::MaterialEditor::Preview()
 	assetView.Open();
 }
 
-void OvEditor::Panels::MaterialEditor::Reset()
+void Editor::Panels::MaterialEditor::Reset()
 {
 	if (m_target && m_shader)
 	{
@@ -164,7 +164,7 @@ void OvEditor::Panels::MaterialEditor::Reset()
 	}
 }
 
-void OvEditor::Panels::MaterialEditor::OnMaterialDropped()
+void Editor::Panels::MaterialEditor::OnMaterialDropped()
 {
 	m_settings->enabled = m_target; // Enable m_settings group if the target material is non-null
 
@@ -186,7 +186,7 @@ void OvEditor::Panels::MaterialEditor::OnMaterialDropped()
 		OnShaderDropped();
 }
 
-void OvEditor::Panels::MaterialEditor::OnShaderDropped()
+void Editor::Panels::MaterialEditor::OnShaderDropped()
 {
 	m_shaderSettings->enabled = m_shader; // Enable m_shaderSettings group if the shader of the target material is non-null
 
@@ -203,14 +203,14 @@ void OvEditor::Panels::MaterialEditor::OnShaderDropped()
 	}
 }
 
-void OvEditor::Panels::MaterialEditor::CreateHeaderButtons()
+void Editor::Panels::MaterialEditor::CreateHeaderButtons()
 {
 	auto& saveButton = CreateWidget<Buttons::Button>("Save to file");
 	saveButton.idleBackgroundColor = { 0.0f, 0.5f, 0.0f };
 	saveButton.ClickedEvent += [this]
 	{
 		if (m_target)
-			OvCore::Resources::Loaders::MaterialLoader::Save(*m_target, EDITOR_EXEC(GetRealPath(m_target->path)));
+			EngineCore::Resources::Loaders::MaterialLoader::Save(*m_target, EDITOR_EXEC(GetRealPath(m_target->path)));
 	};
 
 	saveButton.lineBreak = false;
@@ -220,7 +220,7 @@ void OvEditor::Panels::MaterialEditor::CreateHeaderButtons()
 	reloadButton.ClickedEvent += [this]
 	{
 		if (m_target)
-			OvCore::Resources::Loaders::MaterialLoader::Reload(*m_target, EDITOR_EXEC(GetRealPath(m_target->path)));
+			EngineCore::Resources::Loaders::MaterialLoader::Reload(*m_target, EDITOR_EXEC(GetRealPath(m_target->path)));
 
 		OnMaterialDropped();
 	};
@@ -237,31 +237,31 @@ void OvEditor::Panels::MaterialEditor::CreateHeaderButtons()
 	resetButton.ClickedEvent += std::bind(&MaterialEditor::Reset, this);
 }
 
-void OvEditor::Panels::MaterialEditor::CreateMaterialSelector()
+void Editor::Panels::MaterialEditor::CreateMaterialSelector()
 {
-	auto& columns = CreateWidget<OvUI::Widgets::Layout::Columns<2>>();
+	auto& columns = CreateWidget<UI::Widgets::Layout::Columns<2>>();
 	columns.widths[0] = 150;
 	m_targetMaterialText = &GUIDrawer::DrawMaterial(columns, "Material", m_target, &m_materialDroppedEvent);
 }
 
-void OvEditor::Panels::MaterialEditor::CreateShaderSelector()
+void Editor::Panels::MaterialEditor::CreateShaderSelector()
 {
-	auto& columns = m_settings->CreateWidget<OvUI::Widgets::Layout::Columns<2>>();
+	auto& columns = m_settings->CreateWidget<UI::Widgets::Layout::Columns<2>>();
 	columns.widths[0] = 150;
 	m_shaderText = &GUIDrawer::DrawShader(columns, "Shader", m_shader, &m_shaderDroppedEvent);
 }
 
-void OvEditor::Panels::MaterialEditor::CreateMaterialSettings()
+void Editor::Panels::MaterialEditor::CreateMaterialSettings()
 {
 	m_materialSettings = &m_settings->CreateWidget<Layout::GroupCollapsable>("Material Settings");
-	m_materialSettingsColumns = &m_materialSettings->CreateWidget<OvUI::Widgets::Layout::Columns<2>>();
+	m_materialSettingsColumns = &m_materialSettings->CreateWidget<UI::Widgets::Layout::Columns<2>>();
 	m_materialSettingsColumns->widths[0] = 150;
 }
 
-void OvEditor::Panels::MaterialEditor::CreateShaderSettings()
+void Editor::Panels::MaterialEditor::CreateShaderSettings()
 {
 	m_shaderSettings = &m_settings->CreateWidget<Layout::GroupCollapsable>("Shader Settings");
-	m_shaderSettingsColumns = &m_shaderSettings->CreateWidget<OvUI::Widgets::Layout::Columns<2>>();
+	m_shaderSettingsColumns = &m_shaderSettings->CreateWidget<UI::Widgets::Layout::Columns<2>>();
 	m_shaderSettingsColumns->widths[0] = 150;
 }
 
@@ -304,9 +304,9 @@ std::string UniformFormat(const std::string& p_string)
 	return result;
 }
 
-void OvEditor::Panels::MaterialEditor::GenerateShaderSettingsContent()
+void Editor::Panels::MaterialEditor::GenerateShaderSettingsContent()
 {
-	using namespace OvRendering::Resources;
+	using namespace Rendering::Resources;
 
 	m_shaderSettingsColumns->RemoveAllWidgets(); // Ensure that the m_shaderSettingsColumns is empty
 
@@ -355,15 +355,15 @@ void OvEditor::Panels::MaterialEditor::GenerateShaderSettingsContent()
 	}
 }
 
-void OvEditor::Panels::MaterialEditor::GenerateMaterialSettingsContent()
+void Editor::Panels::MaterialEditor::GenerateMaterialSettingsContent()
 {
 	m_materialSettingsColumns->RemoveAllWidgets(); // Ensure that the m_shaderSettingsColumns is empty
 
-	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Blendable", std::bind(&OvCore::Resources::Material::IsBlendable, m_target), std::bind(&OvCore::Resources::Material::SetBlendable, m_target, std::placeholders::_1));
-	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Back-face Culling", std::bind(&OvCore::Resources::Material::HasBackfaceCulling, m_target), std::bind(&OvCore::Resources::Material::SetBackfaceCulling, m_target, std::placeholders::_1));
-	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Front-face Culling", std::bind(&OvCore::Resources::Material::HasFrontfaceCulling, m_target), std::bind(&OvCore::Resources::Material::SetFrontfaceCulling, m_target, std::placeholders::_1));
-	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Depth Test", std::bind(&OvCore::Resources::Material::HasDepthTest, m_target), std::bind(&OvCore::Resources::Material::SetDepthTest, m_target, std::placeholders::_1));
-	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Depth Writing", std::bind(&OvCore::Resources::Material::HasDepthWriting, m_target), std::bind(&OvCore::Resources::Material::SetDepthWriting, m_target, std::placeholders::_1));
-	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Color Writing", std::bind(&OvCore::Resources::Material::HasColorWriting, m_target), std::bind(&OvCore::Resources::Material::SetColorWriting, m_target, std::placeholders::_1));
-	GUIDrawer::DrawScalar<int>(*m_materialSettingsColumns, "GPU Instances", std::bind(&OvCore::Resources::Material::GetGPUInstances, m_target), std::bind(&OvCore::Resources::Material::SetGPUInstances, m_target, std::placeholders::_1), 1.0f, 0, 100000);
+	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Blendable", std::bind(&EngineCore::Resources::Material::IsBlendable, m_target), std::bind(&EngineCore::Resources::Material::SetBlendable, m_target, std::placeholders::_1));
+	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Back-face Culling", std::bind(&EngineCore::Resources::Material::HasBackfaceCulling, m_target), std::bind(&EngineCore::Resources::Material::SetBackfaceCulling, m_target, std::placeholders::_1));
+	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Front-face Culling", std::bind(&EngineCore::Resources::Material::HasFrontfaceCulling, m_target), std::bind(&EngineCore::Resources::Material::SetFrontfaceCulling, m_target, std::placeholders::_1));
+	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Depth Test", std::bind(&EngineCore::Resources::Material::HasDepthTest, m_target), std::bind(&EngineCore::Resources::Material::SetDepthTest, m_target, std::placeholders::_1));
+	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Depth Writing", std::bind(&EngineCore::Resources::Material::HasDepthWriting, m_target), std::bind(&EngineCore::Resources::Material::SetDepthWriting, m_target, std::placeholders::_1));
+	GUIDrawer::DrawBoolean(*m_materialSettingsColumns, "Color Writing", std::bind(&EngineCore::Resources::Material::HasColorWriting, m_target), std::bind(&EngineCore::Resources::Material::SetColorWriting, m_target, std::placeholders::_1));
+	GUIDrawer::DrawScalar<int>(*m_materialSettingsColumns, "GPU Instances", std::bind(&EngineCore::Resources::Material::GetGPUInstances, m_target), std::bind(&EngineCore::Resources::Material::SetGPUInstances, m_target, std::placeholders::_1), 1.0f, 0, 100000);
 }

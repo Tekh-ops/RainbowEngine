@@ -136,6 +136,7 @@ RD /S /Q "$(SolutionDir)..\..\Build\$(ProjectName)\lib\$(Configuration)"
 RD /S /Q "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)"
 
 
+
 xcopy "$(ProjectDir)include\$(ProjectName)" "$(SolutionDir)..\..\Build\$(ProjectName)\include\$(ProjectName)" /e /y /i /r
 
 xcopy "$(OutDir)*.lib" "$(SolutionDir)..\..\Build\$(ProjectName)\lib\$(Configuration)" /y /i
@@ -143,9 +144,11 @@ xcopy "$(OutDir)*.lib" "$(SolutionDir)..\..\Build\$(ProjectName)\lib\$(Configura
 xcopy "$(OutDir)*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /y /i
 
 
+
 xcopy "$(SolutionDir)..\..\Dependencies\glfw\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
 
 xcopy "$(SolutionDir)..\..\Dependencies\glfw\bin\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /y /i
+
 
 
 xcopy "$(SolutionDir)..\..\Build\Tools\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r

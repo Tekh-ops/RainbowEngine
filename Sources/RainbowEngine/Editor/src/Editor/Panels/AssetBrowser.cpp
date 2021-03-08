@@ -1,8 +1,3 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #include <fstream>
 #include <iostream>
@@ -23,10 +18,10 @@
 #include <Tools/Utils/PathParser.h>
 #include <Tools/Utils/String.h>
 
-#include <OvCore/Global/ServiceLocator.h>
-#include <OvCore/ResourceManagement/ModelManager.h>
-#include <OvCore/ResourceManagement/TextureManager.h>
-#include <OvCore/ResourceManagement/ShaderManager.h>
+#include <EngineCore/Global/ServiceLocator.h>
+#include <EngineCore/ResourceManagement/ModelManager.h>
+#include <EngineCore/ResourceManagement/TextureManager.h>
+#include <EngineCore/ResourceManagement/ShaderManager.h>
 
 #include <Debug/Utils/Logger.h>
 
@@ -37,10 +32,10 @@
 #include "Editor/Core/EditorActions.h"
 #include "Editor/Core/EditorResources.h"
 
-using namespace OvUI::Panels;
-using namespace OvUI::Widgets;
+using namespace UI::Panels;
+using namespace UI::Widgets;
 
-#define FILENAMES_CHARS OvEditor::Panels::AssetBrowser::__FILENAMES_CHARS
+#define FILENAMES_CHARS Editor::Panels::AssetBrowser::__FILENAMES_CHARS
 
 const std::string FILENAMES_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-_=+ 0123456789()[]";
 
@@ -61,7 +56,7 @@ void RenameAsset(const std::string& p_prev, const std::string& p_new)
 		}
 		else
 		{
-			OVLOG_ERROR(newMetaPath + " is already existing, .meta creation failed");
+			LOG_ERROR(newMetaPath + " is already existing, .meta creation failed");
 		}
 	}
 }
@@ -76,7 +71,7 @@ void RemoveAsset(const std::string& p_toDelete)
 	}
 }
 
-class TexturePreview : public OvUI::Plugins::IPlugin
+class TexturePreview : public UI::Plugins::IPlugin
 {
 public:
 	TexturePreview() : image(0, { 80, 80 })
@@ -86,7 +81,7 @@ public:
 
 	void SetPath(const std::string& p_path)
 	{
-		texture = OvCore::Global::ServiceLocator::Get<OvCore::ResourceManagement::TextureManager>()[p_path];
+		texture = EngineCore::Global::ServiceLocator::Get<EngineCore::ResourceManagement::TextureManager>()[p_path];
 	}
 
 	virtual void Execute() override
@@ -102,11 +97,11 @@ public:
 		}
 	}
 
-	OvRendering::Resources::Texture* texture = nullptr;
-	OvUI::Widgets::Visual::Image image;
+	Rendering::Resources::Texture* texture = nullptr;
+	UI::Widgets::Visual::Image image;
 };
 
-class BrowserItemContextualMenu : public OvUI::Plugins::ContextualMenu
+class BrowserItemContextualMenu : public UI::Plugins::ContextualMenu
 {
 public:
 	BrowserItemContextualMenu(const std::string p_filePath, bool p_protected = false) : m_protected(p_protected), filePath(p_filePath) {}
@@ -115,15 +110,15 @@ public:
 	{
 		if (!m_protected)
 		{
-			auto& renameMenu = CreateWidget<OvUI::Widgets::Menu::MenuList>("Rename to...");
-			auto& deleteAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Delete");
+			auto& renameMenu = CreateWidget<UI::Widgets::Menu::MenuList>("Rename to...");
+			auto& deleteAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Delete");
 
-			auto& nameEditor = renameMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
+			auto& nameEditor = renameMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 			nameEditor.selectAllOnClick = true;
 
 			renameMenu.ClickedEvent += [this, &nameEditor]
 			{
-				nameEditor.content = OvTools::Utils::PathParser::GetElementName(filePath);
+				nameEditor.content = Tools::Utils::PathParser::GetElementName(filePath);
 
 				if (!std::filesystem::is_directory(filePath))
 					if (size_t pos = nameEditor.content.rfind('.'); pos != std::string::npos)
@@ -135,7 +130,7 @@ public:
 			nameEditor.EnterPressedEvent += [this](std::string p_newName)
 			{
 				if (!std::filesystem::is_directory(filePath))
-					p_newName += '.' + OvTools::Utils::PathParser::GetExtension(filePath);
+					p_newName += '.' + Tools::Utils::PathParser::GetExtension(filePath);
 
 				/* Clean the name (Remove special chars) */
 				p_newName.erase(std::remove_if(p_newName.begin(), p_newName.end(), [](auto& c)
@@ -143,7 +138,7 @@ public:
 					return std::find(FILENAMES_CHARS.begin(), FILENAMES_CHARS.end(), c) == FILENAMES_CHARS.end();
 				}), p_newName.end());
 
-				std::string containingFolderPath = OvTools::Utils::PathParser::GetContainingFolder(filePath);
+				std::string containingFolderPath = Tools::Utils::PathParser::GetContainingFolder(filePath);
 				std::string newPath = containingFolderPath + p_newName;
 				std::string oldPath = filePath;
 
@@ -161,7 +156,7 @@ public:
 	virtual void Execute() override
 	{
 		if (m_widgets.size() > 0)
-			OvUI::Plugins::ContextualMenu::Execute();
+			UI::Plugins::ContextualMenu::Execute();
 	}
 
 	virtual void DeleteItem() = 0;
@@ -169,8 +164,8 @@ public:
 public:
 	bool m_protected;
 	std::string filePath;
-	OvTools::Eventing::Event<std::string> DestroyedEvent;
-	OvTools::Eventing::Event<std::string, std::string> RenamedEvent;
+	Tools::Eventing::Event<std::string> DestroyedEvent;
+	Tools::Eventing::Event<std::string, std::string> RenamedEvent;
 };
 
 class FolderContextualMenu : public BrowserItemContextualMenu
@@ -180,56 +175,56 @@ public:
 
 	virtual void CreateList() override
 	{
-		auto& showInExplorer = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Show in explorer");
+		auto& showInExplorer = CreateWidget<UI::Widgets::Menu::MenuItem>("Show in explorer");
 		showInExplorer.ClickedEvent += [this]
 		{
-			OvTools::Utils::SystemCalls::ShowInExplorer(filePath);
+			Tools::Utils::SystemCalls::ShowInExplorer(filePath);
 		};
 
 		if (!m_protected)
 		{
-			auto& importAssetHere = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Import Here...");
+			auto& importAssetHere = CreateWidget<UI::Widgets::Menu::MenuItem>("Import Here...");
 			importAssetHere.ClickedEvent += [this]
 			{
 				if (EDITOR_EXEC(ImportAssetAtLocation(filePath)))
 				{
-					OvUI::Widgets::Layout::TreeNode* pluginOwner = reinterpret_cast<OvUI::Widgets::Layout::TreeNode*>(userData);
+					UI::Widgets::Layout::TreeNode* pluginOwner = reinterpret_cast<UI::Widgets::Layout::TreeNode*>(userData);
 					pluginOwner->Close();
-					EDITOR_EXEC(DelayAction(std::bind(&OvUI::Widgets::Layout::TreeNode::Open, pluginOwner)));
+					EDITOR_EXEC(DelayAction(std::bind(&UI::Widgets::Layout::TreeNode::Open, pluginOwner)));
 				}
 			};
 
-			auto& createMenu = CreateWidget<OvUI::Widgets::Menu::MenuList>("Create..");
+			auto& createMenu = CreateWidget<UI::Widgets::Menu::MenuList>("Create..");
 
-			auto& createFolderMenu = createMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Folder");
-			auto& createSceneMenu = createMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Scene");
-			auto& createShaderMenu = createMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Shader");
-			auto& createMaterialMenu = createMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Material");
+			auto& createFolderMenu = createMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Folder");
+			auto& createSceneMenu = createMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Scene");
+			auto& createShaderMenu = createMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Shader");
+			auto& createMaterialMenu = createMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Material");
 
-			auto& createStandardShaderMenu = createShaderMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Standard template");
-			auto& createStandardPBRShaderMenu = createShaderMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Standard PBR template");
-			auto& createUnlitShaderMenu = createShaderMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Unlit template");
-			auto& createLambertShaderMenu = createShaderMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Lambert template");
+			auto& createStandardShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Standard template");
+			auto& createStandardPBRShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Standard PBR template");
+			auto& createUnlitShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Unlit template");
+			auto& createLambertShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Lambert template");
 
-			auto& createEmptyMaterialMenu = createMaterialMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Empty");
-			auto& createStandardMaterialMenu = createMaterialMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Standard");
-			auto& createStandardPBRMaterialMenu = createMaterialMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Standard PBR");
-			auto& createUnlitMaterialMenu = createMaterialMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Unlit");
-			auto& createLambertMaterialMenu = createMaterialMenu.CreateWidget<OvUI::Widgets::Menu::MenuList>("Lambert");
+			auto& createEmptyMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Empty");
+			auto& createStandardMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Standard");
+			auto& createStandardPBRMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Standard PBR");
+			auto& createUnlitMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Unlit");
+			auto& createLambertMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Lambert");
 
-			auto& createFolder = createFolderMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createScene = createSceneMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
+			auto& createFolder = createFolderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createScene = createSceneMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 
-			auto& createEmptyMaterial = createEmptyMaterialMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createStandardMaterial = createStandardMaterialMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createStandardPBRMaterial = createStandardPBRMaterialMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createUnlitMaterial = createUnlitMaterialMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createLambertMaterial = createLambertMaterialMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
+			auto& createEmptyMaterial = createEmptyMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createStandardMaterial = createStandardMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createStandardPBRMaterial = createStandardPBRMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createUnlitMaterial = createUnlitMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createLambertMaterial = createLambertMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 
-			auto& createStandardShader = createStandardShaderMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createStandardPBRShader = createStandardPBRShaderMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createUnlitShader = createUnlitShaderMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-			auto& createLambertShader = createLambertShaderMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
+			auto& createStandardShader = createStandardShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createStandardPBRShader = createStandardPBRShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createUnlitShader = createUnlitShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			auto& createLambertShader = createLambertShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 
 			createFolderMenu.ClickedEvent += [&createFolder] { createFolder.content = ""; };
 			createSceneMenu.ClickedEvent += [&createScene] { createScene.content = ""; };
@@ -274,7 +269,7 @@ public:
 				} while (std::filesystem::exists(finalPath));
 
 				std::ofstream outfile(finalPath);
-				outfile << "<root><scene><actors><actor><name>Directional Light</name><tag></tag><active>true</active><id>1</id><parent>0</parent><components><component><type>class OvCore::ECS::Components::CDirectionalLight</type><data><diffuse><x>1</x><y>1</y><z>1</z></diffuse><specular><x>1</x><y>1</y><z>1</z></specular><intensity>0.75</intensity></data></component><component><type>class OvCore::ECS::Components::CTransform</type><data><position><x>0</x><y>10</y><z>0</z></position><rotation><x>0.81379771</x><y>-0.17101006</y><z>0.29619816</z><w>0.46984628</w></rotation><scale><x>1</x><y>1</y><z>1</z></scale></data></component></components><behaviours/></actor><actor><name>Ambient Light</name><tag></tag><active>true</active><id>2</id><parent>0</parent><components><component><type>class OvCore::ECS::Components::CAmbientSphereLight</type><data><ambient><x>0.1</x><y>0.1</y><z>0.1</z></ambient><intensity>1</intensity><radius>10000</radius></data></component><component><type>class OvCore::ECS::Components::CTransform</type><data><position><x>0</x><y>0</y><z>0</z></position><rotation><x>0</x><y>0</y><z>0</z><w>1</w></rotation><scale><x>1</x><y>1</y><z>1</z></scale></data></component></components><behaviours/></actor><actor><name>Main Camera</name><tag></tag><active>true</active><id>3</id><parent>0</parent><components><component><type>class OvCore::ECS::Components::CCamera</type><data><fov>45</fov><near>0.1</near><far>1000</far><clear_color><x>0.1921569</x><y>0.3019608</y><z>0.47450981</z></clear_color></data></component><component><type>class OvCore::ECS::Components::CTransform</type><data><position><x>0</x><y>3</y><z>8</z></position><rotation><x>-7.5904039e-09</x><y>0.98480773</y><z>-0.17364819</z><w>-4.3047311e-08</w></rotation><scale><x>1</x><y>1</y><z>1</z></scale></data></component></components><behaviours/></actor></actors></scene></root>" << std::endl; // Empty scene content
+				outfile << "<root><scene><actors><actor><name>Directional Light</name><tag></tag><active>true</active><id>1</id><parent>0</parent><components><component><type>class Core::ECS::Components::CDirectionalLight</type><data><diffuse><x>1</x><y>1</y><z>1</z></diffuse><specular><x>1</x><y>1</y><z>1</z></specular><intensity>0.75</intensity></data></component><component><type>class Core::ECS::Components::CTransform</type><data><position><x>0</x><y>10</y><z>0</z></position><rotation><x>0.81379771</x><y>-0.17101006</y><z>0.29619816</z><w>0.46984628</w></rotation><scale><x>1</x><y>1</y><z>1</z></scale></data></component></components><behaviours/></actor><actor><name>Ambient Light</name><tag></tag><active>true</active><id>2</id><parent>0</parent><components><component><type>class Core::ECS::Components::CAmbientSphereLight</type><data><ambient><x>0.1</x><y>0.1</y><z>0.1</z></ambient><intensity>1</intensity><radius>10000</radius></data></component><component><type>class Core::ECS::Components::CTransform</type><data><position><x>0</x><y>0</y><z>0</z></position><rotation><x>0</x><y>0</y><z>0</z><w>1</w></rotation><scale><x>1</x><y>1</y><z>1</z></scale></data></component></components><behaviours/></actor><actor><name>Main Camera</name><tag></tag><active>true</active><id>3</id><parent>0</parent><components><component><type>class Core::ECS::Components::CCamera</type><data><fov>45</fov><near>0.1</near><far>1000</far><clear_color><x>0.1921569</x><y>0.3019608</y><z>0.47450981</z></clear_color></data></component><component><type>class Core::ECS::Components::CTransform</type><data><position><x>0</x><y>3</y><z>8</z></position><rotation><x>-7.5904039e-09</x><y>0.98480773</y><z>-0.17364819</z><w>-4.3047311e-08</w></rotation><scale><x>1</x><y>1</y><z>1</z></scale></data></component></components><behaviours/></actor></actors></scene></root>" << std::endl; // Empty scene content
 
 				ItemAddedEvent.Invoke(finalPath);
 				Close();
@@ -369,7 +364,7 @@ public:
 
 				if (auto instance = EDITOR_CONTEXT(materialManager)[EDITOR_EXEC(GetResourcePath(finalPath))])
 				{
-					auto& materialEditor = EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor");
+					auto& materialEditor = EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor");
 					materialEditor.SetTarget(*instance);
 					materialEditor.Open();
 					materialEditor.Focus();
@@ -399,7 +394,7 @@ public:
 
 				if (auto instance = EDITOR_CONTEXT(materialManager)[EDITOR_EXEC(GetResourcePath(finalPath))])
 				{
-					auto& materialEditor = EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor");
+					auto& materialEditor = EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor");
 					materialEditor.SetTarget(*instance);
 					materialEditor.Open();
 					materialEditor.Focus();
@@ -429,7 +424,7 @@ public:
 
 				if (auto instance = EDITOR_CONTEXT(materialManager)[EDITOR_EXEC(GetResourcePath(finalPath))])
 				{
-					auto& materialEditor = EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor");
+					auto& materialEditor = EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor");
 					materialEditor.SetTarget(*instance);
 					materialEditor.Open();
 					materialEditor.Focus();
@@ -460,7 +455,7 @@ public:
 
 				if (auto instance = EDITOR_CONTEXT(materialManager)[EDITOR_EXEC(GetResourcePath(finalPath))])
 				{
-					auto& materialEditor = EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor");
+					auto& materialEditor = EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor");
 					materialEditor.SetTarget(*instance);
 					materialEditor.Open();
 					materialEditor.Focus();
@@ -490,7 +485,7 @@ public:
 
 				if (auto instance = EDITOR_CONTEXT(materialManager)[EDITOR_EXEC(GetResourcePath(finalPath))])
 				{
-					auto& materialEditor = EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor");
+					auto& materialEditor = EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor");
 					materialEditor.SetTarget(*instance);
 					materialEditor.Open();
 					materialEditor.Focus();
@@ -505,7 +500,7 @@ public:
 
 	virtual void DeleteItem() override
 	{
-		using namespace OvWindowing::Dialogs;
+		using namespace Windowing::Dialogs;
 		MessageBox message("Delete folder", "Deleting a folder (and all its content) is irreversible, are you sure that you want to delete \"" + filePath + "\"?", MessageBox::EMessageType::WARNING, MessageBox::EButtonLayout::YES_NO);
 
 		if (message.GetUserAction() == MessageBox::EUserAction::YES)
@@ -520,7 +515,7 @@ public:
 	}
 
 public:
-	OvTools::Eventing::Event<std::string> ItemAddedEvent;
+	Tools::Eventing::Event<std::string> ItemAddedEvent;
 };
 
 class ScriptFolderContextualMenu : public FolderContextualMenu
@@ -543,12 +538,12 @@ public:
 	{
 		FolderContextualMenu::CreateList();
 
-		auto& newScriptMenu = CreateWidget<OvUI::Widgets::Menu::MenuList>("New script...");
-		auto& nameEditor = newScriptMenu.CreateWidget<OvUI::Widgets::InputFields::InputText>("");
+		auto& newScriptMenu = CreateWidget<UI::Widgets::Menu::MenuList>("New script...");
+		auto& nameEditor = newScriptMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 
 		newScriptMenu.ClickedEvent += [this, &nameEditor]
 		{
-			nameEditor.content = OvTools::Utils::PathParser::GetElementName("");
+			nameEditor.content = Tools::Utils::PathParser::GetElementName("");
 		};
 
 		nameEditor.EnterPressedEvent += [this](std::string p_newName)
@@ -576,16 +571,16 @@ public:
 
 	virtual void CreateList() override
 	{
-		auto& editAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Open");
+		auto& editAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Open");
 
 		editAction.ClickedEvent += [this]
 		{
-			OvTools::Utils::SystemCalls::OpenFile(filePath);
+			Tools::Utils::SystemCalls::OpenFile(filePath);
 		};
 
 		if (!m_protected)
 		{
-			auto& duplicateAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Duplicate");
+			auto& duplicateAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Duplicate");
 
 			duplicateAction.ClickedEvent += [this]
 			{
@@ -594,14 +589,14 @@ public:
 				if (size_t pos = filePathWithoutExtension.rfind('.'); pos != std::string::npos)
 					filePathWithoutExtension = filePathWithoutExtension.substr(0, pos);
 
-				std::string extension = "." + OvTools::Utils::PathParser::GetExtension(filePath);
+				std::string extension = "." + Tools::Utils::PathParser::GetExtension(filePath);
 
                 auto filenameAvailable = [&extension](const std::string& target)
                 {
                     return !std::filesystem::exists(target + extension);
                 };
 
-                const auto newNameWithoutExtension = OvTools::Utils::String::GenerateUnique(filePathWithoutExtension, filenameAvailable);
+                const auto newNameWithoutExtension = Tools::Utils::String::GenerateUnique(filePathWithoutExtension, filenameAvailable);
 
 				std::string finalPath = newNameWithoutExtension + extension;
 				std::filesystem::copy(filePath, finalPath);
@@ -613,11 +608,11 @@ public:
 		BrowserItemContextualMenu::CreateList();
 
 
-        auto& editMetadata = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Properties");
+        auto& editMetadata = CreateWidget<UI::Widgets::Menu::MenuItem>("Properties");
 
         editMetadata.ClickedEvent += [this]
         {
-            auto& panel = EDITOR_PANEL(OvEditor::Panels::AssetProperties, "Asset Properties");
+            auto& panel = EDITOR_PANEL(Editor::Panels::AssetProperties, "Asset Properties");
             std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
             panel.SetTarget(resourcePath);
             panel.Open();
@@ -627,7 +622,7 @@ public:
 
 	virtual void DeleteItem() override
 	{
-		using namespace OvWindowing::Dialogs;
+		using namespace Windowing::Dialogs;
 		MessageBox message("Delete file", "Deleting a file is irreversible, are you sure that you want to delete \"" + filePath + "\"?", MessageBox::EMessageType::WARNING, MessageBox::EButtonLayout::YES_NO);
 
 		if (message.GetUserAction() == MessageBox::EUserAction::YES)
@@ -639,7 +634,7 @@ public:
 	}
 
 public:
-	OvTools::Eventing::Event<std::string> DuplicateEvent;
+	Tools::Eventing::Event<std::string> DuplicateEvent;
 };
 
 template<typename Resource, typename ResourceLoader>
@@ -650,12 +645,12 @@ public:
 
 	virtual void CreateList() override
 	{
-		auto& previewAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Preview");
+		auto& previewAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Preview");
 
 		previewAction.ClickedEvent += [this]
 		{
-			Resource* resource = OvCore::Global::ServiceLocator::Get<ResourceLoader>()[EDITOR_EXEC(GetResourcePath(filePath, m_protected))];
-			auto& assetView = EDITOR_PANEL(OvEditor::Panels::AssetView, "Asset View");
+			Resource* resource = EngineCore::Global::ServiceLocator::Get<ResourceLoader>()[EDITOR_EXEC(GetResourcePath(filePath, m_protected))];
+			auto& assetView = EDITOR_PANEL(Editor::Panels::AssetView, "Asset View");
 			assetView.SetResource(resource);
 			assetView.Open();
 			assetView.Focus();
@@ -674,41 +669,41 @@ public:
 	{
 		FileContextualMenu::CreateList();
 
-		auto& compileAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Compile");
+		auto& compileAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Compile");
 
 		compileAction.ClickedEvent += [this]
 		{
-			auto& shaderManager = OVSERVICE(OvCore::ResourceManagement::ShaderManager);
+			auto& shaderManager = OVSERVICE(EngineCore::ResourceManagement::ShaderManager);
 			std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
 			if (shaderManager.IsResourceRegistered(resourcePath))
 			{
 				/* Trying to recompile */
-				OvRendering::Resources::Loaders::ShaderLoader::Recompile(*shaderManager[resourcePath], filePath);
+				Rendering::Resources::Loaders::ShaderLoader::Recompile(*shaderManager[resourcePath], filePath);
 			}
 			else
 			{
 				/* Trying to compile */
-				OvRendering::Resources::Shader* shader = OVSERVICE(OvCore::ResourceManagement::ShaderManager)[resourcePath];
+				Rendering::Resources::Shader* shader = OVSERVICE(EngineCore::ResourceManagement::ShaderManager)[resourcePath];
 				if (shader)
-					OVLOG_INFO("[COMPILE] \"" + filePath + "\": Success!");
+					LOG_INFO("[COMPILE] \"" + filePath + "\": Success!");
 			}
 			
 		};
 	}
 };
 
-class ModelContextualMenu : public PreviewableContextualMenu<OvRendering::Resources::Model, OvCore::ResourceManagement::ModelManager>
+class ModelContextualMenu : public PreviewableContextualMenu<Rendering::Resources::Model, EngineCore::ResourceManagement::ModelManager>
 {
 public:
 	ModelContextualMenu(const std::string& p_filePath, bool p_protected = false) : PreviewableContextualMenu(p_filePath, p_protected) {}
 
 	virtual void CreateList() override
 	{
-		auto& reloadAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Reload");
+		auto& reloadAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Reload");
 
 		reloadAction.ClickedEvent += [this]
 		{
-			auto& modelManager = OVSERVICE(OvCore::ResourceManagement::ModelManager);
+			auto& modelManager = OVSERVICE(EngineCore::ResourceManagement::ModelManager);
 			std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
 			if (modelManager.IsResourceRegistered(resourcePath))
 			{
@@ -718,11 +713,11 @@ public:
 
 		if (!m_protected)
 		{
-			auto& generateMaterialsMenu = CreateWidget<OvUI::Widgets::Menu::MenuList>("Generate materials...");
+			auto& generateMaterialsMenu = CreateWidget<UI::Widgets::Menu::MenuList>("Generate materials...");
 
-			generateMaterialsMenu.CreateWidget<OvUI::Widgets::Menu::MenuItem>("Standard").ClickedEvent += [this]
+			generateMaterialsMenu.CreateWidget<UI::Widgets::Menu::MenuItem>("Standard").ClickedEvent += [this]
 			{
-				auto& modelManager = OVSERVICE(OvCore::ResourceManagement::ModelManager);
+				auto& modelManager = OVSERVICE(EngineCore::ResourceManagement::ModelManager);
 				std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
 				if (auto model = modelManager.GetResource(resourcePath))
 				{
@@ -733,7 +728,7 @@ public:
 
 						do
 						{
-							finalPath = OvTools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
+							finalPath = Tools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
 
 							++fails;
 						} while (std::filesystem::exists(finalPath));
@@ -748,9 +743,9 @@ public:
 				}
 			};
 
-			generateMaterialsMenu.CreateWidget<OvUI::Widgets::Menu::MenuItem>("StandardPBR").ClickedEvent += [this]
+			generateMaterialsMenu.CreateWidget<UI::Widgets::Menu::MenuItem>("StandardPBR").ClickedEvent += [this]
 			{
-				auto& modelManager = OVSERVICE(OvCore::ResourceManagement::ModelManager);
+				auto& modelManager = OVSERVICE(EngineCore::ResourceManagement::ModelManager);
 				std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
 				if (auto model = modelManager.GetResource(resourcePath))
 				{
@@ -761,7 +756,7 @@ public:
 
 						do
 						{
-							finalPath = OvTools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
+							finalPath = Tools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
 
 							++fails;
 						} while (std::filesystem::exists(finalPath));
@@ -776,9 +771,9 @@ public:
 				}
 			};
 
-			generateMaterialsMenu.CreateWidget<OvUI::Widgets::Menu::MenuItem>("Unlit").ClickedEvent += [this]
+			generateMaterialsMenu.CreateWidget<UI::Widgets::Menu::MenuItem>("Unlit").ClickedEvent += [this]
 			{
-				auto& modelManager = OVSERVICE(OvCore::ResourceManagement::ModelManager);
+				auto& modelManager = OVSERVICE(EngineCore::ResourceManagement::ModelManager);
 				std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
 				if (auto model = modelManager.GetResource(resourcePath))
 				{
@@ -789,7 +784,7 @@ public:
 
 						do
 						{
-							finalPath = OvTools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
+							finalPath = Tools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
 
 							++fails;
 						} while (std::filesystem::exists(finalPath));
@@ -804,9 +799,9 @@ public:
 				}
 			};
 
-			generateMaterialsMenu.CreateWidget<OvUI::Widgets::Menu::MenuItem>("Lambert").ClickedEvent += [this]
+			generateMaterialsMenu.CreateWidget<UI::Widgets::Menu::MenuItem>("Lambert").ClickedEvent += [this]
 			{
-				auto& modelManager = OVSERVICE(OvCore::ResourceManagement::ModelManager);
+				auto& modelManager = OVSERVICE(EngineCore::ResourceManagement::ModelManager);
 				std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
 				if (auto model = modelManager.GetResource(resourcePath))
 				{
@@ -817,7 +812,7 @@ public:
 
 						do
 						{
-							finalPath = OvTools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
+							finalPath = Tools::Utils::PathParser::GetContainingFolder(filePath) + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
 
 							++fails;
 						} while (std::filesystem::exists(finalPath));
@@ -837,24 +832,24 @@ public:
 	}
 };
 
-class TextureContextualMenu : public PreviewableContextualMenu<OvRendering::Resources::Texture, OvCore::ResourceManagement::TextureManager>
+class TextureContextualMenu : public PreviewableContextualMenu<Rendering::Resources::Texture, EngineCore::ResourceManagement::TextureManager>
 {
 public:
 	TextureContextualMenu(const std::string& p_filePath, bool p_protected = false) : PreviewableContextualMenu(p_filePath, p_protected) {}
 
 	virtual void CreateList() override
 	{
-		auto& reloadAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Reload");
+		auto& reloadAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Reload");
 
 		reloadAction.ClickedEvent += [this]
 		{
-			auto& textureManager = OVSERVICE(OvCore::ResourceManagement::TextureManager);
+			auto& textureManager = OVSERVICE(EngineCore::ResourceManagement::TextureManager);
 			std::string resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
 			if (textureManager.IsResourceRegistered(resourcePath))
 			{
 				/* Trying to recompile */
 				textureManager.AResourceManager::ReloadResource(resourcePath);
-				EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor").Refresh();
+				EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor").Refresh();
 			}
 		};
 
@@ -869,7 +864,7 @@ public:
 
 	virtual void CreateList() override
 	{
-		auto& editAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Edit");
+		auto& editAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Edit");
 
 		editAction.ClickedEvent += [this]
 		{
@@ -880,43 +875,43 @@ public:
 	}
 };
 
-class MaterialContextualMenu : public PreviewableContextualMenu<OvCore::Resources::Material, OvCore::ResourceManagement::MaterialManager>
+class MaterialContextualMenu : public PreviewableContextualMenu<EngineCore::Resources::Material, EngineCore::ResourceManagement::MaterialManager>
 {
 public:
 	MaterialContextualMenu(const std::string& p_filePath, bool p_protected = false) : PreviewableContextualMenu(p_filePath, p_protected) {}
 
 	virtual void CreateList() override
 	{
-		auto& editAction = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Edit");
+		auto& editAction = CreateWidget<UI::Widgets::Menu::MenuItem>("Edit");
 
 		editAction.ClickedEvent += [this]
 		{
-			OvCore::Resources::Material* material = OVSERVICE(OvCore::ResourceManagement::MaterialManager)[EDITOR_EXEC(GetResourcePath(filePath, m_protected))];
+			EngineCore::Resources::Material* material = OVSERVICE(EngineCore::ResourceManagement::MaterialManager)[EDITOR_EXEC(GetResourcePath(filePath, m_protected))];
 			if (material)
 			{
-				auto& materialEditor = EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor");
+				auto& materialEditor = EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor");
 				materialEditor.SetTarget(*material);
 				materialEditor.Open();
 				materialEditor.Focus();
 				
-				OvCore::Resources::Material* resource = OvCore::Global::ServiceLocator::Get<OvCore::ResourceManagement::MaterialManager>()[EDITOR_EXEC(GetResourcePath(filePath, m_protected))];
-				auto& assetView = EDITOR_PANEL(OvEditor::Panels::AssetView, "Asset View");
+				EngineCore::Resources::Material* resource = EngineCore::Global::ServiceLocator::Get<EngineCore::ResourceManagement::MaterialManager>()[EDITOR_EXEC(GetResourcePath(filePath, m_protected))];
+				auto& assetView = EDITOR_PANEL(Editor::Panels::AssetView, "Asset View");
 				assetView.SetResource(resource);
 				assetView.Open();
 				assetView.Focus();
 			}
 		};
 
-		auto& reload = CreateWidget<OvUI::Widgets::Menu::MenuItem>("Reload");
+		auto& reload = CreateWidget<UI::Widgets::Menu::MenuItem>("Reload");
 		reload.ClickedEvent += [this]
 		{
-			auto materialManager = OVSERVICE(OvCore::ResourceManagement::MaterialManager);
+			auto materialManager = OVSERVICE(EngineCore::ResourceManagement::MaterialManager);
 			auto resourcePath = EDITOR_EXEC(GetResourcePath(filePath, m_protected));
-			OvCore::Resources::Material* material = materialManager[resourcePath];
+			EngineCore::Resources::Material* material = materialManager[resourcePath];
 			if (material)
 			{
 				materialManager.AResourceManager::ReloadResource(resourcePath);
-				EDITOR_PANEL(OvEditor::Panels::MaterialEditor, "Material Editor").Refresh();
+				EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor").Refresh();
 			}
 		};
 
@@ -924,11 +919,11 @@ public:
 	}
 };
 
-OvEditor::Panels::AssetBrowser::AssetBrowser
+Editor::Panels::AssetBrowser::AssetBrowser
 (
 	const std::string& p_title,
 	bool p_opened,
-	const OvUI::Settings::PanelWindowSettings& p_windowSettings,
+	const UI::Settings::PanelWindowSettings& p_windowSettings,
 	const std::string& p_engineAssetFolder,
 	const std::string& p_projectAssetFolder,
 	const std::string& p_projectScriptFolder
@@ -942,12 +937,12 @@ OvEditor::Panels::AssetBrowser::AssetBrowser
 	{
 		std::filesystem::create_directories(m_projectAssetFolder);
 
-		OvWindowing::Dialogs::MessageBox message
+		Windowing::Dialogs::MessageBox message
 		(
 			"Assets folder not found",
 			"The \"Assets/\" folders hasn't been found in your project directory.\nIt has been automatically generated",
-			OvWindowing::Dialogs::MessageBox::EMessageType::WARNING,
-			OvWindowing::Dialogs::MessageBox::EButtonLayout::OK
+			Windowing::Dialogs::MessageBox::EMessageType::WARNING,
+			Windowing::Dialogs::MessageBox::EButtonLayout::OK
 		);
 	}
 
@@ -955,12 +950,12 @@ OvEditor::Panels::AssetBrowser::AssetBrowser
 	{
 		std::filesystem::create_directories(m_projectScriptFolder);
 
-		OvWindowing::Dialogs::MessageBox message
+		Windowing::Dialogs::MessageBox message
 		(
 			"Scripts folder not found",
 			"The \"Scripts/\" folders hasn't been found in your project directory.\nIt has been automatically generated",
-			OvWindowing::Dialogs::MessageBox::EMessageType::WARNING,
-			OvWindowing::Dialogs::MessageBox::EButtonLayout::OK
+			Windowing::Dialogs::MessageBox::EMessageType::WARNING,
+			Windowing::Dialogs::MessageBox::EButtonLayout::OK
 		);
 	}
 
@@ -978,28 +973,28 @@ OvEditor::Panels::AssetBrowser::AssetBrowser
 	Fill();
 }
 
-void OvEditor::Panels::AssetBrowser::Fill()
+void Editor::Panels::AssetBrowser::Fill()
 {
-	m_assetList->CreateWidget<OvUI::Widgets::Visual::Separator>();
+	m_assetList->CreateWidget<UI::Widgets::Visual::Separator>();
 	ConsiderItem(nullptr, std::filesystem::directory_entry(m_engineAssetFolder), true);
-	m_assetList->CreateWidget<OvUI::Widgets::Visual::Separator>();
+	m_assetList->CreateWidget<UI::Widgets::Visual::Separator>();
 	ConsiderItem(nullptr, std::filesystem::directory_entry(m_projectAssetFolder), false);
-	m_assetList->CreateWidget<OvUI::Widgets::Visual::Separator>();
+	m_assetList->CreateWidget<UI::Widgets::Visual::Separator>();
 	ConsiderItem(nullptr, std::filesystem::directory_entry(m_projectScriptFolder), false, false, true);
 }
 
-void OvEditor::Panels::AssetBrowser::Clear()
+void Editor::Panels::AssetBrowser::Clear()
 {
 	m_assetList->RemoveAllWidgets();
 }
 
-void OvEditor::Panels::AssetBrowser::Refresh()
+void Editor::Panels::AssetBrowser::Refresh()
 {
 	Clear();
 	Fill();
 }
 
-void OvEditor::Panels::AssetBrowser::ParseFolder(Layout::TreeNode& p_root, const std::filesystem::directory_entry& p_directory, bool p_isEngineItem, bool p_scriptFolder)
+void Editor::Panels::AssetBrowser::ParseFolder(Layout::TreeNode& p_root, const std::filesystem::directory_entry& p_directory, bool p_isEngineItem, bool p_scriptFolder)
 {
 	/* Iterates another time to display list files */
 	for (auto& item : std::filesystem::directory_iterator(p_directory))
@@ -1012,20 +1007,20 @@ void OvEditor::Panels::AssetBrowser::ParseFolder(Layout::TreeNode& p_root, const
 			ConsiderItem(&p_root, item, p_isEngineItem, false, p_scriptFolder);
 }
 
-void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNode* p_root, const std::filesystem::directory_entry& p_entry, bool p_isEngineItem, bool p_autoOpen, bool p_scriptFolder)
+void Editor::Panels::AssetBrowser::ConsiderItem(UI::Widgets::Layout::TreeNode* p_root, const std::filesystem::directory_entry& p_entry, bool p_isEngineItem, bool p_autoOpen, bool p_scriptFolder)
 {
 	bool isDirectory = p_entry.is_directory();
-	std::string itemname = OvTools::Utils::PathParser::GetElementName(p_entry.path().string());
+	std::string itemname = Tools::Utils::PathParser::GetElementName(p_entry.path().string());
 	std::string path = p_entry.path().string();
 	if (isDirectory && path.back() != '\\') // Add '\\' if is directory and backslash is missing
 		path += '\\';
 	std::string resourceFormatPath = EDITOR_EXEC(GetResourcePath(path, p_isEngineItem));
 	bool protectedItem = !p_root || p_isEngineItem;
 
-	OvTools::Utils::PathParser::EFileType fileType = OvTools::Utils::PathParser::GetFileType(itemname);
+	Tools::Utils::PathParser::EFileType fileType = Tools::Utils::PathParser::GetFileType(itemname);
 
 	// Unknown file, so we skip it
-	if (fileType == OvTools::Utils::PathParser::EFileType::UNKNOWN && !isDirectory)
+	if (fileType == Tools::Utils::PathParser::EFileType::UNKNOWN && !isDirectory)
 	{
 		return;
 	}
@@ -1046,7 +1041,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 		if (p_autoOpen)
 			treeNode.Open();
 
-		auto& ddSource = treeNode.AddPlugin<OvUI::Plugins::DDSource<std::pair<std::string, Layout::Group*>>>("Folder", resourceFormatPath, std::make_pair(resourceFormatPath, &itemGroup));
+		auto& ddSource = treeNode.AddPlugin<UI::Plugins::DDSource<std::pair<std::string, Layout::Group*>>>("Folder", resourceFormatPath, std::make_pair(resourceFormatPath, &itemGroup));
 		
 		if (!p_root || p_scriptFolder)
 			treeNode.RemoveAllPlugins();
@@ -1058,20 +1053,20 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 		{
 			treeNode.Open();
 			treeNode.RemoveAllWidgets();
-			ParseFolder(treeNode, std::filesystem::directory_entry(OvTools::Utils::PathParser::GetContainingFolder(p_string)), p_isEngineItem, p_scriptFolder);
+			ParseFolder(treeNode, std::filesystem::directory_entry(Tools::Utils::PathParser::GetContainingFolder(p_string)), p_isEngineItem, p_scriptFolder);
 		};
 
 		if (!p_scriptFolder)
 		{
 			if (!p_isEngineItem) /* Prevent engine item from being DDTarget (Can't Drag and drop to engine folder) */
 			{
-				treeNode.AddPlugin<OvUI::Plugins::DDTarget<std::pair<std::string, Layout::Group*>>>("Folder").DataReceivedEvent += [this, &treeNode, path, p_isEngineItem](std::pair<std::string, Layout::Group*> p_data)
+				treeNode.AddPlugin<UI::Plugins::DDTarget<std::pair<std::string, Layout::Group*>>>("Folder").DataReceivedEvent += [this, &treeNode, path, p_isEngineItem](std::pair<std::string, Layout::Group*> p_data)
 				{
 					if (!p_data.first.empty())
 					{
 						std::string folderReceivedPath = EDITOR_EXEC(GetRealPath(p_data.first));
 
-						std::string folderName = OvTools::Utils::PathParser::GetElementName(folderReceivedPath) + '\\';
+						std::string folderName = Tools::Utils::PathParser::GetElementName(folderReceivedPath) + '\\';
 						std::string prevPath = folderReceivedPath;
 						std::string correctPath = m_pathUpdate.find(&treeNode) != m_pathUpdate.end() ? m_pathUpdate.at(&treeNode) : path;
 						std::string newPath = correctPath + folderName;
@@ -1103,27 +1098,27 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 							}
 							else
 							{
-								using namespace OvWindowing::Dialogs;
+								using namespace Windowing::Dialogs;
 
 								MessageBox errorMessage("Folder already exists", "You can't move this folder to this location because the name is already taken", MessageBox::EMessageType::ERROR, MessageBox::EButtonLayout::OK);
 							}
 						}
 						else
 						{
-							using namespace OvWindowing::Dialogs;
+							using namespace Windowing::Dialogs;
 
 							MessageBox errorMessage("Wow!", "Crazy boy!", MessageBox::EMessageType::ERROR, MessageBox::EButtonLayout::OK);
 						}
 					}
 				};
 
-				treeNode.AddPlugin<OvUI::Plugins::DDTarget<std::pair<std::string, Layout::Group*>>>("File").DataReceivedEvent += [this, &treeNode, path, p_isEngineItem](std::pair<std::string, Layout::Group*> p_data)
+				treeNode.AddPlugin<UI::Plugins::DDTarget<std::pair<std::string, Layout::Group*>>>("File").DataReceivedEvent += [this, &treeNode, path, p_isEngineItem](std::pair<std::string, Layout::Group*> p_data)
 				{
 					if (!p_data.first.empty())
 					{
 						std::string fileReceivedPath = EDITOR_EXEC(GetRealPath(p_data.first));
 
-						std::string fileName = OvTools::Utils::PathParser::GetElementName(fileReceivedPath);
+						std::string fileName = Tools::Utils::PathParser::GetElementName(fileReceivedPath);
 						std::string prevPath = fileReceivedPath;
 						std::string correctPath = m_pathUpdate.find(&treeNode) != m_pathUpdate.end() ? m_pathUpdate.at(&treeNode) : path;
 						std::string newPath = correctPath + fileName;
@@ -1153,7 +1148,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 						}
 						else
 						{
-							using namespace OvWindowing::Dialogs;
+							using namespace Windowing::Dialogs;
 
 							MessageBox errorMessage("File already exists", "You can't move this file to this location because the name is already taken", MessageBox::EMessageType::ERROR, MessageBox::EButtonLayout::OK);
 						}
@@ -1171,8 +1166,8 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 				{
 					RenameAsset(p_prev, p_newPath);
 					EDITOR_EXEC(PropagateFolderRename(p_prev, p_newPath));
-					std::string elementName = OvTools::Utils::PathParser::GetElementName(p_newPath);
-					std::string data = OvTools::Utils::PathParser::GetContainingFolder(ddSource.data.first) + elementName + "\\";
+					std::string elementName = Tools::Utils::PathParser::GetElementName(p_newPath);
+					std::string data = Tools::Utils::PathParser::GetContainingFolder(ddSource.data.first) + elementName + "\\";
 					ddSource.data.first = data;
 					ddSource.tooltip = data;
 					treeNode.name = elementName;
@@ -1183,7 +1178,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 				}
 				else
 				{
-					using namespace OvWindowing::Dialogs;
+					using namespace Windowing::Dialogs;
 
 					MessageBox errorMessage("Folder already exists", "You can't rename this folder because the given name is already taken", MessageBox::EMessageType::ERROR, MessageBox::EButtonLayout::OK);
 				}
@@ -1192,7 +1187,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 			contextMenu.ItemAddedEvent += [this, &treeNode, p_isEngineItem](std::string p_path)
 			{
 				treeNode.RemoveAllWidgets();
-				ParseFolder(treeNode, std::filesystem::directory_entry(OvTools::Utils::PathParser::GetContainingFolder(p_path)), p_isEngineItem);
+				ParseFolder(treeNode, std::filesystem::directory_entry(Tools::Utils::PathParser::GetContainingFolder(p_path)), p_isEngineItem);
 			};
 
 		}
@@ -1202,7 +1197,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 		treeNode.OpenedEvent += [this, &treeNode, path, p_isEngineItem, p_scriptFolder]
 		{
 			treeNode.RemoveAllWidgets();
-			std::string updatedPath = OvTools::Utils::PathParser::GetContainingFolder(path) + treeNode.name;
+			std::string updatedPath = Tools::Utils::PathParser::GetContainingFolder(path) + treeNode.name;
 			ParseFolder(treeNode, std::filesystem::directory_entry(updatedPath), p_isEngineItem, p_scriptFolder);
 		};
 
@@ -1219,11 +1214,11 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 
 		switch (fileType)
 		{
-		case OvTools::Utils::PathParser::EFileType::MODEL:		contextMenu = &clickableText.AddPlugin<ModelContextualMenu>(path, protectedItem);		break;
-		case OvTools::Utils::PathParser::EFileType::TEXTURE:	contextMenu = &clickableText.AddPlugin<TextureContextualMenu>(path, protectedItem); 	break;
-		case OvTools::Utils::PathParser::EFileType::SHADER:		contextMenu = &clickableText.AddPlugin<ShaderContextualMenu>(path, protectedItem);		break;
-		case OvTools::Utils::PathParser::EFileType::MATERIAL:	contextMenu = &clickableText.AddPlugin<MaterialContextualMenu>(path, protectedItem);	break;
-		case OvTools::Utils::PathParser::EFileType::SCENE:		contextMenu = &clickableText.AddPlugin<SceneContextualMenu>(path, protectedItem);		break;
+		case Tools::Utils::PathParser::EFileType::MODEL:		contextMenu = &clickableText.AddPlugin<ModelContextualMenu>(path, protectedItem);		break;
+		case Tools::Utils::PathParser::EFileType::TEXTURE:	contextMenu = &clickableText.AddPlugin<TextureContextualMenu>(path, protectedItem); 	break;
+		case Tools::Utils::PathParser::EFileType::SHADER:		contextMenu = &clickableText.AddPlugin<ShaderContextualMenu>(path, protectedItem);		break;
+		case Tools::Utils::PathParser::EFileType::MATERIAL:	contextMenu = &clickableText.AddPlugin<MaterialContextualMenu>(path, protectedItem);	break;
+		case Tools::Utils::PathParser::EFileType::SCENE:		contextMenu = &clickableText.AddPlugin<SceneContextualMenu>(path, protectedItem);		break;
 		default: contextMenu = &clickableText.AddPlugin<FileContextualMenu>(path, protectedItem); break;
 		}
 
@@ -1237,7 +1232,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 				EDITOR_CONTEXT(sceneManager).ForgetCurrentSceneSourcePath();
 		};
 
-		auto& ddSource = clickableText.AddPlugin<OvUI::Plugins::DDSource<std::pair<std::string, Layout::Group*>>>
+		auto& ddSource = clickableText.AddPlugin<UI::Plugins::DDSource<std::pair<std::string, Layout::Group*>>>
 		(
 			"File",
 			resourceFormatPath,
@@ -1251,8 +1246,8 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 				if (!std::filesystem::exists(p_newPath))
 				{
 					RenameAsset(p_prev, p_newPath);
-					std::string elementName = OvTools::Utils::PathParser::GetElementName(p_newPath);
-					ddSource.data.first = OvTools::Utils::PathParser::GetContainingFolder(ddSource.data.first) + elementName;
+					std::string elementName = Tools::Utils::PathParser::GetElementName(p_newPath);
+					ddSource.data.first = Tools::Utils::PathParser::GetContainingFolder(ddSource.data.first) + elementName;
 
 					if (!p_scriptFolder)
 					{
@@ -1269,7 +1264,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 				}
 				else
 				{
-					using namespace OvWindowing::Dialogs;
+					using namespace Windowing::Dialogs;
 
 					MessageBox errorMessage("File already exists", "You can't rename this file because the given name is already taken", MessageBox::EMessageType::ERROR, MessageBox::EButtonLayout::OK);
 				}
@@ -1281,7 +1276,7 @@ void OvEditor::Panels::AssetBrowser::ConsiderItem(OvUI::Widgets::Layout::TreeNod
 			EDITOR_EXEC(DelayAction(std::bind(&AssetBrowser::ConsiderItem, this, p_root, std::filesystem::directory_entry{ newItem }, p_isEngineItem, false, false), 0));
 		};
 
-		if (fileType == OvTools::Utils::PathParser::EFileType::TEXTURE)
+		if (fileType == Tools::Utils::PathParser::EFileType::TEXTURE)
 		{
 			auto& texturePreview = clickableText.AddPlugin<TexturePreview>();
 			texturePreview.SetPath(resourceFormatPath);

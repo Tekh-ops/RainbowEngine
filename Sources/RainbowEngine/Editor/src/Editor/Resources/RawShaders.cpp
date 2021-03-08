@@ -1,12 +1,8 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
-#include "OvEditor/Resources/RawShaders.h"
 
-std::pair<std::string, std::string> OvEditor::Resources::RawShaders::GetGrid()
+#include "Editor/Resources/RawShaders.h"
+
+std::pair<std::string, std::string> Editor::Resources::RawShaders::GetGrid()
 {
 	std::pair<std::string, std::string> source;
 
@@ -115,7 +111,7 @@ void main()
 	return source;
 }
 
-std::pair<std::string, std::string> OvEditor::Resources::RawShaders::GetGizmo()
+std::pair<std::string, std::string> Editor::Resources::RawShaders::GetGizmo()
 {
 	std::pair<std::string, std::string> source;
 
@@ -237,7 +233,9 @@ void main()
 	return source;
 }
 
-std::pair<std::string, std::string> OvEditor::Resources::RawShaders::GetBillboard()
+std::pair<std::string, std::string> 
+
+Editor::Resources::RawShaders::GetBillboard()
 {
 	std::pair<std::string, std::string> source;
 

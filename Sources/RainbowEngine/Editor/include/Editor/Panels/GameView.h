@@ -1,20 +1,17 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
-#include <OvCore/SceneSystem/SceneManager.h>
+#include <optional>
+#include <EngineCore/SceneSystem/SceneManager.h>
 
-#include "OvEditor/Panels/AView.h"
+#include "Editor/Panels/AView.h"
 
-namespace OvEditor::Core { class EditorRenderer; }
+namespace Editor::Core { class EditorRenderer; }
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class GameView : public OvEditor::Panels::AView
+	class GameView : public Editor::Panels::AView
 	{
 	public:
 		/**
@@ -27,7 +24,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
@@ -49,10 +46,10 @@ namespace OvEditor::Panels
 		/**
 		* Returns the game view camera frustum or nothing if the game isn't playing
 		*/
-		std::optional<OvRendering::Data::Frustum> GetActiveFrustum() const;
+		std::optional<Rendering::Data::Frustum> GetActiveFrustum() const;
 
 	private:
-		OvCore::SceneSystem::SceneManager& m_sceneManager;
+		EngineCore::SceneSystem::SceneManager& m_sceneManager;
 		bool m_hasCamera = false;
 	};
 }

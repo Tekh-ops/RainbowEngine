@@ -1,27 +1,22 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include <OvRendering/Resources/Loaders/TextureLoader.h>
+#include <Rendering/Resources/Loaders/TextureLoader.h>
 
-#include <OvUI/Panels/PanelWindow.h>
-#include <OvUI/Widgets/Layout/GroupCollapsable.h>
-#include <OvUI/Widgets/InputFields/InputText.h>
-#include <OvUI/Widgets/Visual/Separator.h>
-#include <OvUI/Widgets/Selection/CheckBox.h>
-#include <OvUI/Widgets/Buttons/Button.h>
-#include <OvUI/Widgets/Selection/ComboBox.h>
+#include <UI/Panels/PanelWindow.h>
+#include <UI/Widgets/Layout/GroupCollapsable.h>
+#include <UI/Widgets/InputFields/InputText.h>
+#include <UI/Widgets/Visual/Separator.h>
+#include <UI/Widgets/Selection/CheckBox.h>
+#include <UI/Widgets/Buttons/Button.h>
+#include <UI/Widgets/Selection/ComboBox.h>
 
-#include "OvEditor/Panels/Hierarchy.h"
-#include "OvEditor/Panels/AssetBrowser.h"
+#include "Editor/Panels/Hierarchy.h"
+#include "Editor/Panels/AssetBrowser.h"
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class Inspector : public OvUI::Panels::PanelWindow
+	class Inspector : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -34,7 +29,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
@@ -46,7 +41,7 @@ namespace OvEditor::Panels
 		* Focus the given actor
 		* @param p_target
 		*/
-		void FocusActor(OvCore::ECS::Actor& p_target);
+		void FocusActor(EngineCore::ECS::Actor& p_target);
 
 		/**
 		* Unfocus the currently targeted actor
@@ -61,22 +56,23 @@ namespace OvEditor::Panels
 		/**
 		* Returns the currently selected actor
 		*/
-		OvCore::ECS::Actor* GetTargetActor() const;
+		EngineCore::ECS::Actor* GetTargetActor() const;
 
 		/**
 		* Create the actor inspector for the given actor
 		*/
-		void CreateActorInspector(OvCore::ECS::Actor& p_target);
+		void CreateActorInspector(EngineCore::ECS::Actor& p_target);
 
 		/**
 		* Draw the given component in inspector
 		*/
-		void DrawComponent(OvCore::ECS::Components::AComponent& p_component);
+		void DrawComponent(EngineCore::ECS::Components::AComponent& p_component);
 
 		/**
 		* Draw the given behaviour in inspector
 		*/
-		void DrawBehaviour(OvCore::ECS::Components::Behaviour& p_behaviour);
+		//TODO
+		//void DrawBehaviour(EngineCore::ECS::Components::Behaviour& p_behaviour);
 
 		/**
 		* Refresh the inspector
@@ -84,10 +80,10 @@ namespace OvEditor::Panels
 		void Refresh();
 
 	private:
-		OvCore::ECS::Actor* m_targetActor = nullptr;
-		OvUI::Widgets::Layout::Group* m_actorInfo;
-		OvUI::Widgets::Layout::Group* m_inspectorHeader;
-		OvUI::Widgets::Selection::ComboBox* m_componentSelectorWidget;
+		EngineCore::ECS::Actor* m_targetActor = nullptr;
+		UI::Widgets::Layout::Group* m_actorInfo;
+		UI::Widgets::Layout::Group* m_inspectorHeader;
+		UI::Widgets::Selection::ComboBox* m_componentSelectorWidget;
 
 		uint64_t m_componentAddedListener	= 0;
 		uint64_t m_componentRemovedListener = 0;

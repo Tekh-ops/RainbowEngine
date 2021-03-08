@@ -1,47 +1,43 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
-#include "OvTools/Time/Clock.h"
 
-float OvTools::Time::Clock::GetFramerate()
+#include "Tools/Time/Clock.h"
+
+float Tools::Time::Clock::GetFramerate()
 {
 	return 1.0f / (__DELTA_TIME);
 }
 
-float OvTools::Time::Clock::GetDeltaTime()
+float Tools::Time::Clock::GetDeltaTime()
 {
 	return __DELTA_TIME * __TIME_SCALE;
 }
 
-float OvTools::Time::Clock::GetDeltaTimeUnscaled()
+float Tools::Time::Clock::GetDeltaTimeUnscaled()
 {
 	return __DELTA_TIME;
 }
 
-float OvTools::Time::Clock::GetTimeSinceStart()
+float Tools::Time::Clock::GetTimeSinceStart()
 {
 	return __TIME_SINCE_START;
 }
 
-float OvTools::Time::Clock::GetTimeScale()
+float Tools::Time::Clock::GetTimeScale()
 {
 	return __TIME_SCALE;
 }
 
-void OvTools::Time::Clock::Scale(float p_coeff)
+void Tools::Time::Clock::Scale(float p_coeff)
 {
 	__TIME_SCALE *= p_coeff;
 }
 
-void OvTools::Time::Clock::SetTimeScale(float p_timeScale)
+void Tools::Time::Clock::SetTimeScale(float p_timeScale)
 {
 	__TIME_SCALE = p_timeScale;
 }
 
-void OvTools::Time::Clock::Initialize()
+void Tools::Time::Clock::Initialize()
 {
 	__DELTA_TIME = 0.0f;
 
@@ -52,7 +48,7 @@ void OvTools::Time::Clock::Initialize()
 	__INITIALIZED = true;
 }
 
-void OvTools::Time::Clock::Update()
+void Tools::Time::Clock::Update()
 {
 	__LAST_TIME = __CURRENT_TIME;
 	__CURRENT_TIME = std::chrono::steady_clock::now();

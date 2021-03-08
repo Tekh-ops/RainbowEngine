@@ -1,17 +1,13 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
-#include <OvUI/Widgets/Texts/Text.h>
-#include <OvUI/Panels/PanelWindow.h>
 
-#include <OvTools/Filesystem/IniFile.h>
+#include <UI/Widgets/Texts/Text.h>
+#include <UI/Panels/PanelWindow.h>
 
-namespace OvEditor::Panels
+#include <Tools/Filesystem/IniFile.h>
+
+namespace Editor::Panels
 {
-	class ProjectSettings : public OvUI::Panels::PanelWindow
+	class ProjectSettings : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -24,7 +20,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
@@ -34,7 +30,7 @@ namespace OvEditor::Panels
 		template <typename T>
 		std::function<T()> GenerateGatherer(const std::string& p_keyName)
 		{
-			return std::bind(&OvTools::Filesystem::IniFile::Get<T>, &m_projectFile, p_keyName);
+			return std::bind(&Tools::Filesystem::IniFile::Get<T>, &m_projectFile, p_keyName);
 		}
 
 		/**
@@ -44,10 +40,10 @@ namespace OvEditor::Panels
 		template <typename T>
 		std::function<void(T)> GenerateProvider(const std::string& p_keyName)
 		{
-			return std::bind(&OvTools::Filesystem::IniFile::Set<T>, &m_projectFile, p_keyName, std::placeholders::_1);
+			return std::bind(&Tools::Filesystem::IniFile::Set<T>, &m_projectFile, p_keyName, std::placeholders::_1);
 		}
 
 	private:
-		OvTools::Filesystem::IniFile& m_projectFile;
+		Tools::Filesystem::IniFile& m_projectFile;
 	};
 }

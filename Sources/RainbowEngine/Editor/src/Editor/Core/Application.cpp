@@ -4,23 +4,23 @@
 * @licence: MIT
 */
 
-#include <OvTools/Time/Clock.h>
+#include <Tools/Time/Clock.h>
 
-#include "OvEditor/Core/Application.h"
+#include "Editor/Core/Application.h"
 
-OvEditor::Core::Application::Application(const std::string& p_projectPath, const std::string& p_projectName) :
+Editor::Core::Application::Application(const std::string& p_projectPath, const std::string& p_projectName) :
 	m_context(p_projectPath, p_projectName),
 	m_editor(m_context)
 {
 }
 
-OvEditor::Core::Application::~Application()
+Editor::Core::Application::~Application()
 {
 }
 
-void OvEditor::Core::Application::Run()
+void Editor::Core::Application::Run()
 {
-	OvTools::Time::Clock clock;
+	Tools::Time::Clock clock;
 
 	while (IsRunning())
 	{
@@ -32,7 +32,7 @@ void OvEditor::Core::Application::Run()
 	}
 }
 
-bool OvEditor::Core::Application::IsRunning() const
+bool Editor::Core::Application::IsRunning() const
 {
 	return !m_context.window->ShouldClose();
 }

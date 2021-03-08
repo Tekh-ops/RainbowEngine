@@ -6,14 +6,14 @@
 
 #pragma once
 
-#include <OvRendering/Core/Renderer.h>
-#include <OvWindowing/Context/Device.h>
-#include <OvWindowing/Window.h>
-#include <OvRendering/Context/Driver.h>
-#include <OvUI/Core/UIManager.h>
-#include <OvUI/Panels/PanelWindow.h>
+#include <Rendering/Core/Renderer.h>
+#include <Windowing/Context/Device.h>
+#include <Windowing/Window.h>
+#include <Rendering/Context/Driver.h>
+#include <UI/Core/UIManager.h>
+#include <UI/Panels/PanelWindow.h>
 
-namespace OvEditor::Core
+namespace Editor::Core
 {
 	/**
 	* A simple panel that allow the user to select the project to launch
@@ -43,14 +43,14 @@ namespace OvEditor::Core
 		void RegisterProject(const std::string& p_path);
 
 	private:
-		std::unique_ptr<OvWindowing::Context::Device>		m_device;
-		std::unique_ptr<OvWindowing::Window>				m_window;
-		std::unique_ptr<OvRendering::Context::Driver>		m_driver;
-		std::unique_ptr<OvRendering::Core::Renderer>		m_renderer;
-		std::unique_ptr<OvUI::Core::UIManager>				m_uiManager;
+		std::unique_ptr<Windowing::Context::Device>		m_device;
+		std::unique_ptr<Windowing::Window>				m_window;
+		std::unique_ptr<Rendering::Context::Driver>		m_driver;
+		std::unique_ptr<Rendering::Core::Renderer>		m_renderer;
+		std::unique_ptr<UI::Core::UIManager>				m_uiManager;
 
-		OvUI::Modules::Canvas m_canvas;
-		std::unique_ptr<OvUI::Panels::PanelWindow>			m_mainPanel;
+		UI::Modules::Canvas m_canvas;
+		std::unique_ptr<UI::Panels::PanelWindow>			m_mainPanel;
 
 		std::string m_projectPath = "";
 		std::string m_projectName = "";

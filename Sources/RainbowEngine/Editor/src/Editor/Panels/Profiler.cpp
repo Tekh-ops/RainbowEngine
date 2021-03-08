@@ -4,20 +4,20 @@
 * @licence: MIT
 */
 
-#include "OvEditor/Panels/Profiler.h"
+#include "Editor/Panels/Profiler.h"
 
-#include <OvDebug/Utils/Logger.h>
-#include <OvUI/Widgets/Visual/Separator.h>
+#include <Debug/Utils/Logger.h>
+#include <UI/Widgets/Visual/Separator.h>
 
-using namespace OvUI::Panels;
-using namespace OvUI::Widgets;
-using namespace OvUI::Types;
+using namespace UI::Panels;
+using namespace UI::Widgets;
+using namespace UI::Types;
 
-OvEditor::Panels::Profiler::Profiler
+Editor::Panels::Profiler::Profiler
 (
 	const std::string& p_title,
 	bool p_opened,
-	const OvUI::Settings::PanelWindowSettings& p_windowSettings,
+	const UI::Settings::PanelWindowSettings& p_windowSettings,
 	float p_frequency
 ) :
 	PanelWindow(p_title, p_opened, p_windowSettings),
@@ -38,14 +38,14 @@ OvEditor::Panels::Profiler::Profiler
 	};
 	m_elapsedFramesText = &CreateWidget<Texts::TextColored>("", Color(1.f, 0.8f, 0.01f, 1));
 	m_elapsedTimeText = &CreateWidget<Texts::TextColored>("", Color(1.f, 0.8f, 0.01f, 1));
-	m_separator = &CreateWidget<OvUI::Widgets::Visual::Separator>();
+	m_separator = &CreateWidget<UI::Widgets::Visual::Separator>();
 	m_actionList = &CreateWidget<Layout::Columns<5>>();
 	m_actionList->widths = { 300.f, 100.f, 100.f, 100.f, 200.f };
 
 	Enable(false, true);
 }
 
-void OvEditor::Panels::Profiler::Update(float p_deltaTime)
+void Editor::Panels::Profiler::Update(float p_deltaTime)
 {
 	m_timer += p_deltaTime;
 	m_fpsTimer += p_deltaTime;
@@ -56,7 +56,8 @@ void OvEditor::Panels::Profiler::Update(float p_deltaTime)
 		m_fpsTimer -= 0.07f;
 	}
 
-	if (m_profiler.IsEnabled())
+	//TODO
+	/*if (m_profiler.IsEnabled())
 	{
 		m_profiler.Update(p_deltaTime);
 
@@ -90,25 +91,27 @@ void OvEditor::Panels::Profiler::Update(float p_deltaTime)
 
 			m_timer -= m_frequency;
 		}
-	}
+	}*/
 }
 
-void OvEditor::Panels::Profiler::Enable(bool p_value, bool p_disableLog)
+void Editor::Panels::Profiler::Enable(bool p_value, bool p_disableLog)
 {
-	if (p_value)
-	{
-		if (!p_disableLog)
-			OVLOG_INFO("Profiling started!");
-		m_profiler.Enable();
-	}
-	else
-	{
-		if (!p_disableLog)
-			OVLOG_INFO("Profiling stoped!");
-		m_profiler.Disable();
-		m_profiler.ClearHistory();
-		m_actionList->RemoveAllWidgets();
-	}
+
+	//TODO
+	//if (p_value)
+	//{
+	//	if (!p_disableLog)
+	//		LOG_INFO("Profiling started!");
+	//	//m_profiler.Enable();
+	//}
+	//else
+	//{
+	//	if (!p_disableLog)
+	//		LOG_INFO("Profiling stoped!");
+	//	m_profiler.Disable();
+	//	m_profiler.ClearHistory();
+	//	m_actionList->RemoveAllWidgets();
+	//}
 
 	m_captureResumeButton->enabled = p_value;
 	m_elapsedFramesText->enabled = p_value;
@@ -116,7 +119,7 @@ void OvEditor::Panels::Profiler::Enable(bool p_value, bool p_disableLog)
 	m_separator->enabled = p_value;
 }
 
-OvUI::Types::Color OvEditor::Panels::Profiler::CalculateActionColor(double p_percentage) const
+UI::Types::Color Editor::Panels::Profiler::CalculateActionColor(double p_percentage) const
 {
 	if (p_percentage <= 25.0f)		return { 0.0f, 1.0f, 0.0f, 1.0f };
 	else if (p_percentage <= 50.0f) return { 1.0f, 1.0f, 0.0f, 1.0f };
@@ -124,15 +127,16 @@ OvUI::Types::Color OvEditor::Panels::Profiler::CalculateActionColor(double p_per
 	else							return { 1.0f, 0.0f, 0.0f, 1.0f };
 }
 
-std::string OvEditor::Panels::Profiler::GenerateActionString(OvAnalytics::Profiling::ProfilerReport::Action & p_action)
-{
-	std::string result;
-
-	result += "[" + p_action.name + "]";
-	result += std::to_string(p_action.duration) + "s (total) | ";
-	result += std::to_string(p_action.duration / p_action.calls) + "s (per call) | ";
-	result += std::to_string(p_action.percentage) + "%% | ";
-	result += std::to_string(p_action.calls) + " calls";
-
-	return result;
-}
+//TODO
+//std::string Editor::Panels::Profiler::GenerateActionString(OvAnalytics::Profiling::ProfilerReport::Action & p_action)
+//{
+//	std::string result;
+//
+//	result += "[" + p_action.name + "]";
+//	result += std::to_string(p_action.duration) + "s (total) | ";
+//	result += std::to_string(p_action.duration / p_action.calls) + "s (per call) | ";
+//	result += std::to_string(p_action.percentage) + "%% | ";
+//	result += std::to_string(p_action.calls) + " calls";
+//
+//	return result;
+//}

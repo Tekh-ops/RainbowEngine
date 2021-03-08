@@ -161,10 +161,13 @@ xcopy "$(SolutionDir)..\..\Dependencies\glew\include\*" "$(SolutionDir)..\..\Bui
 
 xcopy "$(SolutionDir)..\..\Dependencies\glew\bin\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
 
-xcopy "$(SolutionDir)..\..\Dependencies\glew\lib\*.lib" "$(SolutionDir)..\..\Build\$(ProjectName)\lib\$(Configuration)" /e /y /i /r
+
 
 
 xcopy "$(SolutionDir)..\..\Dependencies\assimp\bin\*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configuration)" /e /y /i /r
+
+
+xcopy "$(SolutionDir)..\..\Dependencies\assimp\include\*" "$(SolutionDir)..\..\Build\$(ProjectName)\include\"  /e /y /i /r
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

@@ -8,4 +8,4 @@
 #define API_TOOLS __declspec(dllexport)
 #else
 #define API_TOOLS __declspec(dllimport)
-#endif // OVTOOLS_EXPORT
+#endif // Tools_EXPORT

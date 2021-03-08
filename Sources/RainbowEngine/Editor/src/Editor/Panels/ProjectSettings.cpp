@@ -4,21 +4,21 @@
 * @licence: MIT
 */
 
-#include "OvEditor/Panels/ProjectSettings.h"
-#include "OvEditor/Core/EditorActions.h"
+#include "Editor/Panels/ProjectSettings.h"
+#include "Editor/Core/EditorActions.h"
 
-#include <OvCore/Resources/Loaders/MaterialLoader.h>
-#include <OvCore/Helpers/GUIDrawer.h>
-#include <OvUI/Widgets/Layout/Columns.h>
-#include <OvUI/Widgets/Layout/GroupCollapsable.h>
-#include <OvUI/Widgets/Visual/Separator.h>
-#include <OvUI/Widgets/Buttons/Button.h>
+#include <EngineCore/Resources/Loaders/MaterialLoader.h>
+#include <EngineCore/Helpers/GUIDrawer.h>
+#include <UI/Widgets/Layout/Columns.h>
+#include <UI/Widgets/Layout/GroupCollapsable.h>
+#include <UI/Widgets/Visual/Separator.h>
+#include <UI/Widgets/Buttons/Button.h>
 
-using namespace OvUI::Panels;
-using namespace OvUI::Widgets;
-using namespace OvCore::Helpers;
+using namespace UI::Panels;
+using namespace UI::Widgets;
+using namespace EngineCore::Helpers;
 
-OvEditor::Panels::ProjectSettings::ProjectSettings(const std::string & p_title, bool p_opened, const OvUI::Settings::PanelWindowSettings & p_windowSettings) :
+Editor::Panels::ProjectSettings::ProjectSettings(const std::string & p_title, bool p_opened, const UI::Settings::PanelWindowSettings & p_windowSettings) :
 	PanelWindow(p_title, p_opened, p_windowSettings),
 	m_projectFile(EDITOR_CONTEXT(projectSettings))
 {
@@ -39,7 +39,7 @@ OvEditor::Panels::ProjectSettings::ProjectSettings(const std::string & p_title, 
 		EDITOR_CONTEXT(ResetProjectSettings());
 	};
 
-	CreateWidget<OvUI::Widgets::Visual::Separator>();
+	CreateWidget<UI::Widgets::Visual::Separator>();
 
 	{
 		/* Physics settings */

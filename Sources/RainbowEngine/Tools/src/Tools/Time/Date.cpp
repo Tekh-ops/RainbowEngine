@@ -1,14 +1,10 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #include <ctime>
 
-#include "OvTools/Time/Date.h"
+#include "Tools/Time/Date.h"
 
-std::string OvTools::Time::Date::GetDateAsString()
+std::string Tools::Time::Date::GetDateAsString()
 {
 	std::string date;
 	const auto now = time(nullptr);

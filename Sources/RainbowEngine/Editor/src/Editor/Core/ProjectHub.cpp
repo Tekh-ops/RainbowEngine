@@ -9,25 +9,25 @@
 #include <filesystem>
 #include <fstream>
 
-#include "OvEditor/Core/ProjectHub.h"
+#include "Editor/Core/ProjectHub.h"
 
-#include <OvUI/Widgets/Texts/Text.h>
-#include <OvUI/Widgets/Visual/Separator.h>
-#include <OvUI/Widgets/Layout/Columns.h>
-#include <OvUI/Widgets/Layout/Spacing.h>
-#include <OvUI/Widgets/Layout/Group.h>
-#include <OvUI/Widgets/Buttons/Button.h>
-#include <OvUI/Widgets/InputFields/InputText.h>
+#include <UI/Widgets/Texts/Text.h>
+#include <UI/Widgets/Visual/Separator.h>
+#include <UI/Widgets/Layout/Columns.h>
+#include <UI/Widgets/Layout/Spacing.h>
+#include <UI/Widgets/Layout/Group.h>
+#include <UI/Widgets/Buttons/Button.h>
+#include <UI/Widgets/InputFields/InputText.h>
 
-#include <OvTools/Utils/PathParser.h>
+#include <Tools/Utils/PathParser.h>
 
-#include <OvWindowing/Dialogs/SaveFileDialog.h>
-#include <OvWindowing/Dialogs/OpenFileDialog.h>
-#include <OvWindowing/Dialogs/MessageBox.h>
+#include <Windowing/Dialogs/SaveFileDialog.h>
+#include <Windowing/Dialogs/OpenFileDialog.h>
+#include <Windowing/Dialogs/MessageBox.h>
 
-#define PROJECTS_FILE std::string(std::string(getenv("APPDATA")) + "\\OverloadTech\\OvEditor\\projects.ini")
+#define PROJECTS_FILE std::string(std::string(getenv("APPDATA")) + "\\OverloadTech\\Editor\\projects.ini")
 
-class ProjectHubPanel : public OvUI::Panels::PanelWindow
+class ProjectHubPanel : public UI::Panels::PanelWindow
 {
 public:
 	ProjectHubPanel(bool& p_readyToGo, std::string& p_path, std::string& p_projectName) :
@@ -40,19 +40,19 @@ public:
 		movable = false;
 		titleBar = false;
 
-		std::filesystem::create_directories(std::string(getenv("APPDATA")) + "\\OverloadTech\\OvEditor\\");
+		std::filesystem::create_directories(std::string(getenv("APPDATA")) + "\\OverloadTech\\Editor\\");
 
 		SetSize({ 1000, 580 });
 		SetPosition({ 0.f, 0.f });
 
-		auto& openProjectButton = CreateWidget<OvUI::Widgets::Buttons::Button>("Open Project");
-		auto& newProjectButton = CreateWidget<OvUI::Widgets::Buttons::Button>("New Project");
-		auto& pathField = CreateWidget<OvUI::Widgets::InputFields::InputText>("");
-		m_goButton = &CreateWidget<OvUI::Widgets::Buttons::Button>("GO");
+		auto& openProjectButton = CreateWidget<UI::Widgets::Buttons::Button>("Open Project");
+		auto& newProjectButton = CreateWidget<UI::Widgets::Buttons::Button>("New Project");
+		auto& pathField = CreateWidget<UI::Widgets::InputFields::InputText>("");
+		m_goButton = &CreateWidget<UI::Widgets::Buttons::Button>("GO");
 
 		pathField.ContentChangedEvent += [this, &pathField](std::string p_content)
 		{
-			pathField.content = OvTools::Utils::PathParser::MakeWindowsStyle(p_content);
+			pathField.content = Tools::Utils::PathParser::MakeWindowsStyle(p_content);
 
 			if (pathField.content != "" && pathField.content.back() != '\\')
 				pathField.content += '\\';
@@ -67,12 +67,12 @@ public:
 
 		openProjectButton.ClickedEvent += [this]
 		{
-			OvWindowing::Dialogs::OpenFileDialog dialog("Open project");
+			Windowing::Dialogs::OpenFileDialog dialog("Open project");
 			dialog.AddFileType("Overload Project", "*.ovproject");
 			dialog.Show();
 
 			std::string ovProjectPath = dialog.GetSelectedFilePath();
-			std::string rootFolderPath = OvTools::Utils::PathParser::GetContainingFolder(ovProjectPath);
+			std::string rootFolderPath = Tools::Utils::PathParser::GetContainingFolder(ovProjectPath);
 
 			if (dialog.HasSucceeded())
 			{
@@ -83,7 +83,7 @@ public:
 
 		newProjectButton.ClickedEvent += [this, &pathField]
 		{
-			OvWindowing::Dialogs::SaveFileDialog dialog("New project location");
+			Windowing::Dialogs::SaveFileDialog dialog("New project location");
 			dialog.DefineExtension("Overload Project", "..");
 			dialog.Show();
 			if (dialog.HasSucceeded())
@@ -107,14 +107,14 @@ public:
 		pathField.lineBreak = false;
 
 		for (uint8_t i = 0; i < 4; ++i)
-			CreateWidget<OvUI::Widgets::Layout::Spacing>();
+			CreateWidget<UI::Widgets::Layout::Spacing>();
 
-		CreateWidget<OvUI::Widgets::Visual::Separator>();
+		CreateWidget<UI::Widgets::Visual::Separator>();
 
 		for (uint8_t i = 0; i < 4; ++i)
-			CreateWidget<OvUI::Widgets::Layout::Spacing>();
+			CreateWidget<UI::Widgets::Layout::Spacing>();
 
-		auto& columns = CreateWidget<OvUI::Widgets::Layout::Columns<2>>();
+		auto& columns = CreateWidget<UI::Widgets::Layout::Columns<2>>();
 
 		columns.widths = { 750, 500 };
 
@@ -126,10 +126,10 @@ public:
 			{
 				if (std::filesystem::exists(line)) // TODO: Delete line from the file
 				{
-					auto& text = columns.CreateWidget<OvUI::Widgets::Texts::Text>(line);
-					auto& actions = columns.CreateWidget<OvUI::Widgets::Layout::Group>();
-					auto& openButton = actions.CreateWidget<OvUI::Widgets::Buttons::Button>("Open");
-					auto& deleteButton = actions.CreateWidget<OvUI::Widgets::Buttons::Button>("Delete");
+					auto& text = columns.CreateWidget<UI::Widgets::Texts::Text>(line);
+					auto& actions = columns.CreateWidget<UI::Widgets::Layout::Group>();
+					auto& openButton = actions.CreateWidget<UI::Widgets::Buttons::Button>("Open");
+					auto& deleteButton = actions.CreateWidget<UI::Widgets::Buttons::Button>("Delete");
 
 					openButton.idleBackgroundColor = { 0.7f, 0.5f, 0.f };
 					deleteButton.idleBackgroundColor = { 0.5f, 0.f, 0.f };
@@ -171,7 +171,7 @@ public:
 	void UpdateGoButton(const std::string& p_path)
 	{
 		bool validPath = p_path != "";
-		m_goButton->idleBackgroundColor = validPath ? OvUI::Types::Color{ 0.f, 0.5f, 0.0f } : OvUI::Types::Color{ 0.1f, 0.1f, 0.1f };
+		m_goButton->idleBackgroundColor = validPath ? UI::Types::Color{ 0.f, 0.5f, 0.0f } : UI::Types::Color{ 0.1f, 0.1f, 0.1f };
 		m_goButton->disabled = !validPath;
 	}
 
@@ -182,7 +182,7 @@ public:
 			std::filesystem::create_directory(p_path);
 			std::filesystem::create_directory(p_path + "Assets\\");
 			std::filesystem::create_directory(p_path + "Scripts\\");
-			std::ofstream projectFile(p_path + '\\' + OvTools::Utils::PathParser::GetElementName(std::string(p_path.data(), p_path.data() + p_path.size() - 1)) + ".ovproject");
+			std::ofstream projectFile(p_path + '\\' + Tools::Utils::PathParser::GetElementName(std::string(p_path.data(), p_path.data() + p_path.size() - 1)) + ".ovproject");
 		}
 	}
 
@@ -219,13 +219,13 @@ public:
 		m_readyToGo = std::filesystem::exists(p_path);
 		if (!m_readyToGo)
 		{
-			using namespace OvWindowing::Dialogs;
+			using namespace Windowing::Dialogs;
 			MessageBox errorMessage("Project not found", "The selected project does not exists", MessageBox::EMessageType::ERROR, MessageBox::EButtonLayout::OK);
 		}
 		else
 		{
 			m_path = p_path;
-			m_projectName = OvTools::Utils::PathParser::GetElementName(m_path);
+			m_projectName = Tools::Utils::PathParser::GetElementName(m_path);
 			Close();
 		}
 	}
@@ -235,7 +235,7 @@ public:
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 50.f, 50.f });
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.f);
 
-		OvUI::Panels::PanelWindow::Draw();
+		UI::Panels::PanelWindow::Draw();
 
 		ImGui::PopStyleVar(2);
 	}
@@ -244,10 +244,10 @@ private:
 	bool& m_readyToGo;
 	std::string& m_path;
 	std::string& m_projectName;
-	OvUI::Widgets::Buttons::Button* m_goButton = nullptr;
+	UI::Widgets::Buttons::Button* m_goButton = nullptr;
 };
 
-OvEditor::Core::ProjectHub::ProjectHub()
+Editor::Core::ProjectHub::ProjectHub()
 {
 	SetupContext();
 	m_mainPanel = std::make_unique<ProjectHubPanel>(m_readyToGo, m_projectPath, m_projectName);
@@ -256,7 +256,7 @@ OvEditor::Core::ProjectHub::ProjectHub()
 	m_canvas.AddPanel(*m_mainPanel);
 }
 
-std::tuple<bool, std::string, std::string> OvEditor::Core::ProjectHub::Run()
+std::tuple<bool, std::string, std::string> Editor::Core::ProjectHub::Run()
 {
 	m_renderer->SetClearColor(0.f, 0.f, 0.f, 1.f);
 
@@ -274,11 +274,11 @@ std::tuple<bool, std::string, std::string> OvEditor::Core::ProjectHub::Run()
 	return { m_readyToGo, m_projectPath, m_projectName };
 }
 
-void OvEditor::Core::ProjectHub::SetupContext()
+void Editor::Core::ProjectHub::SetupContext()
 {
 	/* Settings */
-	OvWindowing::Settings::DeviceSettings deviceSettings;
-	OvWindowing::Settings::WindowSettings windowSettings;
+	Windowing::Settings::DeviceSettings deviceSettings;
+	Windowing::Settings::WindowSettings windowSettings;
 	windowSettings.title = "Overload - Project Hub";
 	windowSettings.width = 1000;
 	windowSettings.height = 580;
@@ -287,8 +287,8 @@ void OvEditor::Core::ProjectHub::SetupContext()
 	windowSettings.decorated = true;
 
 	/* Window creation */
-	m_device = std::make_unique<OvWindowing::Context::Device>(deviceSettings);
-	m_window = std::make_unique<OvWindowing::Window>(*m_device, windowSettings);
+	m_device = std::make_unique<Windowing::Context::Device>(deviceSettings);
+	m_window = std::make_unique<Windowing::Window>(*m_device, windowSettings);
 	m_window->MakeCurrentContext();
 
 	auto[monWidth, monHeight] = m_device->GetMonitorSize();
@@ -296,18 +296,18 @@ void OvEditor::Core::ProjectHub::SetupContext()
 	m_window->SetPosition(monWidth / 2 - winWidth / 2, monHeight / 2 - winHeight / 2);
 
 	/* Graphics context creation */
-	m_driver = std::make_unique<OvRendering::Context::Driver>(OvRendering::Settings::DriverSettings{ false });
-	m_renderer = std::make_unique<OvRendering::Core::Renderer>(*m_driver);
-	m_renderer->SetCapability(OvRendering::Settings::ERenderingCapability::MULTISAMPLE, true);
+	m_driver = std::make_unique<Rendering::Context::Driver>(Rendering::Settings::DriverSettings{ false });
+	m_renderer = std::make_unique<Rendering::Core::Renderer>(*m_driver);
+	m_renderer->SetCapability(Rendering::Settings::ERenderingCapability::MULTISAMPLE, true);
 
-	m_uiManager = std::make_unique<OvUI::Core::UIManager>(m_window->GetGlfwWindow(), OvUI::Styling::EStyle::ALTERNATIVE_DARK);
+	m_uiManager = std::make_unique<UI::Core::UIManager>(m_window->GetGlfwWindow(), UI::Styling::EStyle::ALTERNATIVE_DARK);
 	m_uiManager->LoadFont("Ruda_Big", "Data\\Editor\\Fonts\\Ruda-Bold.ttf", 18);
 	m_uiManager->UseFont("Ruda_Big");
 	m_uiManager->EnableEditorLayoutSave(false);
 	m_uiManager->EnableDocking(false);
 }
 
-void OvEditor::Core::ProjectHub::RegisterProject(const std::string& p_path)
+void Editor::Core::ProjectHub::RegisterProject(const std::string& p_path)
 {
 	static_cast<ProjectHubPanel*>(m_mainPanel.get())->RegisterProject(p_path);
 }

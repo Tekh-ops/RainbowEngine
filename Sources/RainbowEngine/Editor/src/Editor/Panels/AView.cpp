@@ -6,25 +6,25 @@
 
 #include <GL/glew.h>
 
-#include "OvEditor/Panels/AView.h"
-#include "OvEditor/Core/EditorActions.h"
+#include "Editor/Panels/AView.h"
+#include "Editor/Core/EditorActions.h"
 
-OvEditor::Panels::AView::AView
+Editor::Panels::AView::AView
 (
 	const std::string& p_title,
 	bool p_opened,
-	const OvUI::Settings::PanelWindowSettings& p_windowSettings
+	const UI::Settings::PanelWindowSettings& p_windowSettings
 ) : PanelWindow(p_title, p_opened, p_windowSettings), m_editorRenderer(EDITOR_RENDERER())
 {
 	m_cameraPosition = { -10.0f, 3.0f, 10.0f };
 	m_cameraRotation = OvMaths::FQuaternion({0.0f, 135.0f, 0.0f});
 
-	m_image = &CreateWidget<OvUI::Widgets::Visual::Image>(m_fbo.GetTextureID(), OvMaths::FVector2{ 0.f, 0.f });
+	m_image = &CreateWidget<UI::Widgets::Visual::Image>(m_fbo.GetTextureID(), OvMaths::FVector2{ 0.f, 0.f });
 
     scrollable = false;
 }
 
-void OvEditor::Panels::AView::Update(float p_deltaTime)
+void Editor::Panels::AView::Update(float p_deltaTime)
 {
 	auto[winWidth, winHeight] = GetSafeSize();
 
@@ -33,16 +33,16 @@ void OvEditor::Panels::AView::Update(float p_deltaTime)
 	m_fbo.Resize(winWidth, winHeight);
 }
 
-void OvEditor::Panels::AView::_Draw_Impl()
+void Editor::Panels::AView::_Draw_Impl()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-	OvUI::Panels::PanelWindow::_Draw_Impl();
+	UI::Panels::PanelWindow::_Draw_Impl();
 
 	ImGui::PopStyleVar();
 }
 
-void OvEditor::Panels::AView::Render()
+void Editor::Panels::AView::Render()
 {
 	FillEngineUBO();
 
@@ -55,48 +55,48 @@ void OvEditor::Panels::AView::Render()
 	_Render_Impl();
 }
 
-void OvEditor::Panels::AView::SetCameraPosition(const OvMaths::FVector3 & p_position)
+void Editor::Panels::AView::SetCameraPosition(const OvMaths::FVector3 & p_position)
 {
 	m_cameraPosition = p_position;
 }
 
-void OvEditor::Panels::AView::SetCameraRotation(const OvMaths::FQuaternion& p_rotation)
+void Editor::Panels::AView::SetCameraRotation(const OvMaths::FQuaternion& p_rotation)
 {
 	m_cameraRotation = p_rotation;
 }
 
-const OvMaths::FVector3 & OvEditor::Panels::AView::GetCameraPosition() const
+const OvMaths::FVector3 & Editor::Panels::AView::GetCameraPosition() const
 {
 	return m_cameraPosition;
 }
 
-const OvMaths::FQuaternion& OvEditor::Panels::AView::GetCameraRotation() const
+const OvMaths::FQuaternion& Editor::Panels::AView::GetCameraRotation() const
 {
 	return m_cameraRotation;
 }
 
-OvRendering::LowRenderer::Camera & OvEditor::Panels::AView::GetCamera()
+Rendering::LowRenderer::Camera & Editor::Panels::AView::GetCamera()
 {
 	return m_camera;
 }
 
-std::pair<uint16_t, uint16_t> OvEditor::Panels::AView::GetSafeSize() const
+std::pair<uint16_t, uint16_t> Editor::Panels::AView::GetSafeSize() const
 {
 	auto result = GetSize() - OvMaths::FVector2{ 0.f, 25.f }; // 25 == title bar height
 	return { static_cast<uint16_t>(result.x), static_cast<uint16_t>(result.y) };
 }
 
-const OvMaths::FVector3& OvEditor::Panels::AView::GetGridColor() const
+const OvMaths::FVector3& Editor::Panels::AView::GetGridColor() const
 {
 	return m_gridColor;
 }
 
-void OvEditor::Panels::AView::SetGridColor(const OvMaths::FVector3& p_color)
+void Editor::Panels::AView::SetGridColor(const OvMaths::FVector3& p_color)
 {
 	m_gridColor = p_color;
 }
 
-void OvEditor::Panels::AView::FillEngineUBO()
+void Editor::Panels::AView::FillEngineUBO()
 {
 	auto& engineUBO = *EDITOR_CONTEXT(engineUBO);
 
@@ -108,7 +108,7 @@ void OvEditor::Panels::AView::FillEngineUBO()
 	engineUBO.SetSubData(m_cameraPosition, std::ref(offset));
 }
 
-void OvEditor::Panels::AView::PrepareCamera()
+void Editor::Panels::AView::PrepareCamera()
 {
 	auto [winWidth, winHeight] = GetSafeSize();
 	m_camera.CacheMatrices(winWidth, winHeight, m_cameraPosition, m_cameraRotation);

@@ -80,7 +80,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\Bin\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\Bin-Int\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>E:\CG\RainbowEngine\Dependencies\glfw\include;$(SolutionDir)..\..\Build\OvMaths\include\;$(SolutionDir)..\..\Build\Debug\include\;$(SolutionDir)..\..\Build\Rendering\include\;$(SolutionDir)..\..\Build\UI\include\;$(SolutionDir)..\..\Build\Windowing\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\..\Dependencies\glfw\include;$(SolutionDir)..\..\Build\OvMaths\include\;$(SolutionDir)..\..\Build\Debug\include\;$(SolutionDir)..\..\Build\Rendering\include\;$(SolutionDir)..\..\Build\UI\include\;$(SolutionDir)..\..\Build\Windowing\include\;$(IncludePath)</IncludePath>
     <LibraryPath>E:\CG\RainbowEngine\Dependencies\glfw\lib;$(SolutionDir)..\..\Build\OvMaths\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Tools\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Rendering\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Windowing\lib\$(Configuration)\;$(SolutionDir)..\..\Build\UI\lib\$(Configuration)\;$(SolutionDir)..\..\Build\Debug\lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)src\;$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -129,8 +129,9 @@
       <AdditionalDependencies>Rendering.lib;Windowing.lib;UI.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy "$(SolutionDir)..\..\Build\UI\bin\$(Configuration)\*.dll" "$(OutDir)" /y /i
+xcopy "$(SolutionDir)..\..\Build\Windowing\bin\$(Configuration)\*.dll" "$(OutDir)" /y /i 
+xcopy "$(SolutionDir)..\..\Build\Rendering\bin\$(Configuration)\*.dll" "$(OutDir)" /y /i </Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>

@@ -1,41 +1,34 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include <OvRendering/LowRenderer/Camera.h>
+#include <Rendering/LowRenderer/Camera.h>
 
-#include "OvEditor/Core/EditorRenderer.h"
-#include "OvEditor/Core/EditorActions.h"
-#include "OvEditor/Core/PanelsManager.h"
+#include "Editor/Core/EditorRenderer.h"
+#include "Editor/Core/EditorActions.h"
+#include "Editor/Core/PanelsManager.h"
 
-#include <OvUI/Modules/Canvas.h>
+#include <UI/Modules/Canvas.h>
 
-#include "OvEditor/Core/Context.h"
+#include "Editor/Core/Context.h"
 
-#include <OvAnalytics/Profiling/ProfilerSpy.h>
-
-namespace OvEditor::Core
+namespace Editor::Core
 {
 	/**
 	* Handle the editor logic
 	*/
-	class Editor
+	class RainbowEditor
 	{
 	public:
 		/**
 		* Constructor of the editor
 		* @param p_context
 		*/
-		Editor(Context& p_context);
+		RainbowEditor(Context& p_context);
 
 		/**
 		* Destructor of the editor
 		*/
-		~Editor();
+		~RainbowEditor();
 
 		/**
 		* Handle panels creation and canvas binding
@@ -110,10 +103,11 @@ namespace OvEditor::Core
 
 	private:
 		uint64_t m_elapsedFrames = 0;
-		OvUI::Modules::Canvas			m_canvas;
-		OvEditor::Core::Context&		m_context;
-		OvEditor::Core::EditorRenderer	m_editorRenderer;
-		OvEditor::Core::PanelsManager	m_panelsManager;
-		OvEditor::Core::EditorActions	m_editorActions;
+		UI::Modules::Canvas			m_canvas;
+		Editor::Core::Context&		m_context;
+		Editor::Core::EditorRenderer	m_editorRenderer;
+		Editor::Core::PanelsManager	m_panelsManager;
+		Editor::Core::EditorActions	m_editorActions;
+		
 	};
 }

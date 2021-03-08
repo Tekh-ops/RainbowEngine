@@ -1,21 +1,16 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
 #include <string>
 
-#include "OvTools/API/Export.h"
+#include "Tools/API/Export.h"
 
-namespace OvTools::Utils
+namespace Tools::Utils
 {
 	/**
 	* Provide some tools to get information about a given path
 	*/
-	class API_OVTOOLS PathParser
+	class API_TOOLS PathParser
 	{
 	public:
 		enum class EFileType

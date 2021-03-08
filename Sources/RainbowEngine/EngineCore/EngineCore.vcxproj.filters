@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{4d8f0299-4e1f-4dc9-b11f-0029adcf719e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore">
+      <UniqueIdentifier>{b88a056c-b57b-4b85-b13f-73c313dbefa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\API">
+      <UniqueIdentifier>{452f2f4a-10a5-4520-aa13-3d20b31ef13f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\ECS">
+      <UniqueIdentifier>{f58f45f8-b280-4026-a380-dfeea7700e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\ECS\Components">
+      <UniqueIdentifier>{288af489-8a35-47e4-bdf9-448fc861e075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\Global">
+      <UniqueIdentifier>{a8df779c-2824-4049-9f10-565611a04e56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\Helpers">
+      <UniqueIdentifier>{5f2d1627-aeb2-4902-8218-7cfdf03c5082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\SceneSystem">
+      <UniqueIdentifier>{bf281d13-ecf1-4f6f-96ef-9fb463439f5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\Resources">
+      <UniqueIdentifier>{892ac899-6910-47da-960b-c2b78247439c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\ResourceManagement">
+      <UniqueIdentifier>{ccd8b50e-b660-4174-8dba-2ffca03edd95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4a361077-b821-48dd-af9b-bcb2a2a02fd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore">
+      <UniqueIdentifier>{42ce8820-01fa-4b3d-91d0-73ed7c499680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\ECS">
+      <UniqueIdentifier>{edb02836-aeed-4ccc-a906-c127107a107f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\ECS\Components">
+      <UniqueIdentifier>{f55580ac-820e-4538-898e-6a1e568c57b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Global">
+      <UniqueIdentifier>{c4838aa5-0944-4ab7-bc8a-240f1030eb7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Helpers">
+      <UniqueIdentifier>{30571410-984d-44aa-b495-9d073f61615f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\EngineCore\Resources\Loaders">
+      <UniqueIdentifier>{bd378c98-82e3-4160-b096-496f04faf577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\ResourceManagement">
+      <UniqueIdentifier>{52f498c7-65f9-4ac6-8815-ab1b3dd88078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\SceneSystem">
+      <UniqueIdentifier>{359e4359-25c8-4190-b987-6d9fbd8fee74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Resources">
+      <UniqueIdentifier>{73431189-924b-4fd3-a981-3eeea023f3df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\EngineCore\Resources\Loaders">
+      <UniqueIdentifier>{632d7021-fee1-494f-a291-d756cb879b46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\EngineCore\API\Export.h">
+      <Filter>include\EngineCore\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\API\IInspectorItem.h">
+      <Filter>include\EngineCore\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\API\ISerializable.h">
+      <Filter>include\EngineCore\API</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Actor.h">
+      <Filter>include\EngineCore\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Renderer.h">
+      <Filter>include\EngineCore\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\AComponent.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CAmbientBoxLight.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CAmbientSphereLight.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CCamera.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CDirectionalLight.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CLight.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CMaterialRenderer.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CModelRenderer.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CPointLight.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CSpotLight.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CTransform.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Global\ServiceLocator.h">
+      <Filter>include\EngineCore\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Helpers\GUIDrawer.h">
+      <Filter>include\EngineCore\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Helpers\Serializer.h">
+      <Filter>include\EngineCore\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Resources\Material.h">
+      <Filter>include\EngineCore\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\Resources\Loaders\MaterialLoader.h">
+      <Filter>include\EngineCore\Resources\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ResourceManagement\AResourceManager.h">
+      <Filter>include\EngineCore\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ResourceManagement\MaterialManager.h">
+      <Filter>include\EngineCore\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ResourceManagement\ModelManager.h">
+      <Filter>include\EngineCore\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ResourceManagement\ShaderManager.h">
+      <Filter>include\EngineCore\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\ResourceManagement\TextureManager.h">
+      <Filter>include\EngineCore\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\SceneSystem\Scene.h">
+      <Filter>include\EngineCore\SceneSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EngineCore\SceneSystem\SceneManager.h">
+      <Filter>include\EngineCore\SceneSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\EngineCore\ECS\Actor.inl">
+      <Filter>include\EngineCore\ECS</Filter>
+    </None>
+    <None Include="include\EngineCore\Helpers\GUIDrawer.inl">
+      <Filter>include\EngineCore\Helpers</Filter>
+    </None>
+    <None Include="include\EngineCore\Resources\Material.inl">
+      <Filter>include\EngineCore\Resources</Filter>
+    </None>
+    <None Include="include\EngineCore\ResourceManagement\AResourceManager.inl">
+      <Filter>include\EngineCore\ResourceManagement</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\EngineCore\ECS\Actor.cpp">
+      <Filter>src\EngineCore\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Renderer.cpp">
+      <Filter>src\EngineCore\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\AComponent.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CAmbientBoxLight.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CAmbientSphereLight.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CCamera.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CDirectionalLight.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CLight.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CMaterialRenderer.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CModelRenderer.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CPointLight.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CSpotLight.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CTransform.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Global\ServiceLocator.cpp">
+      <Filter>src\EngineCore\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Helpers\GUIDrawer.cpp">
+      <Filter>src\EngineCore\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Helpers\Serializer.cpp">
+      <Filter>src\EngineCore\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ResourceManagement\MaterialManager.cpp">
+      <Filter>src\EngineCore\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ResourceManagement\ModelManager.cpp">
+      <Filter>src\EngineCore\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ResourceManagement\ShaderManager.cpp">
+      <Filter>src\EngineCore\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ResourceManagement\TextureManager.cpp">
+      <Filter>src\EngineCore\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\SceneSystem\Scene.cpp">
+      <Filter>src\EngineCore\SceneSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\SceneSystem\SceneManager.cpp">
+      <Filter>src\EngineCore\SceneSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Resources\Material.cpp">
+      <Filter>src\EngineCore\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\Resources\Loaders\MaterialLoader.cpp">
+      <Filter>src\EngineCore\Resources\Loaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

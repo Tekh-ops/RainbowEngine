@@ -1,26 +1,22 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
 #include <variant>
 
-#include <OvCore/Resources/Material.h>
+#include <EngineCore/Resources/Material.h>
 
-#include "OvEditor/Panels/AViewControllable.h"
+#include "Editor/Panels/AViewControllable.h"
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
 	/**
 	* Provide a view for assets
 	*/
-	class AssetView : public OvEditor::Panels::AViewControllable
+	class AssetView : public Editor::Panels::AViewControllable
 	{
 	public:
-		using ViewableResource = std::variant<OvRendering::Resources::Model*, OvRendering::Resources::Texture*, OvCore::Resources::Material*>;
+		using ViewableResource = std::variant<Rendering::Resources::Model*, Rendering::Resources::Texture*, EngineCore::Resources::Material*>;
 
 		/**
 		* Constructor
@@ -32,7 +28,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**

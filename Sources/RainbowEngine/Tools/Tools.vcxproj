@@ -162,14 +162,31 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)..\..\Build\$(ProjectName)\bin\$(Configura
   <ItemGroup>
     <ClInclude Include="include\Tools\API\Export.h" />
     <ClInclude Include="include\Tools\Eventing\Event.h" />
+    <ClInclude Include="include\Tools\Filesystem\IniFile.h" />
+    <ClInclude Include="include\Tools\Filesystem\tinyxml2.h" />
+    <ClInclude Include="include\Tools\Time\Clock.h" />
     <ClInclude Include="include\Tools\Time\Date.h" />
+    <ClInclude Include="include\Tools\Utils\PathParser.h" />
+    <ClInclude Include="include\Tools\Utils\Random.h" />
     <ClInclude Include="include\Tools\Utils\ReferenceOrValue.h" />
+    <ClInclude Include="include\Tools\Utils\SizeConverter.h" />
+    <ClInclude Include="include\Tools\Utils\String.h" />
+    <ClInclude Include="include\Tools\Utils\SystemCalls.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Tools\Eventing\Event.inl" />
+    <None Include="include\Tools\Filesystem\IniFile.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\Tools\Time\Date.cpp" />
+    <ClCompile Include="src\Tools\Filesystem\IniFile.cpp" />
+    <ClCompile Include="src\Tools\Filesystem\tinyxml2.cpp" />
+    <ClCompile Include="src\Tools\Time\Clock.cpp" />
+    <ClCompile Include="src\Tools\Time\Date.cpp" />
+    <ClCompile Include="src\Tools\Utils\PathParser.cpp" />
+    <ClCompile Include="src\Tools\Utils\Random.cpp" />
+    <ClCompile Include="src\Tools\Utils\SizeConverter.cpp" />
+    <ClCompile Include="src\Tools\Utils\String.cpp" />
+    <ClCompile Include="src\Tools\Utils\SystemCalls.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

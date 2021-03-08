@@ -1,30 +1,27 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
 #include <variant>
 
-#include <OvTools/Filesystem/IniFile.h>
-#include <OvTools/Eventing/Event.h>
+#include <Tools/Filesystem/IniFile.h>
+#include <Tools/Eventing/Event.h>
 
-#include <OvUI/Widgets/Texts/Text.h>
-#include <OvUI/Panels/PanelWindow.h>
-#include <OvUI/Widgets/Layout/Group.h>
-#include <OvUI/Widgets/Layout/Columns.h>
+#include <UI/Widgets/Texts/Text.h>
+#include <UI/Panels/PanelWindow.h>
+#include <UI/Widgets/Layout/Group.h>
+#include <UI/Widgets/Layout/Columns.h>
+#include <UI/Widgets/Buttons/Button.h>
 
-#include <OvRendering/Resources/Model.h>
-#include <OvRendering/Resources/Texture.h>
+#include <Rendering/Resources/Model.h>
+#include <Rendering/Resources/Texture.h>
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class AssetProperties : public OvUI::Panels::PanelWindow
+	class AssetProperties : public UI::Panels::PanelWindow
 	{
 	public:
-		using EditableAssets = std::variant<OvRendering::Resources::Model*, OvRendering::Resources::Texture*>;
+		using EditableAssets = std::variant<Rendering::Resources::Model*, Rendering::Resources::Texture*>;
 
 		/**
 		* Constructor
@@ -36,7 +33,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
@@ -67,18 +64,18 @@ namespace OvEditor::Panels
 	private:
 		std::string m_resource;
 
-        OvTools::Eventing::Event<> m_targetChanged;
-        OvUI::Widgets::Layout::Group* m_settings = nullptr;
-        OvUI::Widgets::Layout::Group* m_info = nullptr;
-        OvUI::Widgets::Buttons::Button* m_applyButton = nullptr;
-        OvUI::Widgets::Buttons::Button* m_revertButton = nullptr;
-        OvUI::Widgets::Buttons::Button* m_previewButton = nullptr;
-        OvUI::Widgets::Buttons::Button* m_resetButton = nullptr;
-        OvUI::Widgets::AWidget* m_headerSeparator = nullptr;
-        OvUI::Widgets::AWidget* m_headerLineBreak = nullptr;
-		OvUI::Widgets::Layout::Columns<2>* m_settingsColumns = nullptr;
-		OvUI::Widgets::Layout::Columns<2>* m_infoColumns = nullptr;
-        OvUI::Widgets::Texts::Text* m_assetSelector = nullptr;
-		std::unique_ptr<OvTools::Filesystem::IniFile> m_metadata;
+        Tools::Eventing::Event<> m_targetChanged;
+        UI::Widgets::Layout::Group* m_settings = nullptr;
+        UI::Widgets::Layout::Group* m_info = nullptr;
+        UI::Widgets::Buttons::Button* m_applyButton = nullptr;
+        UI::Widgets::Buttons::Button* m_revertButton = nullptr;
+        UI::Widgets::Buttons::Button* m_previewButton = nullptr;
+        UI::Widgets::Buttons::Button* m_resetButton = nullptr;
+        UI::Widgets::AWidget* m_headerSeparator = nullptr;
+        UI::Widgets::AWidget* m_headerLineBreak = nullptr;
+		UI::Widgets::Layout::Columns<2>* m_settingsColumns = nullptr;
+		UI::Widgets::Layout::Columns<2>* m_infoColumns = nullptr;
+        UI::Widgets::Texts::Text* m_assetSelector = nullptr;
+		std::unique_ptr<Tools::Filesystem::IniFile> m_metadata;
 	};
 }

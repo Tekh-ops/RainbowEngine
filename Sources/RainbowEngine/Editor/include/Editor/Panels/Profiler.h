@@ -1,23 +1,19 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
-#include <OvAnalytics/Profiling/Profiler.h>
+//#include <OvAnalytics/Profiling/Profiler.h>
 
-#include <OvUI/Panels/PanelWindow.h>
-#include <OvUI/Widgets/Texts/TextColored.h>
-#include <OvUI/Widgets/Selection/CheckBox.h>
-#include <OvUI/Widgets/Layout/Group.h>
-#include <OvUI/Widgets/Layout/Columns.h>
-#include <OvUI/Widgets/Buttons/Button.h>
+#include <UI/Panels/PanelWindow.h>
+#include <UI/Widgets/Texts/TextColored.h>
+#include <UI/Widgets/Selection/CheckBox.h>
+#include <UI/Widgets/Layout/Group.h>
+#include <UI/Widgets/Layout/Columns.h>
+#include <UI/Widgets/Buttons/Button.h>
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class Profiler : public OvUI::Panels::PanelWindow
+	class Profiler : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -31,7 +27,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings,
+			const UI::Settings::PanelWindowSettings& p_windowSettings,
 			float p_frequency
 		);
 
@@ -49,8 +45,9 @@ namespace OvEditor::Panels
 		void Enable(bool p_value, bool p_disableLog = false);
 
 	private:
-		OvUI::Types::Color CalculateActionColor(double p_percentage) const;
-		std::string GenerateActionString(OvAnalytics::Profiling::ProfilerReport::Action& p_action);
+		UI::Types::Color CalculateActionColor(double p_percentage) const;
+		//TODO
+		//std::string GenerateActionString(Analytics::Profiling::ProfilerReport::Action& p_action);
 
 	private:
 		enum class EProfilingMode
@@ -64,13 +61,14 @@ namespace OvEditor::Panels
 		float m_fpsTimer = 0.f;
 		EProfilingMode m_profilingMode = EProfilingMode::DEFAULT;
 
-		OvAnalytics::Profiling::Profiler m_profiler;
+		//TODO
+		//OvAnalytics::Profiling::Profiler m_profiler;
 
-		OvUI::Widgets::AWidget* m_separator;
-		OvUI::Widgets::Buttons::Button* m_captureResumeButton;
-		OvUI::Widgets::Texts::TextColored* m_fpsText;
-		OvUI::Widgets::Texts::TextColored* m_elapsedFramesText;
-		OvUI::Widgets::Texts::TextColored* m_elapsedTimeText;
-		OvUI::Widgets::Layout::Columns<5>* m_actionList;
+		UI::Widgets::AWidget* m_separator;
+		UI::Widgets::Buttons::Button* m_captureResumeButton;
+		UI::Widgets::Texts::TextColored* m_fpsText;
+		UI::Widgets::Texts::TextColored* m_elapsedFramesText;
+		UI::Widgets::Texts::TextColored* m_elapsedTimeText;
+		UI::Widgets::Layout::Columns<5>* m_actionList;
 	};
 }

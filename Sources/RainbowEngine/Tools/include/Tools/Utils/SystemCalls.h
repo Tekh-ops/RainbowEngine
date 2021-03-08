@@ -1,18 +1,14 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
 #include <string>
 
-#include "OvTools/API/Export.h"
+#include "Tools/API/Export.h"
 
-namespace OvTools::Utils
+namespace Tools::Utils
 {
-	class API_OVTOOLS SystemCalls
+	class API_TOOLS SystemCalls
 	{
 	public:
 		/**

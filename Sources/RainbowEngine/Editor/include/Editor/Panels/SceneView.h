@@ -1,17 +1,15 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
-#include "OvEditor/Panels/AViewControllable.h"
-#include "OvEditor/Core/GizmoBehaviour.h"
+#include <optional>
 
-namespace OvEditor::Panels
+#include "Editor/Panels/AViewControllable.h"
+#include "Editor/Core/GizmoBehaviour.h"
+
+namespace Editor::Panels
 {
-	class SceneView : public OvEditor::Panels::AViewControllable
+	class SceneView : public Editor::Panels::AViewControllable
 	{
 	public:
 		/**
@@ -24,7 +22,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
@@ -54,12 +52,12 @@ namespace OvEditor::Panels
 		void HandleActorPicking();
 
 	private:
-		OvCore::SceneSystem::SceneManager& m_sceneManager;
-		OvRendering::Buffers::Framebuffer m_actorPickingFramebuffer;
-		OvEditor::Core::GizmoBehaviour m_gizmoOperations;
-		OvEditor::Core::EGizmoOperation m_currentOperation = OvEditor::Core::EGizmoOperation::TRANSLATE;
+		EngineCore::SceneSystem::SceneManager& m_sceneManager;
+		Rendering::Buffers::Framebuffer m_actorPickingFramebuffer;
+		Editor::Core::GizmoBehaviour m_gizmoOperations;
+		Editor::Core::EGizmoOperation m_currentOperation = Editor::Core::EGizmoOperation::TRANSLATE;
 
-		std::optional<std::reference_wrapper<OvCore::ECS::Actor>> m_highlightedActor;
-		std::optional<OvEditor::Core::GizmoBehaviour::EDirection> m_highlightedGizmoDirection;
+		std::optional<std::reference_wrapper<EngineCore::ECS::Actor>> m_highlightedActor;
+		std::optional<Editor::Core::GizmoBehaviour::EDirection> m_highlightedGizmoDirection;
 	};
 }

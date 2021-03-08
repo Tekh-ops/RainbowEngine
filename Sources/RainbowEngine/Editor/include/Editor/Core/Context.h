@@ -1,41 +1,35 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
-#include <OvTools/Filesystem/IniFile.h>
+#include <Tools/Filesystem/IniFile.h>
 
-#include <OvRendering/Buffers/UniformBuffer.h>
-#include <OvRendering/Buffers/ShaderStorageBuffer.h>
-#include <OvRendering/Core/ShapeDrawer.h>
+#include <Rendering/Buffers/UniformBuffer.h>
+#include <Rendering/Buffers/ShaderStorageBuffer.h>
+#include <Rendering/Core/ShapeDrawer.h>
 
-#include <OvPhysics/Core/PhysicsEngine.h>
 
-#include <OvAudio/Core/AudioEngine.h>
 
-#include <OvWindowing/Context/Device.h>
-#include <OvWindowing/Inputs/InputManager.h>
-#include <OvWindowing/Window.h>
+#include <Windowing/Context/Device.h>
+#include <Windowing/Inputs/InputManager.h>
+#include <Windowing/Window.h>
 
-#include <OvCore/ECS/Renderer.h>
-#include <OvCore/ResourceManagement/ModelManager.h>
-#include <OvCore/ResourceManagement/TextureManager.h>
-#include <OvCore/ResourceManagement/ShaderManager.h>
-#include <OvCore/ResourceManagement/MaterialManager.h>
-#include <OvCore/ResourceManagement/SoundManager.h>
-#include <OvCore/SceneSystem/SceneManager.h>
-#include <OvCore/Scripting/ScriptInterpreter.h>
+#include <EngineCore/ECS/Renderer.h>
+#include <EngineCore/ResourceManagement/ModelManager.h>
+#include <EngineCore/ResourceManagement/TextureManager.h>
+#include <EngineCore/ResourceManagement/ShaderManager.h>
+#include <EngineCore/ResourceManagement/MaterialManager.h>
 
-#include <OvUI/Core/UIManager.h>
-#include <OvAudio/Core/AudioEngine.h>
-#include <OvAudio/Core/AudioPlayer.h>
+#include <EngineCore/SceneSystem/SceneManager.h>
 
-#include "OvEditor/Core/EditorResources.h"
 
-namespace OvEditor::Core
+#include <UI/Core/UIManager.h>
+
+
+#include "Editor/Core/EditorResources.h"
+
+
+namespace Editor::Core
 {
 	/**
 	* The Context handle the engine features setup
@@ -80,34 +74,36 @@ namespace OvEditor::Core
 		const std::string projectScriptsPath;
 		const std::string editorAssetsPath;
 
-		std::unique_ptr<OvWindowing::Context::Device>			device;
-		std::unique_ptr<OvWindowing::Window>					window;
-		std::unique_ptr<OvWindowing::Inputs::InputManager>		inputManager;
-		std::unique_ptr<OvRendering::Context::Driver>			driver;
-		std::unique_ptr<OvCore::ECS::Renderer>					renderer;
-		std::unique_ptr<OvRendering::Core::ShapeDrawer>			shapeDrawer;
-		std::unique_ptr<OvUI::Core::UIManager>					uiManager;
-		std::unique_ptr<OvPhysics::Core::PhysicsEngine>			physicsEngine;
-		std::unique_ptr<OvAudio::Core::AudioEngine>				audioEngine;
-		std::unique_ptr<OvAudio::Core::AudioPlayer>				audioPlayer;
-		std::unique_ptr<OvEditor::Core::EditorResources>		editorResources;
+		std::unique_ptr<Windowing::Context::Device>			device;
+		std::unique_ptr<Windowing::Window>					window;
+		std::unique_ptr<Windowing::Inputs::InputManager>		inputManager;
+		std::unique_ptr<Rendering::Context::Driver>			driver;
+		std::unique_ptr<EngineCore::ECS::Renderer>					renderer;
+		std::unique_ptr<Rendering::Core::ShapeDrawer>			shapeDrawer;
+		std::unique_ptr<UI::Core::UIManager>					uiManager;
+		//std::unique_ptr<Physics::Core::PhysicsEngine>			physicsEngine;
+		//std::unique_ptr<Audio::Core::AudioEngine>				audioEngine;
+		//std::unique_ptr<Audio::Core::AudioPlayer>				audioPlayer;
+		std::unique_ptr<Editor::Core::EditorResources>		editorResources;
 
-		std::unique_ptr<OvCore::Scripting::ScriptInterpreter>	scriptInterpreter;
-		std::unique_ptr<OvRendering::Buffers::UniformBuffer>	engineUBO;
+		//std::unique_ptr<Core::Scripting::ScriptInterpreter>	scriptInterpreter;
+		std::unique_ptr<Rendering::Buffers::UniformBuffer>	engineUBO;
 
-		std::unique_ptr<OvRendering::Buffers::ShaderStorageBuffer>	lightSSBO;
-		std::unique_ptr<OvRendering::Buffers::ShaderStorageBuffer>	simulatedLightSSBO;
+		std::unique_ptr<Rendering::Buffers::ShaderStorageBuffer>	lightSSBO;
+		std::unique_ptr<Rendering::Buffers::ShaderStorageBuffer>	simulatedLightSSBO;
 		
-		OvCore::SceneSystem::SceneManager sceneManager;
+		EngineCore::SceneSystem::SceneManager sceneManager;
 
-		OvCore::ResourceManagement::ModelManager	modelManager;
-		OvCore::ResourceManagement::TextureManager	textureManager;
-		OvCore::ResourceManagement::ShaderManager	shaderManager;
-		OvCore::ResourceManagement::MaterialManager	materialManager;
-		OvCore::ResourceManagement::SoundManager	soundManager;
+		EngineCore::ResourceManagement::ModelManager	modelManager;
+		EngineCore::ResourceManagement::TextureManager	textureManager;
+		EngineCore::ResourceManagement::ShaderManager	shaderManager;
+		EngineCore::ResourceManagement::MaterialManager	materialManager;
+		//EngineCore::ResourceManagement::SoundManager	soundManager;
 
-		OvWindowing::Settings::WindowSettings windowSettings;
+		
 
-		OvTools::Filesystem::IniFile projectSettings;
+		Windowing::Settings::WindowSettings windowSettings;
+
+		Tools::Filesystem::IniFile projectSettings;
 	};
 }

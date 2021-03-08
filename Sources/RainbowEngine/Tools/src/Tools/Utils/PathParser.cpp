@@ -1,14 +1,10 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #include <algorithm>
 
-#include "OvTools/Utils/PathParser.h"
+#include "Tools/Utils/PathParser.h"
 
-std::string OvTools::Utils::PathParser::MakeWindowsStyle(const std::string & p_path)
+std::string Tools::Utils::PathParser::MakeWindowsStyle(const std::string & p_path)
 {
 	std::string result;
 	result.resize(p_path.size());
@@ -19,7 +15,7 @@ std::string OvTools::Utils::PathParser::MakeWindowsStyle(const std::string & p_p
 	return result;
 }
 
-std::string OvTools::Utils::PathParser::MakeNonWindowsStyle(const std::string & p_path)
+std::string Tools::Utils::PathParser::MakeNonWindowsStyle(const std::string & p_path)
 {
 	std::string result;
 	result.resize(p_path.size());
@@ -30,7 +26,7 @@ std::string OvTools::Utils::PathParser::MakeNonWindowsStyle(const std::string & 
 	return result;
 }
 
-std::string OvTools::Utils::PathParser::GetContainingFolder(const std::string & p_path)
+std::string Tools::Utils::PathParser::GetContainingFolder(const std::string & p_path)
 {
 	std::string result;
 
@@ -53,7 +49,7 @@ std::string OvTools::Utils::PathParser::GetContainingFolder(const std::string & 
 	return result;
 }
 
-std::string OvTools::Utils::PathParser::GetElementName(const std::string & p_path)
+std::string Tools::Utils::PathParser::GetElementName(const std::string & p_path)
 {
 	std::string result;
 
@@ -69,7 +65,7 @@ std::string OvTools::Utils::PathParser::GetElementName(const std::string & p_pat
 	return result;
 }
 
-std::string OvTools::Utils::PathParser::GetExtension(const std::string & p_path)
+std::string Tools::Utils::PathParser::GetExtension(const std::string & p_path)
 {
 	std::string result;
 
@@ -81,24 +77,24 @@ std::string OvTools::Utils::PathParser::GetExtension(const std::string & p_path)
 	return result;
 }
 
-std::string OvTools::Utils::PathParser::FileTypeToString(EFileType p_fileType)
+std::string Tools::Utils::PathParser::FileTypeToString(EFileType p_fileType)
 {
 	switch (p_fileType)
 	{
-	case OvTools::Utils::PathParser::EFileType::MODEL:		return "Model";
-	case OvTools::Utils::PathParser::EFileType::TEXTURE:	return "Texture";
-	case OvTools::Utils::PathParser::EFileType::SHADER:		return "Shader";
-	case OvTools::Utils::PathParser::EFileType::MATERIAL:	return "Material";
-	case OvTools::Utils::PathParser::EFileType::SOUND:		return "Sound";
-	case OvTools::Utils::PathParser::EFileType::SCENE:		return "Scene";
-	case OvTools::Utils::PathParser::EFileType::SCRIPT:		return "Script";
-	case OvTools::Utils::PathParser::EFileType::FONT:		return "Font";
+	case Tools::Utils::PathParser::EFileType::MODEL:		return "Model";
+	case Tools::Utils::PathParser::EFileType::TEXTURE:	return "Texture";
+	case Tools::Utils::PathParser::EFileType::SHADER:		return "Shader";
+	case Tools::Utils::PathParser::EFileType::MATERIAL:	return "Material";
+	case Tools::Utils::PathParser::EFileType::SOUND:		return "Sound";
+	case Tools::Utils::PathParser::EFileType::SCENE:		return "Scene";
+	case Tools::Utils::PathParser::EFileType::SCRIPT:		return "Script";
+	case Tools::Utils::PathParser::EFileType::FONT:		return "Font";
 	}
 
 	return "Unknown";
 }
 
-OvTools::Utils::PathParser::EFileType OvTools::Utils::PathParser::GetFileType(const std::string & p_path)
+Tools::Utils::PathParser::EFileType Tools::Utils::PathParser::GetFileType(const std::string & p_path)
 {
 	std::string ext = GetExtension(p_path);
 	std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);

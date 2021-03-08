@@ -1,17 +1,13 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
-#include "OvEditor/Panels/AView.h"
-#include "OvEditor/Core/CameraController.h"
+#include "Editor/Panels/AView.h"
+#include "Editor/Core/CameraController.h"
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class AViewControllable : public OvEditor::Panels::AView
+	class AViewControllable : public Editor::Panels::AView
 	{
 	public:
 		/**
@@ -25,7 +21,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings,
+			const UI::Settings::PanelWindowSettings& p_windowSettings,
 			bool p_enableFocusInputs = false
 		);
 
@@ -38,9 +34,9 @@ namespace OvEditor::Panels
 		/**
 		* Returns the camera controller of the controllable view
 		*/
-		OvEditor::Core::CameraController& GetCameraController();
+		Editor::Core::CameraController& GetCameraController();
 
 	protected:
-		OvEditor::Core::CameraController m_cameraController;
+		Editor::Core::CameraController m_cameraController;
 	};
 }

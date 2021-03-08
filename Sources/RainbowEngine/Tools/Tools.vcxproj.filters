@@ -31,6 +31,12 @@
     <Filter Include="src\Tools\Utils">
       <UniqueIdentifier>{a23d7326-da15-482d-9faa-8e8e58a3b76c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Tools\Filesystem">
+      <UniqueIdentifier>{80a19899-a9fe-458d-96cf-738ceb4ee05d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Tools\Filesystem">
+      <UniqueIdentifier>{6a674e56-5c52-4427-9fda-1c7ab4660df6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Tools\Eventing\Event.h">
@@ -45,14 +51,65 @@
     <ClInclude Include="include\Tools\Utils\ReferenceOrValue.h">
       <Filter>include\Tools\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="include\Tools\Filesystem\IniFile.h">
+      <Filter>include\Tools\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Filesystem\tinyxml2.h">
+      <Filter>include\Tools\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Utils\PathParser.h">
+      <Filter>include\Tools\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Utils\Random.h">
+      <Filter>include\Tools\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Utils\SizeConverter.h">
+      <Filter>include\Tools\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Utils\String.h">
+      <Filter>include\Tools\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Utils\SystemCalls.h">
+      <Filter>include\Tools\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tools\Time\Clock.h">
+      <Filter>include\Tools\Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Tools\Eventing\Event.inl">
       <Filter>include\Tools\Eventing</Filter>
     </None>
+    <None Include="include\Tools\Filesystem\IniFile.inl">
+      <Filter>include\Tools\Filesystem</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\Tools\Time\Date.cpp">
+    <ClCompile Include="src\Tools\Filesystem\IniFile.cpp">
+      <Filter>src\Tools\Filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Filesystem\tinyxml2.cpp">
+      <Filter>src\Tools\Filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Utils\PathParser.cpp">
+      <Filter>src\Tools\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Utils\Random.cpp">
+      <Filter>src\Tools\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Utils\SizeConverter.cpp">
+      <Filter>src\Tools\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Utils\String.cpp">
+      <Filter>src\Tools\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Utils\SystemCalls.cpp">
+      <Filter>src\Tools\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Time\Clock.cpp">
+      <Filter>src\Tools\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tools\Time\Date.cpp">
       <Filter>src\Tools\Time</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,23 +4,23 @@
 * @licence: MIT
 */
 
-#include <OvCore/ECS/Components/CCamera.h>
+#include <EngineCore/ECS/Components/CCamera.h>
 
-#include "OvEditor/Core/EditorRenderer.h"
-#include "OvEditor/Panels/GameView.h"
-#include "OvEditor/Core/EditorActions.h"
-#include "OvEditor/Settings/EditorSettings.h"
+#include "Editor/Core/EditorRenderer.h"
+#include "Editor/Panels/GameView.h"
+#include "Editor/Core/EditorActions.h"
+#include "Editor/Settings/EditorSettings.h"
 
-OvEditor::Panels::GameView::GameView
+Editor::Panels::GameView::GameView
 (
 	const std::string & p_title,
 	bool p_opened,
-	const OvUI::Settings::PanelWindowSettings & p_windowSettings
+	const UI::Settings::PanelWindowSettings & p_windowSettings
 ) : AView(p_title, p_opened, p_windowSettings), m_sceneManager(EDITOR_CONTEXT(sceneManager))
 {
 }
 
-void OvEditor::Panels::GameView::Update(float p_deltaTime)
+void Editor::Panels::GameView::Update(float p_deltaTime)
 {
 	AView::Update(p_deltaTime);
 
@@ -45,7 +45,7 @@ void OvEditor::Panels::GameView::Update(float p_deltaTime)
 	}
 }
 
-void OvEditor::Panels::GameView::_Render_Impl()
+void Editor::Panels::GameView::_Render_Impl()
 {
 	auto& baseRenderer = *EDITOR_CONTEXT(renderer).get();
 	auto& currentScene = *m_sceneManager.GetCurrentScene();
@@ -76,12 +76,12 @@ void OvEditor::Panels::GameView::_Render_Impl()
 	m_fbo.Unbind();
 }
 
-bool OvEditor::Panels::GameView::HasCamera() const
+bool Editor::Panels::GameView::HasCamera() const
 {
 	return m_hasCamera;
 }
 
-std::optional<OvRendering::Data::Frustum> OvEditor::Panels::GameView::GetActiveFrustum() const
+std::optional<Rendering::Data::Frustum> Editor::Panels::GameView::GetActiveFrustum() const
 {
-	return m_hasCamera ? m_camera.GetFrustum() : std::optional<OvRendering::Data::Frustum>{};
+	return m_hasCamera ? m_camera.GetFrustum() : std::optional<Rendering::Data::Frustum>{};
 }

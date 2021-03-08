@@ -1,17 +1,12 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include <OvUI/Widgets/Buttons/ButtonImage.h>
-#include <OvUI/Panels/PanelWindow.h>
+#include <UI/Widgets/Buttons/ButtonImage.h>
+#include <UI/Panels/PanelWindow.h>
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class Toolbar : public OvUI::Panels::PanelWindow
+	class Toolbar : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -24,7 +19,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
@@ -33,9 +28,9 @@ namespace OvEditor::Panels
 		void _Draw_Impl() override;
 
 	private:
-		OvUI::Widgets::Buttons::ButtonImage* m_playButton;
-		OvUI::Widgets::Buttons::ButtonImage* m_pauseButton;
-		OvUI::Widgets::Buttons::ButtonImage* m_stopButton;
-		OvUI::Widgets::Buttons::ButtonImage* m_nextButton;
+		UI::Widgets::Buttons::ButtonImage* m_playButton;
+		UI::Widgets::Buttons::ButtonImage* m_pauseButton;
+		UI::Widgets::Buttons::ButtonImage* m_stopButton;
+		UI::Widgets::Buttons::ButtonImage* m_nextButton;
 	};
 }

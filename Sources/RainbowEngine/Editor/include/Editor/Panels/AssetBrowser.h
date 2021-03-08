@@ -1,8 +1,4 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
@@ -12,6 +8,7 @@
 
 #include <UI/Panels/PanelWindow.h>
 #include <UI/Widgets/Layout/TreeNode.h>
+#include <UI/Widgets/Layout/Group.h>
 #include <Rendering/Resources/Loaders/TextureLoader.h>
 
 namespace Editor::Panels

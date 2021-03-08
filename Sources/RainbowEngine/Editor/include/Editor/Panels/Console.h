@@ -1,20 +1,15 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include <OvDebug/Utils/Logger.h>
+#include <Debug/Utils/Logger.h>
 
-#include <OvUI/Panels/PanelWindow.h>
-#include <OvUI/Widgets/Layout/Group.h>
-#include <OvUI/Widgets/Texts/TextColored.h>
+#include <UI/Panels/PanelWindow.h>
+#include <UI/Widgets/Layout/Group.h>
+#include <UI/Widgets/Texts/TextColored.h>
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class Console : public OvUI::Panels::PanelWindow
+	class Console : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -27,14 +22,14 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
 		* Method called when a log event occured
 		* @param p_logData
 		*/
-		void OnLogIntercepted(const OvDebug::LogData& p_logData);
+		void OnLogIntercepted(const Debug::LogData& p_logData);
 
 		/**
 		* Called when the scene plays. It will clear the console if the "Clear on play" settings is on
@@ -55,7 +50,7 @@ namespace OvEditor::Panels
 		* Verify if a given log level is allowed by the current filter
 		* @param p_logLevel
 		*/
-		bool IsAllowedByFilter(OvDebug::ELogLevel p_logLevel);
+		bool IsAllowedByFilter(Debug::ELogLevel p_logLevel);
 
 	private:
 		void SetShowDefaultLogs(bool p_value);
@@ -64,8 +59,8 @@ namespace OvEditor::Panels
 		void SetShowErrorLogs(bool p_value);
 
 	private:
-		OvUI::Widgets::Layout::Group* m_logGroup;
-		std::unordered_map<OvUI::Widgets::Texts::TextColored*, OvDebug::ELogLevel> m_logTextWidgets;
+		UI::Widgets::Layout::Group* m_logGroup;
+		std::unordered_map<UI::Widgets::Texts::TextColored*, Debug::ELogLevel> m_logTextWidgets;
 
 		bool m_clearOnPlay = true;
 		bool m_showDefaultLog = true;

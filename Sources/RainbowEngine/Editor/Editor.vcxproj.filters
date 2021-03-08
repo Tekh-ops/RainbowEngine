@@ -25,9 +25,6 @@
     <Filter Include="include\Editor\Settings">
       <UniqueIdentifier>{4b8931a8-8d76-46c5-96ad-d5bf446bb2eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Editor\Core">
-      <UniqueIdentifier>{72b8e852-f287-4413-a260-6fa80883b180}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Editor\Panels">
       <UniqueIdentifier>{d4f72d2a-57bf-4a12-aa1b-6acaecf343ac}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,9 @@
     </Filter>
     <Filter Include="src\Editor\Settings">
       <UniqueIdentifier>{fab86763-b9dc-4875-a2ee-01f33688f8b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Core">
+      <UniqueIdentifier>{72b8e852-f287-4413-a260-6fa80883b180}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +96,39 @@
     <ClCompile Include="src\Editor\Panels\Toolbar.cpp">
       <Filter>src\Editor\Panels</Filter>
     </ClCompile>
+    <ClCompile Include="src\Editor\Core\Application.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\CameraController.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\Context.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\Editor.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\EditorActions.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\EditorRenderer.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\EditorResources.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\GizmoBehaviour.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Core\ProjectHub.cpp">
+      <Filter>src\Editor\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Settings\EditorSettings.cpp">
+      <Filter>src\Editor\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Resources\RawShaders.cpp">
+      <Filter>src\Editor\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Editor\Core\PanelsManager.h">
@@ -152,5 +185,53 @@
     <ClInclude Include="include\Editor\Panels\Toolbar.h">
       <Filter>include\Editor\Panels</Filter>
     </ClInclude>
+    <ClInclude Include="include\Editor\Core\CameraController.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\Application.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\Context.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\Editor.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\EditorActions.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\EditorRenderer.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\EditorResources.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\GizmoBehaviour.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Core\ProjectHub.h">
+      <Filter>include\Editor\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Settings\EditorSettings.h">
+      <Filter>include\Editor\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Resources\RawShaders.h">
+      <Filter>include\Editor\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Editor\Resources\RawTextures.h">
+      <Filter>include\Editor\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\Editor\Core\EditorActions.inl">
+      <Filter>include\Editor\Core</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Editor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="logo.ico" />
   </ItemGroup>
 </Project>

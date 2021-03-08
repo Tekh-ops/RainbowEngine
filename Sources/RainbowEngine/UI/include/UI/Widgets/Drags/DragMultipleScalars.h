@@ -71,7 +71,7 @@ namespace UI::Widgets::Drags
 		std::array<T, _Size> values;
 		std::string label;
 		std::string format;
-		OvTools::Eventing::Event<std::array<T, _Size>&> ValueChangedEvent;
+		Tools::Eventing::Event<std::array<T, _Size>&> ValueChangedEvent;
 
 	protected:
 		ImGuiDataType_ m_dataType;

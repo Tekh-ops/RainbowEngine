@@ -75,9 +75,9 @@ namespace UI::Plugins
 
 	public:
 		std::string identifier;
-		OvTools::Eventing::Event<T> DataReceivedEvent;
-		OvTools::Eventing::Event<> HoverStartEvent;
-		OvTools::Eventing::Event<> HoverEndEvent;
+		Tools::Eventing::Event<T> DataReceivedEvent;
+		Tools::Eventing::Event<> HoverStartEvent;
+		Tools::Eventing::Event<> HoverEndEvent;
 
 		bool showYellowRect = true;
 

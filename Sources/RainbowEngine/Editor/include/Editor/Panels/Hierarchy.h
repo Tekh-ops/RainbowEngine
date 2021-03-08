@@ -1,23 +1,18 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include <OvRendering/Resources/Loaders/TextureLoader.h>
-#include <OvRendering/LowRenderer/Camera.h>
+#include <Rendering/Resources/Loaders/TextureLoader.h>
+#include <Rendering/LowRenderer/Camera.h>
 
-#include <OvCore/SceneSystem/SceneManager.h>
+#include <EngineCore/SceneSystem/SceneManager.h>
 
-#include <OvUI/Panels/PanelWindow.h>
-#include <OvUI/Widgets/Layout/Group.h>
-#include <OvUI/Widgets/Layout/TreeNode.h>
+#include <UI/Panels/PanelWindow.h>
+#include <UI/Widgets/Layout/Group.h>
+#include <UI/Widgets/Layout/TreeNode.h>
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class Hierarchy : public OvUI::Panels::PanelWindow
+	class Hierarchy : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -30,7 +25,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 		
 		/**
@@ -47,45 +42,45 @@ namespace OvEditor::Panels
 		* Select the widget corresponding to the given actor
 		* @param p_actor
 		*/
-		void SelectActorByInstance(OvCore::ECS::Actor& p_actor);
+		void SelectActorByInstance(EngineCore::ECS::Actor& p_actor);
 
 		/**
 		* Select the widget
 		* @param p_actor
 		*/
-		void SelectActorByWidget(OvUI::Widgets::Layout::TreeNode& p_widget);
+		void SelectActorByWidget(UI::Widgets::Layout::TreeNode& p_widget);
 
 		/**
 		* Attach the given actor linked widget to its parent widget
 		* @param p_actor
 		*/
-		void AttachActorToParent(OvCore::ECS::Actor& p_actor);
+		void AttachActorToParent(EngineCore::ECS::Actor& p_actor);
 
 		/**
 		* Detach the given actor linked widget from its parent widget
 		* @param p_actor
 		*/
-		void DetachFromParent(OvCore::ECS::Actor& p_actor);
+		void DetachFromParent(EngineCore::ECS::Actor& p_actor);
 
 		/**
 		* Delete the widget referencing the given actor
 		* @param p_actor
 		*/
-		void DeleteActorByInstance(OvCore::ECS::Actor& p_actor);
+		void DeleteActorByInstance(EngineCore::ECS::Actor& p_actor);
 
 		/**
 		* Add a widget referencing the given actor
 		* @param p_actor
 		*/
-		void AddActorByInstance(OvCore::ECS::Actor& p_actor);
+		void AddActorByInstance(EngineCore::ECS::Actor& p_actor);
 
 	public:
-		OvTools::Eventing::Event<OvCore::ECS::Actor&> ActorSelectedEvent;
-		OvTools::Eventing::Event<OvCore::ECS::Actor&> ActorUnselectedEvent;
+		Tools::Eventing::Event<EngineCore::ECS::Actor&> ActorSelectedEvent;
+		Tools::Eventing::Event<EngineCore::ECS::Actor&> ActorUnselectedEvent;
 
 	private:
-		OvUI::Widgets::Layout::TreeNode* m_sceneRoot;
+		UI::Widgets::Layout::TreeNode* m_sceneRoot;
 
-		std::unordered_map<OvCore::ECS::Actor*, OvUI::Widgets::Layout::TreeNode*> m_widgetActorLink;
+		std::unordered_map<EngineCore::ECS::Actor*, UI::Widgets::Layout::TreeNode*> m_widgetActorLink;
 	};
 }

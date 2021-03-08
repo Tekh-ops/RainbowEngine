@@ -9,8 +9,9 @@
 #include "UI/Panels/PanelWindow.h"
 #include "UI/Modules/Canvas.h"
 
-namespace OvEditor::Core
+namespace Editor::Core
 {
+
 	/**
 	* Handle the creation and storage of UI panels
 	*/
@@ -21,7 +22,7 @@ namespace OvEditor::Core
 		* Constructor
 		* @param p_canvas
 		*/
-		PanelsManager(OvUI::Modules::Canvas& p_canvas);
+		PanelsManager(UI::Modules::Canvas& p_canvas);
 
 		/**
 		* Create a panel
@@ -31,11 +32,11 @@ namespace OvEditor::Core
 		template<typename T, typename... Args>
 		void CreatePanel(const std::string& p_id, Args&&... p_args)
 		{
-			if constexpr (std::is_base_of<OvUI::Panels::PanelWindow, T>::value)
+			if constexpr (std::is_base_of<UI::Panels::PanelWindow, T>::value)
 			{
 				m_panels.emplace(p_id, std::make_unique<T>(p_id, std::forward<Args>(p_args)...));
 				T& instance = *static_cast<T*>(m_panels.at(p_id).get());
-				GetPanelAs<OvEditor::Panels::MenuBar>("Menu Bar").RegisterPanel(instance.name, instance);
+				GetPanelAs<Editor::Panels::MenuBar>("Menu Bar").RegisterPanel(instance.name, instance);
 			}
 			else
 			{
@@ -56,7 +57,7 @@ namespace OvEditor::Core
 		}
 
 	private:
-		std::unordered_map<std::string, std::unique_ptr<OvUI::Panels::APanel>> m_panels;
-		OvUI::Modules::Canvas& m_canvas;
+		std::unordered_map<std::string, std::unique_ptr<UI::Panels::APanel>> m_panels;
+		UI::Modules::Canvas& m_canvas;
 	};
 }

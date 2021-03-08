@@ -1,17 +1,12 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include "OvEditor/Core/EditorActions.h"
+#include "Editor/Core/EditorActions.h"
 
-namespace OvEditor::Core
+namespace Editor::Core
 {
 	template<typename T>
-	inline OvCore::ECS::Actor & EditorActions::CreateMonoComponentActor(bool p_focusOnCreation, OvCore::ECS::Actor* p_parent)
+	inline EngineCore::ECS::Actor & EditorActions::CreateMonoComponentActor(bool p_focusOnCreation, EngineCore::ECS::Actor* p_parent)
 	{
 		auto& instance = CreateEmptyActor(false, p_parent);
 

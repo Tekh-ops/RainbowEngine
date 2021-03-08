@@ -1,7 +1,3 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
-#include "OvEditor/Settings/EditorSettings.h"
+
+#include "Editor/Settings/EditorSettings.h"

@@ -1,26 +1,22 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
 
-#include <OvUI/Panels/PanelWindow.h>
-#include <OvUI/Widgets/Visual/Image.h>
-#include <OvRendering/Buffers/UniformBuffer.h>
-#include <OvRendering/Buffers/Framebuffer.h>
-#include <OvRendering/LowRenderer/Camera.h>
+#include <UI/Panels/PanelWindow.h>
+#include <UI/Widgets/Visual/Image.h>
+#include <Rendering/Buffers/UniformBuffer.h>
+#include <Rendering/Buffers/Framebuffer.h>
+#include <Rendering/LowRenderer/Camera.h>
 
-namespace OvEditor::Core { class EditorRenderer; }
+namespace Editor::Core { class EditorRenderer; }
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
 	/**
 	* Base class for any view
 	*/
-	class AView : public OvUI::Panels::PanelWindow
+	class AView : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -33,7 +29,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 
 		/**
@@ -82,7 +78,7 @@ namespace OvEditor::Panels
 		/**
 		* Returns the camera used by this view
 		*/
-		OvRendering::LowRenderer::Camera& GetCamera();
+		Rendering::LowRenderer::Camera& GetCamera();
 
 		/**
 		* Returns the size of the panel ignoring its titlebar height
@@ -112,14 +108,14 @@ namespace OvEditor::Panels
 		void PrepareCamera();
 
 	protected:
-		OvEditor::Core::EditorRenderer& m_editorRenderer;
-		OvRendering::LowRenderer::Camera m_camera;
+		Editor::Core::EditorRenderer& m_editorRenderer;
+		Rendering::LowRenderer::Camera m_camera;
 		OvMaths::FVector3 m_cameraPosition;
 		OvMaths::FQuaternion m_cameraRotation;
-		OvUI::Widgets::Visual::Image* m_image;
+		UI::Widgets::Visual::Image* m_image;
 
 		OvMaths::FVector3 m_gridColor = OvMaths::FVector3::One;
 
-		OvRendering::Buffers::Framebuffer m_fbo;
+		Rendering::Buffers::Framebuffer m_fbo;
 	};
 }

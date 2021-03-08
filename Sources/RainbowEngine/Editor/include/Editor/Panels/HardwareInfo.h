@@ -1,20 +1,16 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
-#include <OvUI/Panels/PanelWindow.h>
-#include <OvUI/Widgets/Plots/PlotLines.h>
-#include <OvUI/Widgets/Plots/PlotHistogram.h>
+#include <UI/Panels/PanelWindow.h>
+#include <UI/Widgets/Plots/PlotLines.h>
+#include <UI/Widgets/Plots/PlotHistogram.h>
 
 namespace OvAnalytics::Hardware { class HardwareInfo; }
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class HardwareInfo : public OvUI::Panels::PanelWindow
+	class HardwareInfo : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -30,7 +26,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings,
+			const UI::Settings::PanelWindowSettings& p_windowSettings,
 			float p_logFrequency,
 			size_t p_maxElements
 		);
@@ -50,9 +46,9 @@ namespace OvEditor::Panels
 		float p_updateTimer = 0.f;
 		float m_logFrequency;
 		size_t m_maxElements;
-		OvUI::Widgets::Plots::APlot* m_cpuUsage;
-		OvUI::Widgets::Plots::APlot* m_gpuUsage;
-		OvUI::Widgets::Plots::APlot* m_ramUsage;
-		OvAnalytics::Hardware::HardwareInfo* m_hardwareInfo;
+		UI::Widgets::Plots::APlot* m_cpuUsage;
+		UI::Widgets::Plots::APlot* m_gpuUsage;
+		UI::Widgets::Plots::APlot* m_ramUsage;
+		//OvAnalytics::Hardware::HardwareInfo* m_hardwareInfo;
 	};
 }

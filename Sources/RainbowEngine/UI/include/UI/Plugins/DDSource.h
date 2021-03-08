@@ -78,8 +78,8 @@ namespace UI::Plugins
 		std::string identifier;
 		std::string tooltip;
 		T data;
-		OvTools::Eventing::Event<> DragStartEvent;
-		OvTools::Eventing::Event<> DragStopEvent;
+		Tools::Eventing::Event<> DragStartEvent;
+		Tools::Eventing::Event<> DragStopEvent;
 
 		bool hasTooltip = true;
 

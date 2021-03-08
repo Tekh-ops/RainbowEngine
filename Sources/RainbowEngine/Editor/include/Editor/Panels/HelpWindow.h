@@ -1,18 +1,13 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
-#include <OvRendering/Resources/Loaders/TextureLoader.h>
+#include <Rendering/Resources/Loaders/TextureLoader.h>
 
-#include <OvUI/Panels/PanelWindow.h>
+#include <UI/Panels/PanelWindow.h>
 
-namespace OvEditor::Panels
+namespace Editor::Panels
 {
-	class HelpWindow : public OvUI::Panels::PanelWindow
+	class HelpWindow : public UI::Panels::PanelWindow
 	{
 	public:
 		/**
@@ -25,7 +20,7 @@ namespace OvEditor::Panels
 		(
 			const std::string& p_title,
 			bool p_opened,
-			const OvUI::Settings::PanelWindowSettings& p_windowSettings
+			const UI::Settings::PanelWindowSettings& p_windowSettings
 		);
 	};
 }

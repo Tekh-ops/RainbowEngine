@@ -1,21 +1,16 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
 
 #pragma once
 
 #include <random>
 
-#include "OvTools/API/Export.h"
+#include "Tools/API/Export.h"
 
-namespace OvTools::Utils
+namespace Tools::Utils
 {
 	/*
 	* Handle random numbers generation
 	*/
-	class API_OVTOOLS Random
+	class API_TOOLS Random
 	{
 	public:
 
