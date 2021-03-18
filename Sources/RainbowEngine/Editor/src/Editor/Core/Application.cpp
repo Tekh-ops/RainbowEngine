@@ -1,9 +1,3 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
-
 #include <Tools/Time/Clock.h>
 
 #include "Editor/Core/Application.h"

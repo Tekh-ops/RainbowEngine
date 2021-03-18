@@ -15,10 +15,12 @@ namespace Editor::Core
 {
 	/**
 	* Handle the editor logic
+	* 处理整个引擎界面的逻辑
 	*/
 	class RainbowEditor
 	{
 	public:
+
 		/**
 		* Constructor of the editor
 		* @param p_context
@@ -37,6 +39,7 @@ namespace Editor::Core
 
 		/**
 		* Prepare the frame (Inputs update, screen clearing)
+		* 
 		*/
 		void PreUpdate();
 

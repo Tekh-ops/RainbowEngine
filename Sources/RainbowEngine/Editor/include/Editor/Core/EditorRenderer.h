@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include <Rendering/LowRenderer/Camera.h>
@@ -20,10 +18,12 @@ namespace Editor::Core
 {
 	/**
 	* Handle the rendering of the editor
+	* ±à¼­Æ÷µÄäÖÈ¾
 	*/
 	class EditorRenderer
 	{
 	public:
+
 		/**
 		* Create the EditorRenderer
 		* @param p_context

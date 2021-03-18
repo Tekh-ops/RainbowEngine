@@ -77,6 +77,7 @@ std::vector<OvMaths::FMatrix4> EngineCore::ECS::Renderer::FindLightMatricesInFru
 
 void EngineCore::ECS::Renderer::RenderScene
 (
+
 	EngineCore::SceneSystem::Scene& p_scene,
 	const OvMaths::FVector3& p_cameraPosition,
 	const Rendering::LowRenderer::Camera& p_camera,
@@ -97,6 +98,7 @@ void EngineCore::ECS::Renderer::RenderScene
 		std::tie(opaqueMeshes, transparentMeshes) = FindAndSortDrawables(p_scene, p_cameraPosition, p_defaultMaterial);
 	}
 
+	//场景渲染顺序，首先渲染不透明物体，然后渲染透明物体
 	for (const auto& [distance, drawable] : opaqueMeshes)
 		DrawDrawable(drawable);
 

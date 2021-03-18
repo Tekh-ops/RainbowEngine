@@ -1,8 +1,4 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #include <UI/Widgets/Texts/Text.h>
 #include <UI/Widgets/Texts/TextColored.h>

@@ -28,7 +28,10 @@ namespace EngineCore::ECS
 	{
 	public:
 		using Drawable				= std::tuple<OvMaths::FMatrix4, Rendering::Resources::Mesh*, EngineCore::Resources::Material*, OvMaths::FMatrix4>;
+
+		//不透明物体按照距离从小到大存储
 		using OpaqueDrawables		= std::multimap<float, Drawable, std::less<float>>;
+		//透明物体按距离从大到小存储
 		using TransparentDrawables	= std::multimap<float, Drawable, std::greater<float>>;
 
 		/**
@@ -81,6 +84,7 @@ namespace EngineCore::ECS
 
 		/**
 		* Returns opaque and transparents drawables from the scene with frustum culling
+		* 视锥裁剪
 		* @param p_scene
 		* @param p_cameraPosition
 		* @param p_frustum

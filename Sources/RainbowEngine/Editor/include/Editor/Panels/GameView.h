@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include <optional>
@@ -14,6 +12,7 @@ namespace Editor::Panels
 	class GameView : public Editor::Panels::AView
 	{
 	public:
+
 		/**
 		* Constructor
 		* @param p_title

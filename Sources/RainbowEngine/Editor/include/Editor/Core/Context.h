@@ -74,20 +74,21 @@ namespace Editor::Core
 		const std::string projectScriptsPath;
 		const std::string editorAssetsPath;
 
-		std::unique_ptr<Windowing::Context::Device>			device;
-		std::unique_ptr<Windowing::Window>					window;
+		std::unique_ptr<Windowing::Context::Device>				device;
+		std::unique_ptr<Windowing::Window>						window;
 		std::unique_ptr<Windowing::Inputs::InputManager>		inputManager;
-		std::unique_ptr<Rendering::Context::Driver>			driver;
-		std::unique_ptr<EngineCore::ECS::Renderer>					renderer;
+		std::unique_ptr<Rendering::Context::Driver>				driver;
+		std::unique_ptr<EngineCore::ECS::Renderer>				renderer;
+		//绘制一些参考图形
 		std::unique_ptr<Rendering::Core::ShapeDrawer>			shapeDrawer;
 		std::unique_ptr<UI::Core::UIManager>					uiManager;
 		//std::unique_ptr<Physics::Core::PhysicsEngine>			physicsEngine;
 		//std::unique_ptr<Audio::Core::AudioEngine>				audioEngine;
 		//std::unique_ptr<Audio::Core::AudioPlayer>				audioPlayer;
-		std::unique_ptr<Editor::Core::EditorResources>		editorResources;
+		std::unique_ptr<Editor::Core::EditorResources>			editorResources;
 
 		//std::unique_ptr<Core::Scripting::ScriptInterpreter>	scriptInterpreter;
-		std::unique_ptr<Rendering::Buffers::UniformBuffer>	engineUBO;
+		std::unique_ptr<Rendering::Buffers::UniformBuffer>		engineUBO;
 
 		std::unique_ptr<Rendering::Buffers::ShaderStorageBuffer>	lightSSBO;
 		std::unique_ptr<Rendering::Buffers::ShaderStorageBuffer>	simulatedLightSSBO;

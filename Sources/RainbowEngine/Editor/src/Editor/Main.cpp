@@ -54,7 +54,6 @@ int main(int argc, char** argv)
 		{
 			// Project file given as argument ==> Open the project
 			std::string projectFile = argv[1];
-
 			if (Tools::Utils::PathParser::GetExtension(projectFile) == "ovproject")
 			{
 				ready = true;

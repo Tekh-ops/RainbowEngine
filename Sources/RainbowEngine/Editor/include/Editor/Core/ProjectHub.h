@@ -1,8 +1,4 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #pragma once
 
@@ -17,6 +13,7 @@ namespace Editor::Core
 {
 	/**
 	* A simple panel that allow the user to select the project to launch
+	* 
 	*/
 	class ProjectHub
 	{
@@ -43,10 +40,10 @@ namespace Editor::Core
 		void RegisterProject(const std::string& p_path);
 
 	private:
-		std::unique_ptr<Windowing::Context::Device>		m_device;
-		std::unique_ptr<Windowing::Window>				m_window;
-		std::unique_ptr<Rendering::Context::Driver>		m_driver;
-		std::unique_ptr<Rendering::Core::Renderer>		m_renderer;
+		std::unique_ptr<Windowing::Context::Device>			m_device;
+		std::unique_ptr<Windowing::Window>					m_window;
+		std::unique_ptr<Rendering::Context::Driver>			m_driver;
+		std::unique_ptr<Rendering::Core::Renderer>			m_renderer;
 		std::unique_ptr<UI::Core::UIManager>				m_uiManager;
 
 		UI::Modules::Canvas m_canvas;

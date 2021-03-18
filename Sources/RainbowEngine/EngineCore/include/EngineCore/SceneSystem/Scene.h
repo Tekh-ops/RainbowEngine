@@ -17,6 +17,7 @@ namespace EngineCore::SceneSystem
 	class API_ENGINECORE Scene : public API::ISerializable
 	{
 	public:
+
 		/**
 		* Contains a set of vectors of components that are sorted. It allows fast
 		* manipulation of components without parsing the whole scene
