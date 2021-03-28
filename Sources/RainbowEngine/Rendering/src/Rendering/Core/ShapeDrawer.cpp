@@ -1,8 +1,4 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #include "Rendering/Core/ShapeDrawer.h"
 #include "Rendering/Resources/Loaders/ShaderLoader.h"

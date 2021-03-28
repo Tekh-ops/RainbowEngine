@@ -1,8 +1,4 @@
-/**
-* @project: Overload
-* @author: Overload Tech.
-* @licence: MIT
-*/
+
 
 #include <Tools/Utils/PathParser.h>
 #include <UI/Plugins/DDTarget.h>
