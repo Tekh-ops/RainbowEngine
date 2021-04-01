@@ -49,6 +49,7 @@ namespace Editor::Panels
 
 	private:
 		EngineCore::SceneSystem::SceneManager& m_sceneManager;
+		Rendering::Buffers::Framebuffer m_postProcessFramebuffer;
 		bool m_hasCamera = false;
 	};
 }

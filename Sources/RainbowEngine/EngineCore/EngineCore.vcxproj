@@ -200,6 +200,7 @@ xcopy "$(SolutionDir)..\..\Build\Windowing\bin\$(Configuration)\*.dll" "$(Soluti
     <ClInclude Include="include\EngineCore\ECS\Components\CMaterialRenderer.h" />
     <ClInclude Include="include\EngineCore\ECS\Components\CModelRenderer.h" />
     <ClInclude Include="include\EngineCore\ECS\Components\CPointLight.h" />
+    <ClInclude Include="include\EngineCore\ECS\Components\CPostProcess.h" />
     <ClInclude Include="include\EngineCore\ECS\Components\CSpotLight.h" />
     <ClInclude Include="include\EngineCore\ECS\Components\CTransform.h" />
     <ClInclude Include="include\EngineCore\ECS\Renderer.h" />
@@ -233,6 +234,7 @@ xcopy "$(SolutionDir)..\..\Build\Windowing\bin\$(Configuration)\*.dll" "$(Soluti
     <ClCompile Include="src\EngineCore\ECS\Components\CMaterialRenderer.cpp" />
     <ClCompile Include="src\EngineCore\ECS\Components\CModelRenderer.cpp" />
     <ClCompile Include="src\EngineCore\ECS\Components\CPointLight.cpp" />
+    <ClCompile Include="src\EngineCore\ECS\Components\CPostProcess.cpp" />
     <ClCompile Include="src\EngineCore\ECS\Components\CSpotLight.cpp" />
     <ClCompile Include="src\EngineCore\ECS\Components\CTransform.cpp" />
     <ClCompile Include="src\EngineCore\ECS\Renderer.cpp" />

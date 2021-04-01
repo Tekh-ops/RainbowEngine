@@ -180,6 +180,7 @@ void Editor::Core::RainbowEditor::UpdateEditorPanels(float p_deltaTime)
 	}
 }
 
+//将现在时间传入渲染器
 void Editor::Core::RainbowEditor::PrepareRendering(float p_deltaTime)
 {
 	//PROFILER_SPY("Engine UBO Update");

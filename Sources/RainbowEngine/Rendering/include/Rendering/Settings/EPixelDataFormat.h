@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "Rendering/API/Export.h"

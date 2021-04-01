@@ -1,0 +1,3 @@
+<root>
+    <shader>:Shaders\InversionPostProcess.glsl</shader>
+</root>

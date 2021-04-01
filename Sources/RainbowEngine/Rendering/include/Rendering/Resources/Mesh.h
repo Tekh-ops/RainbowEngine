@@ -14,7 +14,7 @@
 namespace Rendering::Resources
 {
 	/**
-	* Standard mesh of OvRendering
+	* Standard mesh of Rendering
 	*/
 	class API_RENDERING Mesh : public IMesh
 	{

@@ -15,6 +15,7 @@ namespace Rendering::Entities
 	{
 		/**
 		* Light types
+		* 光源种类
 		*/
 		enum class Type { POINT, DIRECTIONAL, SPOT, AMBIENT_BOX, AMBIENT_SPHERE };
 

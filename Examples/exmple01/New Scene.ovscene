@@ -16,7 +16,7 @@
                                 <y>1</y>
                                 <z>1</z>
                             </color>
-                            <intensity>1.65</intensity>
+                            <intensity>0.75</intensity>
                         </data>
                     </component>
                     <component>
@@ -28,10 +28,10 @@
                                 <z>0</z>
                             </position>
                             <rotation>
-                                <x>0.91009772</x>
-                                <y>-0.00069257617</y>
-                                <z>-0.024882108</z>
-                                <w>0.41364533</w>
+                                <x>0.81379771</x>
+                                <y>-0.17101006</y>
+                                <z>0.29619816</z>
+                                <w>0.46984628</w>
                             </rotation>
                             <scale>
                                 <x>1</x>
@@ -101,9 +101,9 @@
                             <near>0.1</near>
                             <far>100</far>
                             <clear_color>
-                                <x>0.022714991</x>
-                                <y>0.022925315</y>
-                                <z>0.023255825</z>
+                                <x>0.0092590516</x>
+                                <y>0.0092758778</y>
+                                <z>0.0093023181</z>
                             </clear_color>
                             <frustum_geometry_culling>false</frustum_geometry_culling>
                             <frustum_light_culling>false</frustum_light_culling>
@@ -114,9 +114,9 @@
                         <type>class EngineCore::ECS::Components::CTransform</type>
                         <data>
                             <position>
-                                <x>-1.4496669e-07</x>
-                                <y>2.396455</y>
-                                <z>6.341774</z>
+                                <x>0</x>
+                                <y>3</y>
+                                <z>8</z>
                             </position>
                             <rotation>
                                 <x>-7.5904039e-09</x>
@@ -138,14 +138,14 @@
                 <name>New Actor</name>
                 <tag></tag>
                 <active>true</active>
-                <id>5</id>
-                <parent>6</parent>
+                <id>4</id>
+                <parent>7</parent>
                 <components>
                     <component>
                         <type>class EngineCore::ECS::Components::CMaterialRenderer</type>
                         <data>
                             <materials>
-                                <material>test.ovmat</material>
+                                <material>01.ovmat</material>
                             </materials>
                         </data>
                     </component>
@@ -187,10 +187,114 @@
                 <behaviours/>
             </actor>
             <actor>
-                <name>empty</name>
+                <name>New Actor</name>
+                <tag></tag>
+                <active>true</active>
+                <id>5</id>
+                <parent>7</parent>
+                <components>
+                    <component>
+                        <type>class EngineCore::ECS::Components::CMaterialRenderer</type>
+                        <data>
+                            <materials>
+                                <material>02.ovmat</material>
+                            </materials>
+                        </data>
+                    </component>
+                    <component>
+                        <type>class EngineCore::ECS::Components::CModelRenderer</type>
+                        <data>
+                            <model>:Models\Cube.fbx</model>
+                            <frustum_behaviour>1</frustum_behaviour>
+                            <custom_bounding_sphere_position>
+                                <x>0</x>
+                                <y>0</y>
+                                <z>0</z>
+                            </custom_bounding_sphere_position>
+                            <custom_bounding_sphere_radius>1</custom_bounding_sphere_radius>
+                        </data>
+                    </component>
+                    <component>
+                        <type>class EngineCore::ECS::Components::CTransform</type>
+                        <data>
+                            <position>
+                                <x>0</x>
+                                <y>0</y>
+                                <z>-1.9211643</z>
+                            </position>
+                            <rotation>
+                                <x>0</x>
+                                <y>0</y>
+                                <z>0</z>
+                                <w>1</w>
+                            </rotation>
+                            <scale>
+                                <x>1</x>
+                                <y>1</y>
+                                <z>1</z>
+                            </scale>
+                        </data>
+                    </component>
+                </components>
+                <behaviours/>
+            </actor>
+            <actor>
+                <name>New Actor</name>
                 <tag></tag>
                 <active>true</active>
                 <id>6</id>
+                <parent>7</parent>
+                <components>
+                    <component>
+                        <type>class EngineCore::ECS::Components::CMaterialRenderer</type>
+                        <data>
+                            <materials>
+                                <material>03.ovmat</material>
+                            </materials>
+                        </data>
+                    </component>
+                    <component>
+                        <type>class EngineCore::ECS::Components::CModelRenderer</type>
+                        <data>
+                            <model>:Models\Pyramid.fbx</model>
+                            <frustum_behaviour>1</frustum_behaviour>
+                            <custom_bounding_sphere_position>
+                                <x>0</x>
+                                <y>0</y>
+                                <z>0</z>
+                            </custom_bounding_sphere_position>
+                            <custom_bounding_sphere_radius>1</custom_bounding_sphere_radius>
+                        </data>
+                    </component>
+                    <component>
+                        <type>class EngineCore::ECS::Components::CTransform</type>
+                        <data>
+                            <position>
+                                <x>0</x>
+                                <y>0</y>
+                                <z>-4.417995</z>
+                            </position>
+                            <rotation>
+                                <x>0</x>
+                                <y>0</y>
+                                <z>0</z>
+                                <w>1</w>
+                            </rotation>
+                            <scale>
+                                <x>5</x>
+                                <y>5</y>
+                                <z>5</z>
+                            </scale>
+                        </data>
+                    </component>
+                </components>
+                <behaviours/>
+            </actor>
+            <actor>
+                <name>New Actor</name>
+                <tag></tag>
+                <active>true</active>
+                <id>7</id>
                 <parent>0</parent>
                 <components>
                     <component>
@@ -202,10 +306,10 @@
                                 <z>0</z>
                             </position>
                             <rotation>
-                                <x>0.066330023</x>
-                                <y>0.45895204</y>
-                                <z>0.0016970299</z>
-                                <w>0.88597995</w>
+                                <x>0</x>
+                                <y>-0.39874908</y>
+                                <z>0</z>
+                                <w>0.91706008</w>
                             </rotation>
                             <scale>
                                 <x>1</x>

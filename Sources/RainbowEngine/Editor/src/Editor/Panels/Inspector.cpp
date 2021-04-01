@@ -33,6 +33,7 @@
 #include <EngineCore/ECS/Components/CSpotLight.h>
 #include <EngineCore/ECS/Components/CAmbientBoxLight.h>
 #include <EngineCore/ECS/Components/CMaterialRenderer.h>
+#include <EngineCore/ECS/Components/CPostProcess.h>
 
 
 #include <Windowing/Dialogs/MessageBox.h>
@@ -87,6 +88,7 @@ Editor::Panels::Inspector::Inspector
 		componentSelectorWidget.choices.emplace(10, "Material Renderer");
 		componentSelectorWidget.choices.emplace(11, "Audio Source");
 		componentSelectorWidget.choices.emplace(12, "Audio Listener");
+		componentSelectorWidget.choices.emplace(13,"Post Process");
 
 		auto& addComponentButton = m_inspectorHeader->CreateWidget<UI::Widgets::Buttons::Button>("Add Component", OvMaths::FVector2{ 100.f, 0 });
 		addComponentButton.idleBackgroundColor = UI::Types::Color{ 0.7f, 0.5f, 0.f };
@@ -106,6 +108,7 @@ Editor::Panels::Inspector::Inspector
 			case 8: GetTargetActor()->AddComponent<CAmbientBoxLight>();		break;
 			case 9: GetTargetActor()->AddComponent<CAmbientSphereLight>();	break;
 			case 10: GetTargetActor()->AddComponent<CMaterialRenderer>();	break;
+			case 13: GetTargetActor()->AddComponent<CPostProcess>();		break;
 			/*case 11: GetTargetActor()->AddComponent<CAudioSource>();		break;
 			case 12: GetTargetActor()->AddComponent<CAudioListener>();		break;*/
 			}

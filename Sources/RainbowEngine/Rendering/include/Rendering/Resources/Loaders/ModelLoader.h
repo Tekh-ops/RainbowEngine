@@ -9,6 +9,7 @@ namespace Rendering::Resources::Loaders
 {
 	/**
 	* Handle the Model creation and destruction
+	* 模型的加载和销毁
 	*/
 	class API_RENDERING ModelLoader
 	{

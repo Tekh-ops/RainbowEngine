@@ -5,6 +5,7 @@
 */
 
 #include <EngineCore/ECS/Components/CCamera.h>
+#include <EngineCore/ECS/Components/CPostProcess.h>
 
 #include "Editor/Core/EditorRenderer.h"
 #include "Editor/Panels/GameView.h"
@@ -18,6 +19,8 @@ Editor::Panels::GameView::GameView
 	const UI::Settings::PanelWindowSettings & p_windowSettings
 ) : AView(p_title, p_opened, p_windowSettings), m_sceneManager(EDITOR_CONTEXT(sceneManager))
 {
+	auto [winWidth, winHeight] = GetSafeSize();
+	m_postProcessFramebuffer = Rendering::Buffers::Framebuffer(winWidth,winHeight);
 }
 
 void Editor::Panels::GameView::Update(float p_deltaTime)
@@ -29,6 +32,17 @@ void Editor::Panels::GameView::Update(float p_deltaTime)
 	if (currentScene)
 	{
 		auto cameraComponent = EDITOR_CONTEXT(renderer)->FindMainCamera(*currentScene);
+		const EngineCore::ECS::Components::CPostProcess* postProcessComponet = currentScene->GetPostProcessComponent();
+
+		//拥有后处理组件，并且后处理组件存在材质
+		if (postProcessComponet && postProcessComponet->GetMaterial())
+		{
+			//LOG("postProcessComponet");
+			auto [winWidth, winHeight] = GetSafeSize();
+			//更新大小
+			m_postProcessFramebuffer.Resize(winWidth, winHeight);
+		}
+		
 		if (cameraComponent)
 		{
 			m_camera = cameraComponent->GetCamera();
@@ -45,35 +59,75 @@ void Editor::Panels::GameView::Update(float p_deltaTime)
 	}
 }
 
+/*
+* 渲染gameView
+*/
 void Editor::Panels::GameView::_Render_Impl()
 {
 	auto& baseRenderer = *EDITOR_CONTEXT(renderer).get();
 	auto& currentScene = *m_sceneManager.GetCurrentScene();
 
-	m_fbo.Bind();
+	//获得初始化
+	const EngineCore::ECS::Components::CPostProcess* postProcess = currentScene.GetPostProcessComponent();
 
-	baseRenderer.Clear(m_camera);
-
-	uint8_t glState = baseRenderer.FetchGLState();
-	baseRenderer.ApplyStateMask(glState);
-
-	if (m_hasCamera)
+	if (postProcess != nullptr && postProcess->GetMaterial())
 	{
-		if (m_camera.HasFrustumLightCulling())
+		m_postProcessFramebuffer.Bind();
+		//uint32_t temp = m_postProcessFramebuffer.GetID();
+
+		//m_fbo.Bind();
+
+		baseRenderer.Clear(m_camera);
+
+		uint8_t glState = baseRenderer.FetchGLState();
+		baseRenderer.ApplyStateMask(glState);
+
+		if (m_hasCamera)
 		{
-			m_editorRenderer.UpdateLightsInFrustum(currentScene, m_camera.GetFrustum());
-		}
-		else
-		{
-			m_editorRenderer.UpdateLights(currentScene);
+			if (m_camera.HasFrustumLightCulling())
+			{
+				m_editorRenderer.UpdateLightsInFrustum(currentScene, m_camera.GetFrustum());
+			}
+			else
+			{
+				m_editorRenderer.UpdateLights(currentScene);
+			}
+
+			m_editorRenderer.RenderScene(m_cameraPosition, m_camera);
 		}
 
-		m_editorRenderer.RenderScene(m_cameraPosition, m_camera);
+		baseRenderer.ApplyStateMask(glState);
+		//m_fbo.Unbind();
+		m_postProcessFramebuffer.Unbind();
+
+		m_fbo.Bind();
+
+		postProcess->GetMaterial()->Set("screenTexture",m_postProcessFramebuffer.GetTextureID());
+		postProcess->GetMaterial()->Bind(nullptr);
+		postProcess->GetMaterial()->SetDepthTest(false);
+		baseRenderer.Draw(static_cast<Rendering::Resources::IMesh&>(*((postProcess->GetScreenMesh()))),Rendering::Settings::EPrimitiveMode::TRIANGLES,1);
+		postProcess->GetMaterial()->UnBind();
+
+		baseRenderer.Clear(m_camera);
+		baseRenderer.ApplyStateMask(glState);
+		if (m_hasCamera)
+		{
+			if (m_camera.HasFrustumLightCulling())
+			{
+				//m_editorRenderer.UpdateLightsInFrustum(currentScene, m_camera.GetFrustum());
+			}
+			else
+			{
+				//m_editorRenderer.UpdateLights(currentScene);
+			}
+
+			m_editorRenderer.RenderScene(m_cameraPosition, m_camera);
+		}
+		baseRenderer.ApplyStateMask(glState);
+
+		m_fbo.Unbind();
 	}
 
-	baseRenderer.ApplyStateMask(glState);
-
-	m_fbo.Unbind();
 }
 
 bool Editor::Panels::GameView::HasCamera() const

@@ -150,6 +150,9 @@
     <ClInclude Include="include\EngineCore\SceneSystem\SceneManager.h">
       <Filter>include\EngineCore\SceneSystem</Filter>
     </ClInclude>
+    <ClInclude Include="include\EngineCore\ECS\Components\CPostProcess.h">
+      <Filter>include\EngineCore\ECS\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\EngineCore\ECS\Actor.inl">
@@ -237,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="src\EngineCore\Resources\Loaders\MaterialLoader.cpp">
       <Filter>src\EngineCore\Resources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EngineCore\ECS\Components\CPostProcess.cpp">
+      <Filter>src\EngineCore\ECS\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

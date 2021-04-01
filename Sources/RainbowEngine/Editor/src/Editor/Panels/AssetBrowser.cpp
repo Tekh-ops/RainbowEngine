@@ -205,12 +205,16 @@ public:
 			auto& createStandardPBRShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Standard PBR template");
 			auto& createUnlitShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Unlit template");
 			auto& createLambertShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Lambert template");
+			//后处理
+			auto& createPostProcessShaderMenu = createShaderMenu.CreateWidget<UI::Widgets::Menu::MenuList>("PostProcess template");
 
 			auto& createEmptyMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Empty");
 			auto& createStandardMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Standard");
 			auto& createStandardPBRMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Standard PBR");
 			auto& createUnlitMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Unlit");
 			auto& createLambertMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Lambert");
+			//后处理材质
+			auto& createPostProcessMaterialMenu = createMaterialMenu.CreateWidget<UI::Widgets::Menu::MenuList>("Post Process");
 
 			auto& createFolder = createFolderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 			auto& createScene = createSceneMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
@@ -220,11 +224,15 @@ public:
 			auto& createStandardPBRMaterial = createStandardPBRMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 			auto& createUnlitMaterial = createUnlitMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 			auto& createLambertMaterial = createLambertMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			//后处理材质
+			auto& createPostProcessMaterial = createPostProcessMaterialMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 
 			auto& createStandardShader = createStandardShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 			auto& createStandardPBRShader = createStandardPBRShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 			auto& createUnlitShader = createUnlitShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 			auto& createLambertShader = createLambertShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
+			//后处理
+			auto& createPostProcessShader = createPostProcessShaderMenu.CreateWidget<UI::Widgets::InputFields::InputText>("");
 
 			createFolderMenu.ClickedEvent += [&createFolder] { createFolder.content = ""; };
 			createSceneMenu.ClickedEvent += [&createScene] { createScene.content = ""; };
@@ -237,6 +245,10 @@ public:
 			createStandardPBRMaterialMenu.ClickedEvent += [&createStandardPBRMaterial] { createStandardPBRMaterial.content = ""; };
 			createUnlitMaterialMenu.ClickedEvent += [&createUnlitMaterial] { createUnlitMaterial.content = ""; };
 			createLambertMaterialMenu.ClickedEvent += [&createLambertMaterial] { createLambertMaterial.content = ""; };
+			//后处理
+			createPostProcessShaderMenu.ClickedEvent += [&createPostProcessShader] {createPostProcessShader.content = ""; };
+			//后处理材质
+			createPostProcessMaterialMenu.ClickedEvent += [&createPostProcessMaterial] { createPostProcessMaterial.content = ""; };
 
 			createFolder.EnterPressedEvent += [this](std::string newFolderName)
 			{
@@ -339,6 +351,24 @@ public:
 				} while (std::filesystem::exists(finalPath));
 
 				std::filesystem::copy_file(EDITOR_CONTEXT(engineAssetsPath) + "Shaders\\Lambert.glsl", finalPath);
+				ItemAddedEvent.Invoke(finalPath);
+				Close();
+			};
+
+			//后处理
+			createPostProcessShader.EnterPressedEvent += [this](std::string newShaderName)
+			{
+				size_t fails = 0;
+				std::string finalPath;
+
+				do
+				{
+					finalPath = filePath + '\\' + (!fails ? newShaderName : newShaderName + " (" + std::to_string(fails) + ')') + ".glsl";
+
+					++fails;
+				} while (std::filesystem::exists(finalPath));
+
+				std::filesystem::copy_file(EDITOR_CONTEXT(engineAssetsPath) + "Shaders\\PostProcess.glsl", finalPath);
 				ItemAddedEvent.Invoke(finalPath);
 				Close();
 			};
@@ -479,6 +509,36 @@ public:
 				{
 					std::ofstream outfile(finalPath);
 					outfile << "<root><shader>:Shaders\\Lambert.glsl</shader></root>" << std::endl; // Empty unlit material content
+				}
+
+				ItemAddedEvent.Invoke(finalPath);
+
+				if (auto instance = EDITOR_CONTEXT(materialManager)[EDITOR_EXEC(GetResourcePath(finalPath))])
+				{
+					auto& materialEditor = EDITOR_PANEL(Editor::Panels::MaterialEditor, "Material Editor");
+					materialEditor.SetTarget(*instance);
+					materialEditor.Open();
+					materialEditor.Focus();
+					materialEditor.Preview();
+				}
+				Close();
+			};
+
+			createPostProcessMaterial.EnterPressedEvent += [this](std::string materialName)
+			{
+				size_t fails = 0;
+				std::string finalPath;
+
+				do
+				{
+					finalPath = filePath + (!fails ? materialName : materialName + " (" + std::to_string(fails) + ')') + ".ovmat";
+
+					++fails;
+				} while (std::filesystem::exists(finalPath));
+
+				{
+					std::ofstream outfile(finalPath);
+					outfile << "<root><shader>:Shaders\\PostProcess.glsl</shader></root>" << std::endl; // Empty unlit material content
 				}
 
 				ItemAddedEvent.Invoke(finalPath);

@@ -213,6 +213,7 @@ xcopy "$(SolutionDir)..\..\Dependencies\assimp\include\*" "$(SolutionDir)..\..\B
     <ClInclude Include="include\Rendering\Resources\Parsers\AssimpParser.h" />
     <ClInclude Include="include\Rendering\Resources\Parsers\EModelParserFlags.h" />
     <ClInclude Include="include\Rendering\Resources\Parsers\IModelParser.h" />
+    <ClInclude Include="include\Rendering\Resources\ScreenMesh.h" />
     <ClInclude Include="include\Rendering\Resources\Shader.h" />
     <ClInclude Include="include\Rendering\Resources\Texture.h" />
     <ClInclude Include="include\Rendering\Resources\UniformInfo.h" />
@@ -255,6 +256,7 @@ xcopy "$(SolutionDir)..\..\Dependencies\assimp\include\*" "$(SolutionDir)..\..\B
     <ClCompile Include="src\Rendering\Resources\Mesh.cpp" />
     <ClCompile Include="src\Rendering\Resources\Model.cpp" />
     <ClCompile Include="src\Rendering\Resources\Parsers\AssimpParser.cpp" />
+    <ClCompile Include="src\Rendering\Resources\ScreenMesh.cpp" />
     <ClCompile Include="src\Rendering\Resources\Shader.cpp" />
     <ClCompile Include="src\Rendering\Resources\Texture.cpp" />
   </ItemGroup>

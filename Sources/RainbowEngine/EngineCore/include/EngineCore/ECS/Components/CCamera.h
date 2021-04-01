@@ -144,6 +144,7 @@ namespace EngineCore::ECS::Components
 		virtual void OnInspector(UI::Internal::WidgetContainer& p_root) override;
 
 	private:
+
 		Rendering::LowRenderer::Camera m_camera;
 	};
 }

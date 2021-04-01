@@ -207,6 +207,9 @@
     <ClInclude Include="include\Rendering\Core\ShapeDrawer.h">
       <Filter>include\Rendering\Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\Rendering\Resources\ScreenMesh.h">
+      <Filter>include\Rendering\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Rendering\Buffers\ShaderStorageBuffer.inl">
@@ -279,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="src\Rendering\Core\ShapeDrawer.cpp">
       <Filter>src\Rendering\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\Resources\ScreenMesh.cpp">
+      <Filter>src\Rendering\Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -101,8 +101,6 @@ namespace Editor::Core
 		EngineCore::ResourceManagement::MaterialManager	materialManager;
 		//EngineCore::ResourceManagement::SoundManager	soundManager;
 
-		
-
 		Windowing::Settings::WindowSettings windowSettings;
 
 		Tools::Filesystem::IniFile projectSettings;

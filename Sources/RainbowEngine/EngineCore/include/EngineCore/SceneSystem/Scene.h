@@ -8,6 +8,7 @@
 #include "EngineCore/ECS/Components/CModelRenderer.h"
 #include "EngineCore/ECS/Components/CCamera.h"
 #include "EngineCore/ECS/Components/CLight.h"
+#include "EngineCore/ECS/Components/CPostProcess.h"
 
 namespace EngineCore::SceneSystem
 {
@@ -142,6 +143,11 @@ namespace EngineCore::SceneSystem
 		*/
 		const FastAccessComponents& GetFastAccessComponents() const;
 
+		/*
+		* Return the PostProcess Component
+		*/
+		const ECS::Components::CPostProcess* GetPostProcessComponent() const;
+
 		/**
 		* Serialize the scene
 		* @param p_doc
@@ -162,5 +168,6 @@ namespace EngineCore::SceneSystem
 		std::vector<ECS::Actor*> m_actors;
 
 		FastAccessComponents m_fastAccessComponents;
+		ECS::Components::CPostProcess* m_postProcessComponent = nullptr;
 	};
 }

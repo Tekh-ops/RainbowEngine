@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "Rendering/API/Export.h"
@@ -7,7 +6,7 @@ namespace Rendering::Settings
 {
 	/**
 	* OpenGL primitive mode enum wrapper
-	* ͼԪ
+	*  图元
 	*/
 	enum class EPrimitiveMode
 	{

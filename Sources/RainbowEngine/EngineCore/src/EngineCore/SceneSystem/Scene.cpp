@@ -184,6 +184,10 @@ void EngineCore::SceneSystem::Scene::OnComponentAdded(ECS::Components::AComponen
 
 	if (auto result = dynamic_cast<ECS::Components::CLight*>(&p_compononent))
 		m_fastAccessComponents.lights.push_back(result);
+
+	//后处理系统
+	if (auto result = dynamic_cast<ECS::Components::CPostProcess*>(&p_compononent))
+		m_postProcessComponent = result;
 }
 
 void EngineCore::SceneSystem::Scene::OnComponentRemoved(ECS::Components::AComponent& p_compononent)
@@ -196,6 +200,10 @@ void EngineCore::SceneSystem::Scene::OnComponentRemoved(ECS::Components::ACompon
 
 	if (auto result = dynamic_cast<ECS::Components::CLight*>(&p_compononent))
 		m_fastAccessComponents.lights.erase(std::remove(m_fastAccessComponents.lights.begin(), m_fastAccessComponents.lights.end(), result), m_fastAccessComponents.lights.end());
+
+	//后处理系统
+	if (auto result = dynamic_cast<ECS::Components::CPostProcess*>(&p_compononent))
+		m_postProcessComponent = nullptr;
 }
 
 std::vector<EngineCore::ECS::Actor*>& EngineCore::SceneSystem::Scene::GetActors()
@@ -206,6 +214,12 @@ std::vector<EngineCore::ECS::Actor*>& EngineCore::SceneSystem::Scene::GetActors(
 const EngineCore::SceneSystem::Scene::FastAccessComponents& EngineCore::SceneSystem::Scene::GetFastAccessComponents() const
 {
 	return m_fastAccessComponents;
+}
+
+const EngineCore::ECS::Components::CPostProcess* EngineCore::SceneSystem::Scene::GetPostProcessComponent() const
+{
+	// TODO: 在此处插入 return 语句
+	return m_postProcessComponent;
 }
 
 void EngineCore::SceneSystem::Scene::OnSerialize(tinyxml2::XMLDocument & p_doc, tinyxml2::XMLNode * p_root)

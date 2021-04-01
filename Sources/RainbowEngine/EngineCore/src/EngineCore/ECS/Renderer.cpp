@@ -31,6 +31,18 @@ EngineCore::ECS::Components::CCamera* EngineCore::ECS::Renderer::FindMainCamera(
 	return nullptr;
 }
 
+const EngineCore::ECS::Components::CPostProcess* EngineCore::ECS::Renderer::FindPostProcess(const EngineCore::SceneSystem::Scene& p_scene)
+{
+	const EngineCore::ECS::Components::CPostProcess*  postProcess = p_scene.GetPostProcessComponent();
+
+	if (postProcess && postProcess->owner.IsActive())
+	{
+		return postProcess;
+	}
+
+	return nullptr;
+}
+
 std::vector<OvMaths::FMatrix4> EngineCore::ECS::Renderer::FindLightMatrices(const EngineCore::SceneSystem::Scene& p_scene)
 {
 	std::vector<OvMaths::FMatrix4> result;

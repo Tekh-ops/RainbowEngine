@@ -75,6 +75,7 @@ void Rendering::Resources::Mesh::CreateBuffers(const std::vector<Geometry::Verte
 
 	uint64_t vertexSize = sizeof(Geometry::Vertex);
 
+	//这里绑定输入顶点数据
 	m_vertexArray.BindAttribute(0, *m_vertexBuffer, Buffers::EType::FLOAT, 3, vertexSize, 0);
 	m_vertexArray.BindAttribute(1, *m_vertexBuffer,	Buffers::EType::FLOAT, 2, vertexSize, sizeof(float) * 3);
 	m_vertexArray.BindAttribute(2, *m_vertexBuffer,	Buffers::EType::FLOAT, 3, vertexSize, sizeof(float) * 5);

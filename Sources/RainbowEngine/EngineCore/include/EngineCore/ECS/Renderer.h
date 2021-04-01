@@ -17,6 +17,7 @@
 #include "EngineCore/ECS/Actor.h"
 #include "EngineCore/ECS/Components/CCamera.h"
 #include "EngineCore/SceneSystem/Scene.h"
+#include "EngineCore/ECS/Components/CPostProcess.h"
 
 namespace EngineCore::ECS
 {
@@ -51,6 +52,12 @@ namespace EngineCore::ECS
 		* @param p_scene
 		*/
 		EngineCore::ECS::Components::CCamera* FindMainCamera(const EngineCore::SceneSystem::Scene& p_scene);
+
+		/**
+		* Parse a scene to find the main camera
+		* @param p_scene
+		*/
+		const EngineCore::ECS::Components::CPostProcess* FindPostProcess(const EngineCore::SceneSystem::Scene& p_scene);
 
 		/**
 		* Fill the given FMatrix4 vector with lights information
